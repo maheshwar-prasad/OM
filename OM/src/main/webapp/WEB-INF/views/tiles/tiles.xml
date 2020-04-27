@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+
+<tiles-definitions>  
+ 
+   <!-- Base Definition -->
+   <definition name="base-definition" 
+       template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />  
+       <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+   <definition name="login-definition" 
+       template="/WEB-INF/views/tiles/layouts/loginLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="" />  
+       <put-attribute name="menu" value="" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="" />  
+   </definition>
+    <definition name="website-definition" 
+       template="/WEB-INF/views/tiles/layouts/websiteLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/websiteHeader.jsp" />  
+       <put-attribute name="menu" value="" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/websiteFooter.jsp" />  
+   </definition> 
+ <definition name="customer-definition" 
+       template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />  
+       <put-attribute name="menu" value="/WEB-INF/views/tiles/template/customerMenu.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+     <!-- Admin dashboard  -->
+      <definition name="dashboard" extends="base-definition">  
+       <put-attribute name="title" value="Dashboard" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
+   	</definition>  
+   	<!-- Customer Admin Dashboard -->
+   	<definition name="customerdashboard" extends="customer-definition">  
+       <put-attribute name="title" value="Dashboard" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
+   </definition>  
+   <!-- Home Page -->
+   <definition name="admin" extends="login-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" />
+   </definition> 
+   <!--  Website Home Page  -->
+    <definition name="home" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/home.jsp" />
+   </definition> 
+    <definition name="detail" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/detail.jsp" />
+   </definition>
+    <definition name="checkout" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/checkout.jsp" />
+   </definition>
+    <definition name="shoppingcart" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/shopping-cart.jsp" />
+   </definition>
+   <definition name="signIn" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/sign-in.jsp" />
+   </definition>
+   <definition name="contact" extends="website-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <!-- <put-attribute name="body" value="/WEB-INF/views/pages/lockScreen.jsp" /> -->  
+   	   <put-attribute name="body" value="/WEB-INF/views/pages/website/contact.jsp" />
+   </definition>
+    <!-- Home Page -->
+   <definition name="createCustomer" extends="login-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/register.jsp" />  
+   </definition>  
+
+   <!-- Product Page -->
+   <definition name="products" extends="base-definition">  
+       <put-attribute name="title" value="Products" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/products.jsp" />  
+   </definition>  
+      
+    
+   <!-- Contact-us Page -->
+   <definition name="contactus" extends="base-definition">  
+       <put-attribute name="title" value="Contact Us" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/contactus.jsp" />  
+   </definition>  
+    <!-- Contact-us Page -->
+   <definition name="items" extends="base-definition">  
+       <put-attribute name="title" value="Product" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/items.jsp" />  
+   </definition>  
+   
+    <definition name="create" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/createProduct.jsp" />  
+   </definition>
+    <definition name="createUser" extends="base-definition">  
+       <put-attribute name="title" value="User Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/createUser.jsp" />  
+   </definition>  
+   <definition name="activeUser" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/activeUser.jsp" />  
+   </definition>
+    <definition name="itemType" extends="base-definition">  
+       <put-attribute name="title" value="Item Type Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/itemsType.jsp" />  
+   </definition>
+    <definition name="itemTypeList" extends="base-definition">  
+       <put-attribute name="title" value="Item Type" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/itemTypeList.jsp" />  
+   </definition>
+   <definition name="currentReq" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/currentReq.jsp" />  
+   </definition>
+   <definition name="previousReq" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/prevReq.jsp" />  
+   </definition>
+   <definition name="orderList" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/orderList.jsp" />  
+   </definition>
+   <definition name="invoiceList" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/invoiceList.jsp" />  
+   </definition>
+   <definition name="editItems" extends="base-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/editItem.jsp" />  
+   </definition>
+ <!-- API ADMIN -->
+ <definition name="itemCreate" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/item/createProduct.jsp" />  
+   </definition>
+  <definition name="apiItems" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/apiItems.jsp" />  
+   </definition>
+   <definition name="order" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/orderList.jsp" />  
+   </definition>
+   <definition name="stock" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/stockList.jsp" />  
+   </definition>
+   <definition name="creatStock" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/createStock.jsp" />  
+   </definition>
+   <definition name="apiCustomer" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/regCustomer.jsp" />  
+   </definition>
+   <definition name="apiCustomerCreate" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/customerRegistration.jsp" />  
+   </definition>
+   <definition name="offer" extends="customer-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/offer/createoffer.jsp" />  
+   </definition>
+</tiles-definitions>
