@@ -28,6 +28,7 @@ import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
+import com.umang.springmvc.model.OfferDto;
 import com.umang.springmvc.model.OfferType;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -126,22 +127,11 @@ public class AdminApiController {
 		}
 	
 	@RequestMapping(value = { "/saveOffer"}, method = RequestMethod.POST)
-	public ModelAndView saveOffer(ModelMap model,@ModelAttribute("itemDto") ItemsDto item,@RequestParam File file) {
-		//System.out.println("invoiceList *********************"+file.getAbsolutePath()+"==>"+file.getAbsoluteFile());
-		ItemsResponse itemResponse=  null;
-		File file1 = new File(item.getItemImage());
-		String imagePath = file1.getAbsolutePath();
-		System.out.println("==>"+imagePath);
+	public ModelAndView saveOffer(ModelMap model,@ModelAttribute("offerDto") OfferDto offer) {
 	try {
-		item.setActive(true);
-		item.setOfferType(OfferType.FU);
-		item.setOfferEffectedBy(new Date());
-		item.setOfferTill(new Date());
-		item.setUpdatedOn(new Date());
-		item.setDisplayOrder(1);
-		item.setFree(1);
+		 System.out.println( "Offer Name : "+offer.getOfferName());
 		//item.setOfferUnits(10);
-		itemResponse = manuscriptService.getSaveItem(item); 
+		//itemResponse = manuscriptService.getSaveItem(item); 
 		
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -150,11 +140,7 @@ public class AdminApiController {
 			 return new ModelAndView("itemCreate", "ItemsResponses", "");
 			//e.printStackTrace();
 		}
-	if(itemResponse.getMessage().equals("success")) {
-		return new ModelAndView("redirect:apiItems");
-	}else {
-		return new ModelAndView("itemCreate");
-	}
-	 //return new ModelAndView("itemCreate");
+	
+	return new ModelAndView("offer");
 	}
 }

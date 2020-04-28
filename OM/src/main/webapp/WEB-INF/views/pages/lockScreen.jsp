@@ -3,12 +3,12 @@
 <script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-    <a href="javascript:(0)"><b>OMart</b> Software Solution</a>
+    <a href="javascript:(0)"><b>Online Marts</b> Software Solution</a>
   </div>
   <!-- User name -->
   <!-- <div class="lockscreen-name">  Error</div> -->
  <div class="lockscreen-name" id="errorValue" style="color: #f30a55;">Invalid Password. Please try again!<br /></div>
- <div class="lockscreen-name">Online Mart<br /></div>
+ <div class="lockscreen-name">Online Marts<br /></div>
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
     <!-- lockscreen image -->

@@ -66,7 +66,7 @@
     });
   });
   function goToLogin(){
-	 window.location="/OMart"; 
+	 window.location="/OM"; 
   }
  $('#btn-save').click(function(event) {
 	 alert('hello');
@@ -79,7 +79,7 @@
 	 $.ajax({
          type: "POST",
          contentType: "application/json",
-         url: "/OMart/saveCustomer",
+         url: "/OM/saveCustomer",
          data: JSON.stringify(formData),
          dataType: 'json',
          timeout: 600000,

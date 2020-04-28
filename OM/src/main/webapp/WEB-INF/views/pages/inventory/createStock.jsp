@@ -58,7 +58,7 @@
          <input type="hidden" id=imagepath name="imagepath">
         </form> --%>
         
-<form:form method="post" action="/OMart/saveStock" modelAttribute="contactForm">
+<form:form method="post" action="/OM/saveStock" modelAttribute="contactForm">
          <div class="box-body">
           <div class="row">
            <div class="box-body">
@@ -170,6 +170,6 @@ function insertData(){
 		    });
   }
   function gotoBack(){
-	  window.location="/OMart/stock";
+	  window.location="/OM/stock";
   }
    </script>

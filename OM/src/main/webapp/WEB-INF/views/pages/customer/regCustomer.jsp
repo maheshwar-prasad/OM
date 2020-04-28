@@ -123,7 +123,7 @@
 	        success: function(result){
 	            console.log(result);
 	           if(result.status=="Success"){
-	            		window.location="/OMart/apiCustomer";
+	            		window.location="/OM/apiCustomer";
 	            }else{
 	            	alert("Please check some error occur.");
 	            }

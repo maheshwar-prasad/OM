@@ -30,7 +30,7 @@
         </div>
         <!-- /.box-header -->
     <%--     <form role="form" method="post"> --%>
-  <form:form method="post" action="/OMart/saveItem" modelAttribute="itemsDto" >
+  <form:form method="post" action="${pageContext.request.contextPath}/saveItem" modelAttribute="itemsDto" >
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
@@ -149,7 +149,7 @@
 		$.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/OMart/saveItem",
+            url: "/OM/saveItem",
             data: JSON.stringify(formData),
             dataType: 'json',
             timeout: 600000,
@@ -157,7 +157,7 @@
             	if(data.status=="Success"){
             		 var r=confirm("Data save successfully! Go to Item list");
 		            	if(r==true){
-		            		window.location="/OMart/apiItems";
+		            		window.location="/OM/apiItems";
 		            	}else{
 		            		$("#btn-save").prop("disabled", true);	
 		            	}

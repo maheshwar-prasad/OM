@@ -1,7 +1,7 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
+
 
  
  <!-- Content Wrapper. Contains page content -->
@@ -31,7 +31,7 @@
         </div>
         <!-- /.box-header -->
     <%--     <form role="form" method="post"> --%>
-  <form:form method="post" action="/OMart/saveOffer" modelAttribute="itemsDto" >
+  <form:form method="post" action="${pageContext.request.contextPath}/saveOffer" modelAttribute="offer" >
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
@@ -59,8 +59,8 @@
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="durationFrom">
+                  </div> 
+                  <input type="text" class="form-control pull-right dateinput" id="durationFrom" placeholder="dd/mm/yyyy" name="durationFrom">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -75,12 +75,11 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker12" name="durationTo">
+                  <input type="text" class="form-control pull-right" id="durationTo" placeholder="dd/mm/yyyy"  name="durationTo">
                 </div>
                 <!-- /.input group -->
               </div>
             </div>
-           
             <!-- /.col -->
           </div>
           <!-- /.row -->
@@ -88,7 +87,6 @@
         <div class="box-footer">
                 <button type="submit"  class="btn btn-primary">Submit</button>
                  <button type="reset" class="btn btn-default">Reset</button>
-                 
         </div>
          <input type="hidden" id=imagepath name="imagepath">
        </form:form>
@@ -99,11 +97,12 @@
     <input type="hidden" id="itemListUrl" name="itemListUrl"  value="${pageContext.request.contextPath}/items"> 
   </div>
   <!-- /.content-wrapper -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
   $(function () {
-	  $('#datepicker').datepicker({
-	      autoclose: true
-	    });
+	 /*  $(document).ready(function() {
+		    $('.dateinput').datepicker({ format: "yyyy/mm/dd" });
+		});  */
 	var error=$('#error').val();
 	if((error == "")){
 	}else{
@@ -140,7 +139,7 @@
 		$.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/OMart/saveItem",
+            url: "/OM/saveItem",
             data: JSON.stringify(formData),
             dataType: 'json',
             timeout: 600000,
@@ -148,7 +147,7 @@
             	if(data.status=="Success"){
             		 var r=confirm("Data save successfully! Go to Item list");
 		            	if(r==true){
-		            		window.location="/OMart/apiItems";
+		            		window.location="/OM/apiItems";
 		            	}else{
 		            		$("#btn-save").prop("disabled", true);	
 		            	}

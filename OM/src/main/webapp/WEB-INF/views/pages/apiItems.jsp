@@ -118,7 +118,7 @@
 	        success: function(result){
 	            console.log(result);
 	           if(result.status=="Success"){
-	            		window.location="/OMart/apiItems";
+	            		window.location="/OM/apiItems";
 	            }else{
 	            	alert("Please check some error occur.");
 	            }

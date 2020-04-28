@@ -107,7 +107,7 @@
 	        success: function(result){
 	            console.log(result);
 	           if(result.status=="Success"){
-	            		window.location="/OMart/order";
+	            		window.location="/OM/order";
 	            }else{
 	            	alert("Please check some error occur.");
 	            }
@@ -125,7 +125,7 @@
 	        success: function(result){
 	            console.log(result);
 	           if(result.status=="Success"){
-	            		window.location="/OMart/order";
+	            		window.location="/OM/order";
 	            }else{
 	            	alert("Please check some error occur.");
 	            }
