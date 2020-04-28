@@ -130,14 +130,12 @@ public class AdminApiController {
 	public ModelAndView saveOffer(ModelMap model,@ModelAttribute("offerDto") OfferDto offer) {
 	try {
 		 System.out.println( "Offer Name : "+offer.getOfferName());
-		//item.setOfferUnits(10);
-		//itemResponse = manuscriptService.getSaveItem(item); 
 		
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error","Fail");
 			//iteamValue.setStatus("Fail");
-			 return new ModelAndView("itemCreate", "ItemsResponses", "");
+			 return new ModelAndView("offer", "ItemsResponses", "");
 			//e.printStackTrace();
 		}
 	
