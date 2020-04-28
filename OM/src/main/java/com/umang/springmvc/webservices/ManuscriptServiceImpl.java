@@ -590,4 +590,19 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 		return customerDetails;
 
 	}
+	
+	@Override
+	public ItemsResponse getItemByItemId(String itemId,SortOrder sortingOrder) {
+		log.info("In function getManuscriptDetail");
+		ItemsResponse itemDetails= null;
+		try {
+			itemDetails = client.findById(Integer.parseInt(itemId));
+			
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return itemDetails;
+
+	}
 }

@@ -118,11 +118,11 @@
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/activeUser.jsp" />  
    </definition>
-    <definition name="itemType" extends="base-definition">  
+    <definition name="itemType" extends="customer-definition">  
        <put-attribute name="title" value="Item Type Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/itemsType.jsp" />  
    </definition>
-    <definition name="itemTypeList" extends="base-definition">  
+    <definition name="itemTypeList" extends="customer-definition">  
        <put-attribute name="title" value="Item Type" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/itemTypeList.jsp" />  
    </definition>

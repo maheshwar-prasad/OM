@@ -6,7 +6,6 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title><tiles:getAsString name="title" /></title>
   <link href="<c:url value='/static/bower_components/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/bower_components/font-awesome/css/font-awesome.min.css' />" rel="stylesheet"></link>

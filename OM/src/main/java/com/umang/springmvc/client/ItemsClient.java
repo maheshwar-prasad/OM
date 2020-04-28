@@ -262,7 +262,7 @@ public class ItemsClient {
 		ItemsClient client = new ItemsClient();
 
 		// Save A Single Object
-		System.out.println("Save Response = " + client.save(dto));
+		System.out.println("Save Response = " + client.save(dto1));
 
 		// Save A List Of Object
 		//System.out.println("Save All Response = " + client.saveAll(save_all_request));

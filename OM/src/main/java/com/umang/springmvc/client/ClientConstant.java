@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public interface ClientConstant {
 
-	String BASE_PATH = "http://localhost:8119";
+	String BASE_PATH = "http://3.134.243.80:8119";
 
 	String SEARCH_TEXT = "{TEXT}";
 

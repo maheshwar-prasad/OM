@@ -1,9 +1,8 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
-
- 
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -31,7 +30,7 @@
         </div>
         <!-- /.box-header -->
     <%--     <form role="form" method="post"> --%>
-  <form:form method="post" action="${pageContext.request.contextPath}/saveOffer" modelAttribute="offer" >
+  <form:form method="post" >
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
@@ -62,9 +61,22 @@
                   </div> 
                   <input type="text" class="form-control pull-right dateinput" id="durationFrom" placeholder="dd/mm/yyyy" name="durationFrom">
                 </div>
+                
                 <!-- /.input group -->
               </div>
+              
               <!-- /.form-group -->
+            </div>
+             <div class="col-md-6">
+             <div class="form-group">
+                <label>Select Item</label>
+               <select class="form-control select2" id="itemName" style="width: 100%;" onchange="selectCategory();">
+                  <option selected="selected">Select Item Name</option>
+                  <c:forEach items="${itemlist}" var="item" varStatus="status">
+                  <option value="${item.id}">${item.itemName}</option>
+                  </c:forEach>
+                </select> 
+              </div>
             </div>
             
          <div class="col-md-6">
@@ -79,16 +91,16 @@
                 </div>
                 <!-- /.input group -->
               </div>
+             
             </div>
             <!-- /.col -->
           </div>
           <!-- /.row -->
         </div>
         <div class="box-footer">
-                <button type="submit"  class="btn btn-primary">Submit</button>
+                <button type="button" id="btn-save" class="btn btn-primary">Submit</button>
                  <button type="reset" class="btn btn-default">Reset</button>
         </div>
-         <input type="hidden" id=imagepath name="imagepath">
        </form:form>
       </div>
     </section>
@@ -97,8 +109,7 @@
     <input type="hidden" id="itemListUrl" name="itemListUrl"  value="${pageContext.request.contextPath}/items"> 
   </div>
   <!-- /.content-wrapper -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script>
+ <script>
   $(function () {
 	 /*  $(document).ready(function() {
 		    $('.dateinput').datepicker({ format: "yyyy/mm/dd" });
@@ -110,44 +121,33 @@
 	}
 	var fileName="";
     $("#btn-save").click(function(event) {
-    	 var imagePath=$('#imagePath').val();
-   	  alert(imagePath);
-    	var filename = $('input[type=file]').val().replace(/.*(\/|\\)/, '');
-    	var type= $("#type option:selected" ).val();
-    	var status=$("#status option:selected" ).text(); 
-    	var offerType=$("#offerprice option:selected" ).text(); 
-    	var itemListUrl =$('#itemListUrl').val(); 
+    	alert('hi');
+    	var itemName= $("#itemName option:selected" ).val();
+    	var offername = $("#offerName").val();
+    	var gift= $("#gift" ).val();
+    	var purchase=$("#purchase" ).val(); 
+    	var durationFrom=$("#durationFrom" ).val(); 
+    	var durationTo =$('#durationTo').val(); 
     	var formData = {};
-    	alert($("#itemName").val());
-    	formData["itemName"] = $("#itemName").val();
-    	formData["description"] = $("#description").val();
-    	formData["mrp"] = $("#mrp").val();
-    	formData["pack"] = $("#pack").val();
-    	formData["unitPrice"] = $("#unitPrice").val();
-		if(status=="Success"){
-			formData["active"] = true;
-		}else{
-			formData["active"] = false;
-		}
-		formData["category"] = type;
-		formData["offerType"] = offerType;
-		formData["itemImage"] =filename;
+    	formData["offerName"] = offername;
+    	formData["gift"] = gift;
+    	formData["purchase"] = purchase;
+    	formData["durationFrom"] = durationFrom;
+    	formData["durationTo"] = durationTo;
+    	formData["itemName"] = itemName;
+    	
 		$("#btn-save").prop("disabled", true);
-		 var pathname = window.location.pathname;
-		 var filePath=$('input[type=file]').val(); 
-		
 		$.ajax({
+			contentType: 'application/json',
             type: "POST",
-            contentType: "application/json",
-            url: "/OM/saveItem",
+            url: "/OM/saveOffer",
             data: JSON.stringify(formData),
-            dataType: 'json',
-            timeout: 600000,
             success: function (data) {
+            	alert(data);
             	if(data.status=="Success"){
-            		 var r=confirm("Data save successfully! Go to Item list");
+            		 var r=confirm("Data save successfully! Go to Offer Page.");
 		            	if(r==true){
-		            		window.location="/OM/apiItems";
+		            		window.location="/OM/offer";
 		            	}else{
 		            		$("#btn-save").prop("disabled", true);	
 		            	}

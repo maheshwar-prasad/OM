@@ -209,7 +209,7 @@ public class AppController {
 	public ModelAndView itemTypeList(ModelMap model) {
 		System.out.println("activeUser *********************");
 		List<ItemType> users = contactDao.ItemTypeList();
-		
+		/*
 		if(null != users && users.size() > 0) {
 			
 			for (ItemType u : users) {
@@ -217,7 +217,7 @@ public class AppController {
 			}
 		}
 		
-		
+		*/
 		
 		return new ModelAndView("itemTypeList", "itemTypeList",users);
 		//return "activeUser";

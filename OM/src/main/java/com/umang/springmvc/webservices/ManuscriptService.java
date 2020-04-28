@@ -51,4 +51,6 @@ public interface ManuscriptService {
 	
 	public DeleteResponse deleteCust(int custId);
 	
+	public ItemsResponse getItemByItemId(String itemId,SortOrder sortingOrder);
+	
 }

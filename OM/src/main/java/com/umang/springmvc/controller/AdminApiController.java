@@ -1,6 +1,7 @@
 package com.umang.springmvc.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.umang.springmvc.client.SortOrder;
@@ -29,6 +30,7 @@ import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
 import com.umang.springmvc.model.OfferDto;
+import com.umang.springmvc.model.OfferForm;
 import com.umang.springmvc.model.OfferType;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -122,23 +124,40 @@ public class AdminApiController {
 	@RequestMapping(value = { "/offer"}, method = RequestMethod.GET)
 	public ModelAndView offer(ModelMap model, @ModelAttribute ItemsDto item) {
 		 
+		ItemsResponses itemlist = null;
+		itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC); 
 		
-		 return new ModelAndView("offer", "itemList", "");
+		 return new ModelAndView("offer", "itemList", itemlist);
 		}
 	
 	@RequestMapping(value = { "/saveOffer"}, method = RequestMethod.POST)
-	public ModelAndView saveOffer(ModelMap model,@ModelAttribute("offerDto") OfferDto offer) {
+	public @ResponseBody OfferForm saveOffer(ModelMap model,@RequestBody OfferForm offer) {
 	try {
 		 System.out.println( "Offer Name : "+offer.getOfferName());
-		
+		 ItemsResponse itemlist  = manuscriptService.getItemByItemId(offer.getItem(), SortOrder.ASC); 
+		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	      //Parsing the given String to Date object
+	      Date from = formatter.parse(offer.getDurationFrom());
+	      Date to = formatter.parse(offer.getDurationTo());
+	      OfferDto offerDto= new OfferDto();
+	      offerDto.setActive(false);
+	      offerDto.setOfferName(offer.getOfferName());
+	      offerDto.setDurationFrom(from);
+	      offerDto.setDurationTo(to);
+	      offerDto.setGift(Integer.parseInt(offer.getGift()));
+	      offerDto.setPurchase(Integer.parseInt(offer.getPurchase()));
+	      offerDto.setItemsDto(itemlist.getData());
+	      
+	      
+		System.out.println(from);
 		}catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error","Fail");
 			//iteamValue.setStatus("Fail");
-			 return new ModelAndView("offer", "ItemsResponses", "");
+			 return offer;
 			//e.printStackTrace();
 		}
 	
-	return new ModelAndView("offer");
+	return offer;
 	}
 }
