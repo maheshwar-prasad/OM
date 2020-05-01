@@ -80,7 +80,6 @@
   <!-- /.content-wrapper -->
   <script type="text/javascript">
   $( document ).ready(function() {
-	 
 	  
   });
   function edit(itemId){

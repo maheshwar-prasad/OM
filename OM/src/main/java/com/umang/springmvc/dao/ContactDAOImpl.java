@@ -241,7 +241,7 @@ public class ContactDAOImpl implements ContactDAO {
 		return newNameId;
 	}
     public List<Item> itemList(){
-    	String sql = "SELECT i.item_id,i.itemName,i.quantity,i.availableQty,i.oldPrice,i.currentprice,i.pack,i.type,i.status,it.typeName FROM hms.item i , itemMaster im, itemType it where  im.itemId=i.item_id AND im.itemTypeId=it.itemType_id and i.status='Active'";
+    	String sql = "SELECT i.item_id,i.itemName,i.quantity,i.availableQty,i.oldPrice,i.currentprice,i.pack,i.type,i.status,it.typeName FROM hms.item i , itemmaster im, itemtype it where  im.itemId=i.item_id AND im.itemTypeId=it.itemType_id and i.status='Active'";
         List<Item> listitem= jdbcTemplate.query(sql, new RowMapper<Item>() {
      
             public Item mapRow(ResultSet rs, int rowNum) throws SQLException {

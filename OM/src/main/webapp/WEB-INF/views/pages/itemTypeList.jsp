@@ -41,8 +41,8 @@
                 <tbody>
                <c:forEach items="${itemTypeList}" var="type" varStatus="tstatus">
                 <tr>
-                  <td>${type.itemTypeName}</td>
-                  <td>${type.status}</td>
+                  <td>${type.categoryName}</td>
+                  <td>${type.displayOrder}</td>
                   <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${type.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteUser(${type.id});"></i></td>
                 </tr>
                 </c:forEach>

@@ -37,7 +37,6 @@ public class ItemsDto implements Serializable {
 	private Integer id;
 
 	@JsonProperty("item_code")
-	// generated autometicallly
 	private String itemCode;
 
 	@JsonProperty("item_name")
@@ -85,10 +84,10 @@ public class ItemsDto implements Serializable {
 
 	@JsonProperty("updated_on")
 	private Date updatedOn = new Date();
-	
-	//private String category;
-	/*private String quantity;*/
-	
+
+	@JsonProperty("product_category")
+	private CategoryDto productCat;
+
 	public Integer getId() {
 		return id;
 	}
@@ -217,20 +216,12 @@ public class ItemsDto implements Serializable {
 		this.updatedOn = updatedOn;
 	}
 
-	/*public String getQuantity() {
-		return quantity;
+	public CategoryDto getProductCat() {
+		return productCat;
 	}
 
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
-	}*/
-
-	/*public String getCategory() {
-		return category;
+	public void setProductCat(CategoryDto productCat) {
+		this.productCat = productCat;
 	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}*/
 
 }
