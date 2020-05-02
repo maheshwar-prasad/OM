@@ -29,6 +29,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.client.ItemCategoryClient;
 import com.umang.springmvc.client.ItemsClient;
+import com.umang.springmvc.client.OfferClient;
 import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
@@ -43,6 +44,7 @@ import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
 import com.umang.springmvc.model.OfferDto;
+import com.umang.springmvc.model.OfferResponse;
 import com.umang.springmvc.model.OfferType;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -63,6 +65,8 @@ public class AdminApiController {
 	private ItemsClient ItemClient = new ItemsClient();
 
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
+
+	private OfferClient offerClient = new OfferClient();
 
 	@RequestMapping(value = { "/apiItems" }, method = RequestMethod.GET)
 	public ModelAndView apiItems(ModelMap model) {
@@ -138,41 +142,26 @@ public class AdminApiController {
 
 	@RequestMapping(value = { "/offer" }, method = RequestMethod.GET)
 	public ModelAndView offer(ModelMap model, @ModelAttribute ItemsDto item) {
-
-		ItemsResponses itemlist = null;
-		itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
-
-		return new ModelAndView("offer", "itemList", itemlist);
+		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
+		List<ItemsDto> itemsList = itemlist.getData();
+		model.put("itemlist", itemsList);
+		return new ModelAndView("offer", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = { "/saveOffer" }, method = RequestMethod.POST)
-	public @ResponseBody OfferDto saveOffer(ModelMap model, @RequestBody OfferDto offer) {
+	public ModelAndView saveOffer(ModelMap model, @ModelAttribute OfferDto offer) {
 		try {
-			System.out.println("Offer Name : " + offer.getOfferName());
-			ItemsResponse itemlist = manuscriptService.getItemByItemId(offer.getItemsDto().getId(), SortOrder.ASC);
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			// Parsing the given String to Date object
-			Date from = offer.getDurationFrom();
-			Date to = offer.getDurationTo();
-			OfferDto offerDto = new OfferDto();
-			offerDto.setActive(false);
-			offerDto.setOfferName(offer.getOfferName());
-			offerDto.setDurationFrom(from);
-			offerDto.setDurationTo(to);
-			offerDto.setGift(offer.getGift());
-			offerDto.setPurchase(offer.getPurchase());
-			offerDto.setItemsDto(itemlist.getData());
-
-			System.out.println(from);
+			OfferResponse offerResponse = offerClient.save(offer);
+			ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
+			List<ItemsDto> itemsList = itemlist.getData();
+			model.put("status", "success");
+			model.put("itemlist", itemsList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
-			// iteamValue.setStatus("Fail");
-			return offer;
-			// e.printStackTrace();
 		}
 
-		return offer;
+		return new ModelAndView("offer", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = "/itemType", method = RequestMethod.GET)
