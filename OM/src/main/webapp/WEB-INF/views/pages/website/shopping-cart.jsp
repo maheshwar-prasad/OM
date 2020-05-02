@@ -130,7 +130,19 @@
 		</thead><!-- /thead -->
 		<tbody>
 				<tr>
-					<td>
+				<td><div class="form-group">
+							<label class="info-title control-label"><a href="${pageContext.request.contextPath}/shippingAddress.do"> Add Shipping Address</a></label>
+							<!-- <select class="form-control unicase-form-control selectpicker">
+								<option>--Select options--</option>
+								<option>India</option>
+								<option>SriLanka</option>
+								<option>united kingdom</option>
+								<option>saudi arabia</option>
+								<option>united arab emirates</option>
+							</select> -->
+						</div>
+						</td>
+					<!-- <td>
 						<div class="form-group">
 							<label class="info-title control-label">Country <span>*</span></label>
 							<select class="form-control unicase-form-control selectpicker">
@@ -160,7 +172,7 @@
 						<div class="pull-right">
 							<button type="submit" class="btn-upper btn btn-primary">GET A QOUTE</button>
 						</div>
-					</td>
+					</td> -->
 				</tr>
 		</tbody>
 	</table>

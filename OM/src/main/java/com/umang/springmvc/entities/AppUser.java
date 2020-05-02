@@ -18,6 +18,8 @@ public class AppUser implements Serializable {
 	private String address1;
 	private String address2;
 	private String companyName;
+	private String email;
+	private String phone;
 	
 	
 	
@@ -86,6 +88,18 @@ public class AppUser implements Serializable {
 	}
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

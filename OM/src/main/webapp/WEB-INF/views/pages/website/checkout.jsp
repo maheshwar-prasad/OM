@@ -1,3 +1,8 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
+
 <!-- ============================================== HEADER : END ============================================== -->
 <div class="breadcrumb">
 	<div class="container">
@@ -43,10 +48,10 @@
 					<!-- radio-form  -->
 					<form class="register-form" role="form">
 					    <div class="radio radio-checkout-unicase">  
-					        <input id="guest" type="radio" name="text" value="guest" checked>  
+					        <input id="guest"  class="registration" type="radio" name="regradio" value="guest" checked>  
 					        <label class="radio-button guest-check" for="guest">Checkout as Guest</label>  
 					          <br>
-					        <input id="register" type="radio" name="text" value="register">  
+					        <input id="register" class="registration" type="radio" name="regradio" value="register">  
 					        <label class="radio-button" for="register">Register</label>  
 					    </div>  
 					</form>
@@ -60,7 +65,7 @@
 						<li>- Easy access to your order history and status</li>
 					</ul>
 
-					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Continue</button>
+					<button type="button" id="btn-save" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Continue</button>
 				</div>
 				<!-- guest-login -->
 
@@ -68,17 +73,17 @@
 				<div class="col-md-6 col-sm-6 already-registered-login">
 					<h4 class="checkout-subtitle">Already registered?</h4>
 					<p class="text title-tag-line">Please log in below:</p>
-					<form class="register-form" role="form">
+					<form class="register-form" id="register-form"  role="form">
 						<div class="form-group">
 					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
+					    <input type="text" id="username" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
 					  </div>
 					  <div class="form-group">
 					    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
+					    <input type="password" id="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
 					    <a href="#" class="forgot-password">Forgot your Password?</a>
 					  </div>
-					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
+					  <button type="button" id="btn-login" class="btn-upper btn btn-primary checkout-page-button">Login</button>
 					</form>
 				</div>	
 				<!-- already-registered-login -->		
@@ -91,7 +96,7 @@
 </div>
 <!-- checkout-step-01  -->
 					    <!-- checkout-step-02  -->
-					  	<div class="panel panel-default checkout-step-02">
+					  	<!-- <div class="panel panel-default checkout-step-02">
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
@@ -104,11 +109,11 @@
 						      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 						      </div>
 						    </div>
-					  	</div>
+					  	</div> -->
 					  	<!-- checkout-step-02  -->
 
 						<!-- checkout-step-03  -->
-					  	<div class="panel panel-default checkout-step-03">
+					  <!-- 	<div class="panel panel-default checkout-step-03">
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
@@ -121,11 +126,11 @@
 						      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 						      </div>
 						    </div>
-					  	</div>
+					  	</div> -->
 					  	<!-- checkout-step-03  -->
 
-						<!-- checkout-step-04  -->
-					    <div class="panel panel-default checkout-step-04">
+						<!-- <!-- checkout-step-04  -->
+					    <!-- <div class="panel panel-default checkout-step-04">
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFour">
@@ -138,11 +143,11 @@
 							     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 							    </div>
 					    	</div>
-						</div>
+						</div> --> 
 						<!-- checkout-step-04  -->
 
 						<!-- checkout-step-05  -->
-					  	<div class="panel panel-default checkout-step-05">
+					  	<!-- <div class="panel panel-default checkout-step-05">
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFive">
@@ -155,11 +160,11 @@
 						       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 						      </div>
 						    </div>
-					    </div>
+					    </div> -->
 					    <!-- checkout-step-05  -->
 
 						<!-- checkout-step-06  -->
-					  	<div class="panel panel-default checkout-step-06">
+					  <!-- 	<div class="panel panel-default checkout-step-06">
 						    <div class="panel-heading">
 						      <h4 class="unicase-checkout-title">
 						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseSix">
@@ -172,7 +177,7 @@
 					        		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 					      		</div>
 					    	</div>
-					  	</div>
+					  	</div> -->
 					  	<!-- checkout-step-06  -->
 					  	
 					</div><!-- /.checkout-steps -->
@@ -187,8 +192,8 @@
 		    </div>
 		    <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
-					<li><a href="#">Billing Address</a></li>
-					<li><a href="#">Shipping Address</a></li>
+					<li><a href="${pageContext.request.contextPath}/shippingAddress.do">Billing Address</a></li>
+					<li><a href="${pageContext.request.contextPath}/shippingAddress.do">Shipping Address</a></li>
 					<li><a href="#">Shipping Method</a></li>
 					<li><a href="#">Payment Method</a></li>
 				</ul>		
@@ -200,7 +205,7 @@
 			</div><!-- /.row -->
 		</div><!-- /.checkout-box -->
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<div id="brands-carousel" class="logo-slider wow fadeInUp">
+<%-- <div id="brands-carousel" class="logo-slider wow fadeInUp">
 
 		<div class="logo-slider-inner">	
 			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
@@ -266,7 +271,50 @@
 		    </div><!-- /.owl-carousel #logo-slider -->
 		</div><!-- /.logo-slider-inner -->
 	
-</div><!-- /.logo-slider -->
+</div> --%><!-- /.logo-slider -->
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div><!-- /.body-content -->
-
+<script type="text/javascript">
+$(document ).ready(function() {
+});
+$("#btn-login").click(function(event) {
+	var username= $('#username').val();
+	var password=$('#password').val();
+	var formData = {};
+	formData["username"] = username;
+   	formData["password"] = password;
+		$.ajax({
+			contentType: 'application/json',
+           type: "POST",
+           dataType: 'text',
+           url: "/OM/webusrLogin",
+           data: JSON.stringify(formData),
+           success: function (data) {
+           /* 	$('.product-summary').html('');
+           	$('.total-price-basket').html('0.00');
+           	$('.basket-item-count').html('0'); */
+           	var json = JSON.parse(data);
+           	if(json["status"]=="Success"){
+           		
+           	}else{
+           		 //$("#add-cart").prop("disabled", false);
+           	}
+           },
+           error: function (e) {
+               $("#btn-save").prop("disabled", false);
+               //...
+           }
+		});
+	
+	
+	
+});
+$("#btn-save").click(function(event) {
+	var radioValue = $("input[name='regradio']:checked"). val();
+	if(radioValue=="register"){
+		window.location="/OM/signIn.do";
+	}else if(radioValue=="guest"){
+		window.location="/OM/shippingAddress.do";
+	}
+});
+</script>

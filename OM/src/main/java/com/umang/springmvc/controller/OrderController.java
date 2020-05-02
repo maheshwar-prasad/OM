@@ -103,4 +103,33 @@ public class OrderController {
 			}
 			return item;
 		}
+	 @RequestMapping(value = "/qqq", method = RequestMethod.GET,produces="application/json")
+		public ModelAndView  shippingAddress(ModelMap model,@PathVariable("orderNo") String orderNo) {
+		 
+		 
+		 return new ModelAndView("shippingAddress", "shippingAddress", "");
+	 }
+	 /*@RequestMapping(value = "/shippingAddress", method = RequestMethod.GET,produces="application/json")
+		public @ResponseBody Item shippingAddress(ModelMap model,@PathVariable("orderNo") String orderNo) {
+			Item item = new Item();
+			SalesOrderResponse response= null;
+			CancelOrder cancelOrder= new CancelOrder();
+			cancelOrder.setOrderNo(orderNo);
+			cancelOrder.setRemarks("Delete Selected Order due to some Item issue");
+			try {
+				response= manuscriptService.cancelOrder(cancelOrder);
+				int i= 1;//contactDao.deleteItem(id);
+				if(response.getMessage().equals("success")) {				
+					item.setStatus("Success");
+				}else {
+					item.setStatus("Fail");
+				}
+			
+			}catch (Exception e) {
+				item.setStatus("Fail");
+				return item;
+			}
+			return item;
+		}*/
+	 
 }

@@ -1,21 +1,33 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
 <!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1"> 
-  
+  <%
+    session=request.getSession(true);
+%>
   <!-- ============================================== TOP MENU ============================================== -->
   <div class="top-bar animate-dropdown">
     <div class="container">
       <div class="header-top-inner">
         <div class="cnt-account">
-          <ul class="list-unstyled">
+          <ul class="list-unstyled categories-filter animate-dropdown">
             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
             <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
             <li><a href="${pageContext.request.contextPath}/shopping-cart.do"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
             <li><a href="${pageContext.request.contextPath}/checkout.do"><i class="icon fa fa-check"></i>Checkout</a></li>
-            <li><a href="${pageContext.request.contextPath}/signIn.do"><i class="icon fa fa-lock"></i>Login</a></li>
+            <% if (session.getAttribute("user") != null){ %>
+           <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="#">${user.name}<b class="caret"></b></a>
+             <ul class="dropdown-menu">
+                      <li style="padding-left: 25px;"><a href="${pageContext.request.contextPath}/invalidate.do" style="color: #040404;"><i class="icon fa fa-sign-out">Logout</i></a></li>
+                      <!-- <li>Logout</li> -->
+              </ul>
+             </li>
+            <%}else{ %>
+            <li class="dropdown dropdown-small"><a href="${pageContext.request.contextPath}/signIn.do"><i class="icon fa fa-lock"></i><span class="userdetail">Login</span></a></li>
+            <%} %>
           </ul>
         </div>
         <!-- /.cnt-account -->
@@ -89,14 +101,15 @@
           <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
             <div class="items-cart-inner">
               <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-              <div class="basket-item-count"><span class="count">2</span></div>
-              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value">600.00</span> </span> </div>
+              <div class="basket-item-count"><span class="count">0</span></div>
+              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9;</span><span class="value">0.00</span> </span> </div>
             </div>
+            
             </a>
             <ul class="dropdown-menu">
               <li>
                 <div class="cart-item product-summary">
-                  <div class="row">
+                  <%-- <div class="row">
                     <div class="col-xs-4">
                       <div class="image"> <a href="detail.html"><img src="${pageContext.request.contextPath}/static/website/assets/images/brands/brand5.png"  alt=""></a> </div>
                     </div>
@@ -105,15 +118,15 @@
                       <div class="price">₹ 600.00</div>
                     </div>
                     <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
-                  </div>
+                  </div> --%>
                 </div>
                 <!-- /.cart-item -->
                 <div class="clearfix"></div>
-                <hr>
                 <div class="clearfix cart-total">
-                  <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>₹600.00</span> </div>
+                  <div class="pull-right">     </div>
                   <div class="clearfix"></div>
-                  <a href="${pageContext.request.contextPath}/checkout.do" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a> </div>
+                  <a href="${pageContext.request.contextPath}/checkout.do" class="btn btn-upper btn-primary btn-block m-t-20 checkOut" id="checkOut">Checkout</a>
+                  </div>
                 <!-- /.cart-total--> 
                 
               </li>
@@ -148,7 +161,7 @@
                 <li class="active dropdown yamm-fw"> <a href="${pageContext.request.contextPath}/" data-hover="dropdown" class="dropdown-toggle" >Home</a> </li>
                  <li class="dropdown"> <a href="${pageContext.request.contextPath}/" data-hover="dropdown" class="dropdown-toggle" >Fruits & Vegetables</a> </li>
                 <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
-                  <ul class="dropdown-menu container">
+                  <%-- <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content ">
                         <div class="row">
@@ -213,11 +226,11 @@
                         </div>
                       </div>
                     </li>
-                  </ul>
+                  </ul> --%>
                 </li>
                 <li class="dropdown mega-menu"> 
                 <a href="javascript:(0);"  data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Electronics <span class="menu-label hot-menu hidden-xs">hot</span> </a>
-                  <ul class="dropdown-menu container">
+                  <%-- <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content">
                         <div class="row">
@@ -291,7 +304,7 @@
                         <!-- /.row --> 
                       </div>
                       <!-- /.yamm-content --> </li>
-                  </ul>
+                  </ul> --%>
                 </li>
                 <li class="dropdown hidden-sm"> <a href="javascript:(0);">Health & Beauty <span class="menu-label new-menu hidden-xs">new</span> </a> </li>
                 <li class="dropdown hidden-sm"> <a href="javascript:(0);">Watches</a> </li>
@@ -344,3 +357,4 @@
   <!-- ============================================== NAVBAR : END ============================================== --> 
   
 </header>
+
