@@ -22,12 +22,11 @@
  
 <body class="hold-transition skin-blue sidebar-mini">
 <%
-    session=request.getSession(false);
+    session=request.getSession(true);
     if(session.getAttribute("user")==null)
     {
         response.sendRedirect("redirect:/");
     }
-
 %>
 <div class="wrapper">
 		<header id="header">

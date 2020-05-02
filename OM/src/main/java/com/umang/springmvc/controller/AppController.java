@@ -77,18 +77,6 @@ public class AppController {
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView homePage(ModelMap model) {
-		List<ManuscriptHeadofPrint> manuDetailsforheadOfprintList = null;
-		// List<Contact> listContact = contactDAO.list();
-		// System.out.println("List Size : "+listContact.size());
-		/*
-		 * ManuscriptDetail manuscriptDetail =
-		 * manuscriptService.getManuscriptTotalCountDetail(null);
-		 * //request.setAttribute("totalManuscriptCount", manuscriptDetail != null ?
-		 * manuscriptDetail.getTotalCount() : 0);
-		 * System.out.println("Count : "+manuscriptDetail.getTotalCount());
-		 * manuDetailsforheadOfprintList =
-		 * manuscriptService.getManuscriptDetailList("WJOLS", 1, 10, "Pending");
-		 */
 		return new ModelAndView("home", "contactForm", "");
 		// return "home";
 	}
@@ -106,9 +94,16 @@ public class AppController {
 	}
 
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
-	public String checkout(ModelMap model) {
+	public String checkout(ModelMap model,HttpServletRequest request) {
 		System.out.println("checkout********************8");
+		HttpSession objHttpSession = request.getSession(true);
+		Object obj =  objHttpSession.getAttribute("user");
+		AppUser user= (AppUser)obj;
+		if(user!= null) {
+			return "redirect:/shopping-cart";
+		}else {
 		return "checkout";
+		}
 	}
 
 	@RequestMapping(value = { "/shopping-cart" }, method = RequestMethod.GET)

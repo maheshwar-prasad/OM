@@ -7,6 +7,7 @@ import com.umang.springmvc.entities.AppUser;
 import com.umang.springmvc.entities.Contact;
 import com.umang.springmvc.entities.Item;
 import com.umang.springmvc.entities.ItemType;
+import com.umang.springmvc.model.AddCart;
 
 public interface ContactDAO {
     
@@ -37,7 +38,15 @@ public interface ContactDAO {
     public int deleteItem(int itemId);
     public List<AppItemList> appitemList( String category, int categoryId);
     
-    public Item getItemById(int itemId, String itemName);
+     public Item getItemById(int itemId, String itemName);
     
     public ItemType ItemTypeById(long itemTypeId, String typeName);
+    
+    public int insertCartData(AddCart cart);
+    
+    public List<AddCart> fetchAllAddValue(String SessionCode, long userId, String isDelete,long itemId);
+    
+    public AppUser getUserLogin(String username, String password);
+    
+    public AppUser insertWebUser(AppUser user);
 }

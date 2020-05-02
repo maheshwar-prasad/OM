@@ -70,5 +70,84 @@
 <script type="text/javascript" src="<c:url value='/static/website/assets/js/wow.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/website/assets/js/scripts.js'/>"></script>
 
+<script type="text/javascript">
+$( document ).ready(function() {
+	 showCart();
+});
+function showCart(){
+	  $.ajax({
+		  contentType: 'application/json',
+        type: "POST",
+        dataType: 'text',
+        url: "/OM/showCart",
+        success: function (data) {
+        	$('.product-summary').html('');
+        	$('.total-price-basket').html('cart -&#x20b9; 0.00');
+      	$('.basket-item-count').html('0');
+      	$('.userdetail').html('Login');
+        	var json = JSON.parse(data);
+        	if(json["status"]=="Success"){
+        		var html;
+        		$('.basket-item-count').html("<span class='count'> "+json["count"]+"</span>");
+        		if(json["totalamount"] == null){
+        			$("#checkOut").css("display", "none");
+        			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+"0.00"+'</span> </span>');
+        		}else{
+        			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+json["totalamount"]+'</span> </span>');
+        		$("#checkOut").css("display", "block");
+        		}
+        		
+        		$.each(json.addcartData , function(index, item) { 
+        			var html ='<div class="row"><div class="col-xs-4"><div class="image"> <a href="detail.html"><img src='+item.imagePath+'  alt=""></a> </div></div>  <div class="col-xs-7"><h3 class="name"><a href="index8a95.html?page-detail">'+item.itemName+'</a></h3><div class="price"> &#x20b9; '+item.price+'</div></div> <div class="col-xs-1 action"> <a href="javascript:deleteCard('+item.productId+')"><i class="fa fa-trash"></i></a> </div> </div><hr>';
+        			$('.product-summary').append(html);
+        			$('.userdetail').html(json.user.name);
+        		});
+        	}else{
+        		 //$("#add-cart").prop("disabled", false);
+        	}
+        },
+        error: function (e) {
+            $("#btn-save").prop("disabled", false);
+            //...
+        }
+		});
+}
+function deleteCard(action){
+	  $.ajax({
+		  contentType: 'application/json',
+        type: "GET",
+        dataType: 'text',
+        url: "/OM/deleteCart/"+action,
+        success: function (data) {
+        	$('.product-summary').html('');
+        	$('.basket-item-count').html('0');
+        	$('.total-price-basket').html('cart -&#x20b9; 0.00');
+        	var json = JSON.parse(data);
+        	if(json['message']=="Success"){
+        		var html;
+        		$('.basket-item-count').html("<span class='count'> "+json["count"]+"</span>");
+        		/* $('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9;</span><span class="value">'+json["totalamount"]+'</span> </span>'); */
+        		if(json["totalamount"] == null){
+        			$("#checkOut").css("display", "none");
+        			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+"0.00"+'</span> </span>');
+        		}else{
+        			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+json["totalamount"]+'</span> </span>');
+        		$("#checkOut").css("display", "block");
+        		}
+        		$.each(json.addcartData , function(index, item) { 
+        			var html ='<div class="row"><div class="col-xs-4"><div class="image"> <a href="detail.html"><img src='+item.imagePath+'  alt=""></a> </div></div>  <div class="col-xs-7"><h3 class="name"><a href="index8a95.html?page-detail">'+item.itemName+'</a></h3><div class="price"> &#x20b9; '+item.price+'</div></div> <div class="col-xs-1 action"> <a href="javascript:deleteCard('+item.productId+')"><i class="fa fa-trash"></i></a> </div> </div><hr>';
+        			$('.product-summary').append(html);
+        		});
+        	}else{
+        		 //$("#add-cart").prop("disabled", false);
+        	}
+        },
+        error: function (e) {
+            $("#btn-save").prop("disabled", false);
+            //...
+        }
+		});
+}
+</script>
 </body>
 </html>

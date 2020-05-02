@@ -1,3 +1,8 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
+
 <!-- ============================================== HEADER : END ============================================== -->
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
 	<div class="container">
@@ -598,17 +603,16 @@
 						<img src="${pageContext.request.contextPath}/static/website/assets/images/products/p29.jpg" alt="">
 					</a>					
 				</div><!-- /.image -->
-					
-					
-								</div><!-- /.product-image -->
+				</div><!-- /.product-image -->
 		</div><!-- /.col -->
 		<div class="col col-xs-7">
 			<div class="product-info">
 				<h3 class="name"><a href="#">Floral Print Shirt</a></h3>
 				<div class="rating rateit-small"></div>
 				<div class="product-price">	
-				<span class="price">
-					&#x20b9; 40.99				</span>
+				<span class="price">&#x20b9; 40.99	</span>
+				
+					
 				
 			</div><!-- /.product-price -->
 				
@@ -842,29 +846,11 @@
 	    		    </div>
 	</div><!-- /.sidebar-widget-body -->
 </div><!-- /.sidebar-widget -->
-<!-- ============================================== SPECIAL OFFER : END ============================================== -->
-			<!-- ============================================== PRODUCT TAGS ============================================== -->
-<!-- <div class="sidebar-widget product-tag wow fadeInUp">
-	<h3 class="section-title">Product tags</h3>
-	<div class="sidebar-widget-body outer-top-xs">
-		<div class="tag-list">					
-			<a class="item" title="Phone" href="category.html">Phone</a>
-			<a class="item active" title="Vest" href="category.html">Vest</a>
-			<a class="item" title="Smartphone" href="category.html">Smartphone</a>
-			<a class="item" title="Furniture" href="category.html">Furniture</a>
-			<a class="item" title="T-shirt" href="category.html">T-shirt</a>
-			<a class="item" title="Sweatpants" href="category.html">Sweatpants</a>
-			<a class="item" title="Sneaker" href="category.html">Sneaker</a>
-			<a class="item" title="Toys" href="category.html">Toys</a>
-			<a class="item" title="Rose" href="category.html">Rose</a>
-		</div>/.tag-list
-	</div>/.sidebar-widget-body
-</div> -->
-<!-- /.sidebar-widget -->
+
 <!-- ============================================== PRODUCT TAGS : END ============================================== -->
 			<!-- ============================================== SPECIAL DEALS ============================================== -->
 
-<div class="sidebar-widget outer-bottom-small wow fadeInUp">
+<%-- <div class="sidebar-widget outer-bottom-small wow fadeInUp">
 	<h3 class="section-title">Special Deals</h3>
 	<div class="sidebar-widget-body outer-top-xs">
 		<div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
@@ -1156,25 +1142,8 @@
 	        </div>
 	    		    </div>
 	</div><!-- /.sidebar-widget-body -->
-</div><!-- /.sidebar-widget -->
-<!-- ============================================== SPECIAL DEALS : END ============================================== -->
-			<!-- ============================================== NEWSLETTER ============================================== -->
-<!-- <div class="sidebar-widget newsletter wow fadeInUp outer-bottom-small">
-	<h3 class="section-title">Newsletters</h3>
-	<div class="sidebar-widget-body outer-top-xs">
-		<p>Sign Up for Our Newsletter!</p>
-        <form role="form">
-        	 <div class="form-group">
-			    <label class="sr-only" for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Subscribe to our newsletter">
-			  </div>
-			<button class="btn btn-primary">Subscribe</button>
-		</form>
-	</div>/.sidebar-widget-body
-</div> --><!-- /.sidebar-widget -->
-<!-- ============================================== NEWSLETTER: END ============================================== -->
-		
-			<!-- ============================================== Testimonials============================================== -->
+</div> --%><!-- /.sidebar-widget -->
+<!-- ============================================== Testimonials============================================== -->
 <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
 	<div id="advertisement" class="advertisement">
         <div class="item">
@@ -1323,13 +1292,13 @@
 		</ul><!-- /.nav-tabs -->
 	</div>
 
-	<div class="tab-content outer-top-xs">
-		<div class="tab-pane in active" id="all">			
-			<div class="product-slider">
-				<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+<div class="tab-content outer-top-xs">
+<div class="tab-pane in active" id="all">			
+<div class="product-slider">
+<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
 				    	
-		<div class="item item-carousel">
-			<div class="products">
+<div class="item item-carousel">
+<div class="products">
 				
 	<div class="product">		
 		<div class="product-image">
@@ -1347,10 +1316,12 @@
 			<div class="description"></div>
 
 			<div class="product-price">	
-				<span class="price">
-					&#x20b9; 40.99				</span>
-										     <span class="price-before-discount">&#x20b9;  800</span>
-									
+				<span class="price">&#x20b9; 40.99</span>
+				<span class="price-before-discount">&#x20b9;  800</span>
+				<input name="itemName"  class ="itemName" value="Print Buttoned" type="hidden">
+				<input name="itemDesc"  class ="itemDesc" value="Floral Print Buttoned" type="hidden">
+				<input name="product_price"  class ="product_price" value="40.99" type="hidden">
+				<input name="product_id" class="product_id" value="12" type="hidden">					
 			</div><!-- /.product-price -->
 			
 		</div><!-- /.product-info -->
@@ -1359,7 +1330,7 @@
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
 							<button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart">
-								<i class="fa fa-shopping-cart"></i>													
+								<i class="fa fa-shopping-cart add-cartM" onclick="AddToCard(this)"></i>													
 							</button>
 							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 													
@@ -1403,9 +1374,12 @@
 			<div class="description"></div>
 
 			<div class="product-price">	
-				<span class="price">
-					&#x20b9; 40.99				</span>
-										     <span class="price-before-discount">&#x20b9;  800</span>
+				<span class="price">&#x20b9; 40.99	</span>
+				 <span class="price-before-discount">&#x20b9;  800</span>
+				<input name="itemName"  class ="itemName" value="Hoppy Buttoned" type="hidden">
+				<input name="itemDesc"  class ="itemDesc" value="Floral Hoppy Buttoned" type="hidden">
+				 <input name="product_price"  class ="product_price" value="450.99" type="hidden">
+				<input name="product_id" class="product_id" value="13" type="hidden">
 									
 			</div><!-- /.product-price -->
 			
@@ -1415,7 +1389,7 @@
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
 							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
+								<i class="fa fa-shopping-cart add-cart" onclick="AddToCard(this)"></i>													
 							</button>
 							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 													
@@ -1435,7 +1409,7 @@
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
-			</div><!-- /.product -->
+	</div><!-- /.product -->
       
 			</div><!-- /.products -->
 		</div><!-- /.item -->
@@ -3314,7 +3288,7 @@
 <!-- ============================================== BEST SELLER : END ============================================== -->	
 
 			<!-- ============================================== BLOG SLIDER ============================================== -->
-<section class="section latest-blog outer-bottom-vs wow fadeInUp">
+<%-- <section class="section latest-blog outer-bottom-vs wow fadeInUp">
 	<h3 class="section-title">latest form blog</h3>
 	<div class="blog-slider-container outer-top-xs">
 		<div class="owl-carousel blog-slider custom-carousel">
@@ -3429,7 +3403,7 @@
 						
 		</div><!-- /.owl-carousel -->
 	</div><!-- /.blog-slider-container -->
-</section><!-- /.section -->
+</section> --%><!-- /.section -->
 <!-- ============================================== BLOG SLIDER : END ============================================== -->	
 
 			<!-- ============================================== FEATURED PRODUCTS ============================================== -->
@@ -3850,3 +3824,62 @@
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
 	</div><!-- /.container -->
 </div><!-- /#top-banner-and-menu -->
+  <script type="text/javascript">
+  var cartItem = new Array();
+ $( document ).ready(function() {
+	 showCart();
+	 /* $(".add-cart").click(function(){
+		    var id = $(".product_id").attr('value');
+		    alert(id);
+		});
+	 */
+  });
+ function AddToCard(clicked_id) {
+	 var formData = {};
+     var parent = $(clicked_id).closest("div.product");
+     var product_id = $(parent).find("input[name=product_id]").val();
+     var product_price = $(parent).find("input[name=product_price]").val();
+     var itemName =$(parent).find("input[name=itemName]").val();
+     var itemDesc =$(parent).find("input[name=itemDesc]").val();
+     var imgsrc=$(parent).find("img").attr('src');
+		formData["productId"] = product_id;
+    	formData["price"] = product_price;
+    	formData["itemName"] = itemName;
+    	formData["itemDesc"] = itemDesc;
+    	formData["imagePath"] = imgsrc;
+		$.ajax({
+			contentType: 'application/json',
+            type: "POST",
+            dataType: 'text',
+            url: "/OM/addCart",
+            data: JSON.stringify(formData),
+            success: function (data) {
+            	$('.product-summary').html('');
+            	$('.total-price-basket').html('cart -&#x20b9; 0.00');
+            	$('.basket-item-count').html('0');
+            	var json = JSON.parse(data);
+            	if(json["status"]=="Success"){
+            		var html;
+            		$('.basket-item-count').html("<span class='count'> "+json["count"]+"</span>");
+            		if(json["totalamount"] == null){
+            			$("#checkOut").css("display", "none");
+            			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+"0.00"+'</span> </span>');
+            		}else{
+            			$('.total-price-basket').html('<span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9; </span><span class="value">'+json["totalamount"]+'</span> </span>');
+            		$("#checkOut").css("display", "block");
+            		}
+            		$.each(json.addcartData , function(index, item) { 
+            			var html ='<div class="row"><div class="col-xs-4"><div class="image"> <a href="detail.html"><img src='+item.imagePath+'  alt=""></a> </div></div>  <div class="col-xs-7"><h3 class="name"><a href="index8a95.html?page-detail">'+item.itemName+'</a></h3><div class="price"> &#x20b9; '+item.price+'</div></div> <div class="col-xs-1 action"> <a href="javascript:deleteCard('+item.productId+')"><i class="fa fa-trash"></i></a> </div> </div><hr>';
+            			$('.product-summary').append(html);
+            		});
+            	}else{
+            		 //$("#add-cart").prop("disabled", false);
+            	}
+            },
+            error: function (e) {
+                $("#btn-save").prop("disabled", false);
+                //...
+            }
+		});
+ }
+</script>

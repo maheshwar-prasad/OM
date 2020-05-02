@@ -71,6 +71,13 @@ public class CustomerController {
 		 return new ModelAndView("createCustomer", "create", "");
 
 		}
+	@RequestMapping(value = { "/shippingAddress"}, method = RequestMethod.GET)
+	public ModelAndView shippingAddress(ModelMap model) {
+		System.out.println("**********************88");
+		 return new ModelAndView("shippingAddress", "create", "");
+
+		}
+	
 	@RequestMapping(value = { "/saveCustomer"}, method = RequestMethod.POST)
 	public @ResponseBody AppUser  saveCustomer(ModelMap model,@RequestBody AppUser appuser) {
 		System.out.println("*************88");
