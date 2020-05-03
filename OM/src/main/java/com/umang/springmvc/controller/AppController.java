@@ -162,9 +162,9 @@ public class AppController {
 		Item item = new Item();
 		ItemType type = new ItemType();
 		try {
-			item = contactDao.getItemById(itemid, "");
-			type = contactDao.ItemTypeById(Long.parseLong(item.getType()), "");
-			item.setType(type.getItemTypeName());
+			//item = contactDao.getItemById(itemid, "");
+			//type = contactDao.ItemTypeById(Long.parseLong(item.getType()), "");
+			//item.setType(type.getItemTypeName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

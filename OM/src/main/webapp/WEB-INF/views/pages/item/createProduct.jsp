@@ -42,7 +42,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Type</label> <select class="form-control select2"
+								<label>Category</label> <select class="form-control select2"
 									id="types" name="types" style="width: 100%;"
 									onchange="selectCategory();">
 									<option selected="selected">Select Type</option>
@@ -95,7 +95,18 @@
 									type="text" class="form-control" id="unitPrice"
 									name="unitPrice" placeholder="Enter Offer_units">
 							</div>
-
+							<div class="form-group">
+								<label for="text">Offer Effective Date</label>
+								 <input class="form-control" id="datepicker" name="offer-effective-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" type="text">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Offer Till Date</label> <input
+									type="text" class="form-control" id="datepicker1"
+									name="offer-till-date"  data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
+							</div>
+							
 						</div>
 						<div class="col-md-6">
 							<!-- /.form-group -->
@@ -125,8 +136,15 @@
 		value="${pageContext.request.contextPath}/items">
 </div>
 <!-- /.content-wrapper -->
+
 <script>
-	$(function() {
+$(function() {
+	 $('#datepicker').datepicker({
+	      autoclose: true
+	    })
+	     $('#datepicker1').datepicker({
+	      autoclose: true
+	    })
 		var error = $('#error').val();
 		if ((error == "")) {
 		} else {

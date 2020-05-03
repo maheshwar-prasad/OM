@@ -54,7 +54,7 @@
                   <td>${items.mrp}</td>
                   <td>${items.pack}</td>
                   <td>${items.displayOrder}</td>
-                  <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${items.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${items.id});"></i></td>
+                  <td><i class="fa fa-fw fa-bank" onclick="javascript:(0);"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${items.id});"></i></td>
                 </tr>
                </c:forEach>
                </c:if>
@@ -109,7 +109,6 @@
 	  var api_url = pathname+'/rest/item/delete';
 	  var r=confirm("Are you sure ! You want to delete Tthis Item");
   	if(r==true){
-  		
 	  $.ajax({
 	        url: api_url + "/" + itemId,
 	        contentType: "application/json",

@@ -56,9 +56,15 @@
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<form:input type="text" class="form-control" id="gift"
-									name="gift" path="gift" placeholder="Enter gift  No." />
+							<label>Duration From:</label>
+
+								<div class="input-group date">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control pull-right dateinput"
+										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom">
+								</div>
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -72,15 +78,9 @@
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-								<label>Duration From:</label>
-
-								<div class="input-group date">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input type="text" class="form-control pull-right dateinput"
-										id="durationFrom" placeholder="dd/mm/yyyy" name="durationFrom">
-								</div>
+								<label for="exampleInputEmail1">Gift.</label>
+								<form:input type="text" class="form-control" id="gift"
+									name="gift" path="gift" placeholder="Enter gift  No." />
 
 								<!-- /.input group -->
 							</div>
@@ -110,7 +110,7 @@
 										<i class="fa fa-calendar"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id="durationTo" placeholder="dd/mm/yyyy" name="durationTo">
+										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo">
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -136,6 +136,12 @@
 <!-- /.content-wrapper -->
 <script>
 	$(document).ready(function() {
+		 $('#datepicker').datepicker({
+		      autoclose: true
+		    })
+		     $('#datepicker1').datepicker({
+		      autoclose: true
+		    })
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");
@@ -149,7 +155,6 @@
 		var tmppath = URL.createObjectURL(event.target.files[0]);
 		var imageFile = $("#imageFile").val();
 		$('#itemImage').val(imageFile);
-		alert(imageFile);
 	}
 	function selectCategory() {
 		var type = $("#types option:selected").val();
@@ -157,13 +162,10 @@
 	}
 	function selectStatus() {
 		var status = $("#status option:selected").text();
-
 		if (status == "Active") {
 			$('#active').val(true);
-			alert(status);
 		} else {
 			$('#active').val(false);
-			alert('Active -->' + status);
 		}
 	}
 

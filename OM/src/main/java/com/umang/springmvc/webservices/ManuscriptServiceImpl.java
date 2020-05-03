@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.umang.springmvc.client.CustomerClient;
 import com.umang.springmvc.client.ItemsClient;
 import com.umang.springmvc.client.OrdersClient;
+import com.umang.springmvc.client.SalesOrderClient;
 import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.common.CommonResponseDto;
 import com.umang.springmvc.common.CommonResponseItemDto;
@@ -40,6 +41,7 @@ import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
 import com.umang.springmvc.model.OrdersResponses;
 import com.umang.springmvc.model.SalesOrderResponse;
+import com.umang.springmvc.model.SalesOrderResponses;
 import com.umang.springmvc.seller.entities.SallerProfileDto;
 import com.umang.springmvc.services.HttpGateway;
 
@@ -81,6 +83,7 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	ItemsClient client = new ItemsClient();
 	OrdersClient orderClient = new OrdersClient();
 	CustomerClient customerClient = new CustomerClient();
+	SalesOrderClient salesOrderClient= new SalesOrderClient();
 
 	@Override
 	public ManuscriptDetail getManuscriptDetail(String manuscriptNumber, String jCode) {
@@ -527,16 +530,16 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public OrdersResponses findAllSorted(String itemName, SortOrder sortingOrder) {
+	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder) {
 		log.info("In function getManuscriptDetail");
 		/*
 		 * List<CommonResponseItemDto> itemDetails = new
 		 * ArrayList<CommonResponseItemDto>();
 		 */
 		CommonResponseDto mdhp = null;
-		OrdersResponses orderResponse = null;
+		SalesOrderResponses orderResponse = null;
 		try {
-			orderResponse = orderClient.findAllSorted(itemName, sortingOrder);
+			orderResponse = salesOrderClient.findAllSorted(itemName, sortingOrder);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

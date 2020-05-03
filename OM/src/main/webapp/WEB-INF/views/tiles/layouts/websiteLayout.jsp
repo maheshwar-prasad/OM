@@ -15,7 +15,6 @@
   <link href="<c:url value='/static/website/assets/css/owl.carousel.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/website/assets/css/owl.transitions.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/website/assets/css/animate.min.css' />" rel="stylesheet"></link>
-  <link href="<c:url value='/static/website/assets/css/animate.min.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/website/assets/css/rateit.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/website/assets/css/bootstrap-select.min.css' />" rel="stylesheet"></link>
   <link href="<c:url value='/static/website/assets/css/font-awesome.css' />" rel="stylesheet"></link>

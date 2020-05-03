@@ -40,6 +40,8 @@ public class OrdersClient {
 
 	static final String FIND_ALL_SORTED = "/sales/order/find-all-sorted/{SORT-BY}/{SORT-ORDER}";
 
+	//static final String FIND_ALL_SORTED = "/sales/sales-order/find-all-sorted/{SORT-BY}/{SORT-ORDER}";
+
 	static final String FIND_ALL_SORTED_BY_VALUE = "/sales/order/find-all-sorted-by-value/{SORT-BY}/{SORT-ORDER}";
 
 	static final String FIND_ALL_BY_VALUE = "/sales/order/find-all-by-value/{PAGE}/{SIZE}/{SORT-BY}/{SORT-ORDER}";

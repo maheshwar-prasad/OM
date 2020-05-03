@@ -16,6 +16,7 @@ import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
 import com.umang.springmvc.model.OrdersResponses;
 import com.umang.springmvc.model.SalesOrderResponse;
+import com.umang.springmvc.model.SalesOrderResponses;
 
 public interface ManuscriptService {
 	public ManuscriptDetail getManuscriptDetail(String manuscriptNumber, String jCode);
@@ -37,7 +38,7 @@ public interface ManuscriptService {
 
 	public DeleteResponse deleteItem(int itemId);
 
-	public OrdersResponses findAllSorted(String itemName, SortOrder sortingOrder);
+	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder);
 
 	public ItemsResponse getSaveItem(ItemsDto itemBody);
 
