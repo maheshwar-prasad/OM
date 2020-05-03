@@ -33,17 +33,17 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead style="background-color: #3c8dbc;color: #fdfdfd;">
                 <tr>
-                  <th>Item Id</th>
+                  <th>Item Name</th>
                   <th>Quantity</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                   <c:forEach items="${itemList}" var="items" varStatus="status">
+                   <c:forEach items="${stocks}" var="stock" varStatus="status">
                 <tr>
-                  <td>${items.itemName}</td>
-                  <td>${items.quantity}</td>
-                  <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${items.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${items.id});"></i></td>
+                  <td>${stock.dto.itemName}</td>
+                  <td>${stock.qty}</td>
+                  <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${stock.dto.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${stock.dto.id});"></i></td>
                 </tr>
                </c:forEach>
                 </tbody>

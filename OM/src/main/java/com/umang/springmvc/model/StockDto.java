@@ -11,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-//import io.swagger.annotations.ApiModel;
-
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "items")
 @JsonPropertyOrder
-//@ApiModel(description = "A response class responde back to request")
 public class StockDto implements Serializable {
 
 	/**
@@ -48,5 +45,32 @@ public class StockDto implements Serializable {
 	public void setQty(Integer qty) {
 		this.qty = qty;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dto == null) ? 0 : dto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StockDto other = (StockDto) obj;
+		if (dto == null) {
+			if (other.dto != null)
+				return false;
+		} else if (!dto.equals(other.dto))
+			return false;
+		return true;
+	}
+	
+	
 
 }
