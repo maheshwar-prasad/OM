@@ -59,7 +59,7 @@ public class AESCryptUtils {
 	public String generaeOTP() {
         Random randomObj = new Random();
         	 int randomNumber = randomObj.nextInt(100000);
-             String formatted = String.format("%05d", randomNumber); 
+             String formatted = String.format("%07d", randomNumber); 
         return formatted;
     }
         public static void main(String []args) throws Exception{

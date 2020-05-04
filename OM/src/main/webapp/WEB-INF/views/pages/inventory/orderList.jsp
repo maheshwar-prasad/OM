@@ -26,10 +26,10 @@
 			<div class="col-md-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">
+						<%-- <h3 class="box-title">
 							<a href="${pageContext.request.contextPath}/order"
 								class="btn btn-block btn-primary btn-flat">Create Order +</a>
-						</h3>
+						</h3> --%>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -46,8 +46,7 @@
 							<tbody>
 								<c:forEach items="${orderList}" var="orders" varStatus="status">
 									<tr>
-										<td><a
-											href="${pageContext.request.contextPath}/orderDetails?order-number=${orders.orderNumber}"
+										<td><a href="${pageContext.request.contextPath}/orderDetails?order-number=${orders.orderNumber}"
 											onclick="#">${orders.orderNumber}</a></td>
 										<td>INR ${orders.totalAmount}</td>
 										<td><c:set var="date" value="${orders.orderDate}" /> <fmt:formatDate
