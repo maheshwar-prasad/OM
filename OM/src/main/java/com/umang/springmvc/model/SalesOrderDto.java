@@ -65,6 +65,9 @@ public class SalesOrderDto implements Serializable {
 	@JsonProperty("customer")
 	private CustomerDto customerDto;
 
+	@JsonProperty("consignee")
+	private ConsigneeDto consigneeDto;
+
 	private Set<OrdersDto> ordersDtos;
 
 	public Integer getId() {
@@ -153,6 +156,14 @@ public class SalesOrderDto implements Serializable {
 
 	public void setCustomerDto(CustomerDto customerDto) {
 		this.customerDto = customerDto;
+	}
+
+	public ConsigneeDto getConsigneeDto() {
+		return consigneeDto;
+	}
+
+	public void setConsigneeDto(ConsigneeDto consigneeDto) {
+		this.consigneeDto = consigneeDto;
 	}
 
 	public Set<OrdersDto> getOrdersDtos() {

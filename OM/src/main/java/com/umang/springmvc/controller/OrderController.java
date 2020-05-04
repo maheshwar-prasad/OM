@@ -1,6 +1,7 @@
 package com.umang.springmvc.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,25 +9,20 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.client.OrdersClient;
+import com.umang.springmvc.client.SalesOrderClient;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
-import com.umang.springmvc.entities.Item;
 import com.umang.springmvc.model.CancelOrder;
-import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.SalesOrderDto;
-import com.umang.springmvc.model.SalesOrderResponse;
 import com.umang.springmvc.model.SalesOrderResponses;
-import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
 import com.umang.springmvc.webservices.ManuscriptServiceImpl;
 
@@ -44,6 +40,8 @@ public class OrderController {
 
 	OrdersClient orderClient = new OrdersClient();
 
+	SalesOrderClient salesOrderClient = new SalesOrderClient();
+
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public ModelAndView order(ModelMap model)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -60,70 +58,63 @@ public class OrderController {
 		model.put("orderDetail",
 				dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst().get());
 
-		return new ModelAndView("order", "orderList", dtos);
+		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
 
 	}
 
-	@RequestMapping(value = EmpRestURIConstants.DELETE_ORDER, method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Item deleteOrder(ModelMap model, @PathVariable("id") int id) {
-		Item item = new Item();
-		DeleteResponse response = null;
-		try {
-			response = manuscriptService.deleteOrder(id);
-			int i = 1;// contactDao.deleteItem(id);
-			if (response.getMessage().equals("success")) {
-				item.setStatus("Success");
-			} else {
-				item.setStatus("Fail");
-			}
-
-		} catch (Exception e) {
-			item.setStatus("Fail");
-			return item;
-		}
-		return item;
-	}
-
-	@RequestMapping(value = EmpRestURIConstants.CANCEL_ORDER, method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Item cancelOrder(ModelMap model, @PathVariable("orderNo") String orderNo) {
-		Item item = new Item();
-		SalesOrderResponse response = null;
+	@RequestMapping(value = { "/cancelOrder" }, method = RequestMethod.GET)
+	public ModelAndView cancelOrder(ModelMap model, @RequestParam("order-number") String orderNumber,
+			@RequestParam(value = "remarks", required = false, defaultValue = "Cancelled") String remarks)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		CancelOrder cancelOrder = new CancelOrder();
-		cancelOrder.setOrderNo(orderNo);
-		cancelOrder.setRemarks("Delete Selected Order due to some Item issue");
-		try {
-			response = manuscriptService.cancelOrder(cancelOrder);
-			int i = 1;// contactDao.deleteItem(id);
-			if (response.getMessage().equals("success")) {
-				item.setStatus("Success");
-			} else {
-				item.setStatus("Fail");
-			}
+		cancelOrder.setOrderNo(orderNumber);
+		cancelOrder.setRemarks(remarks);
 
-		} catch (Exception e) {
-			item.setStatus("Fail");
-			return item;
-		}
-		return item;
+		model.put("orderDetail", orderClient.cancelOrder(cancelOrder).getData());
+		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
+
 	}
 
-	@RequestMapping(value = "/qqq", method = RequestMethod.GET, produces = "application/json")
-	public ModelAndView shippingAddress(ModelMap model, @PathVariable("orderNo") String orderNo) {
+	@RequestMapping(value = { "/acceptOrder" }, method = RequestMethod.GET)
+	public ModelAndView acceptOrder(ModelMap model, @RequestParam("order-number") String orderNumber,
+			@RequestParam(value = "remarks", required = false, defaultValue = "Accepted") String remarks)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null);
+		List<SalesOrderDto> dtos = orderResponses.getData();
+		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
+				.get();
+		dto.setAcceptedOn(new Date());
+		dto.setRemark(remarks);
+		model.put("orderDetail", salesOrderClient.update(dto).getData());
+		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
 
-		return new ModelAndView("shippingAddress", "shippingAddress", "");
 	}
-	/*
-	 * @RequestMapping(value = "/shippingAddress", method =
-	 * RequestMethod.GET,produces="application/json") public @ResponseBody Item
-	 * shippingAddress(ModelMap model,@PathVariable("orderNo") String orderNo) {
-	 * Item item = new Item(); SalesOrderResponse response= null; CancelOrder
-	 * cancelOrder= new CancelOrder(); cancelOrder.setOrderNo(orderNo);
-	 * cancelOrder.setRemarks("Delete Selected Order due to some Item issue"); try {
-	 * response= manuscriptService.cancelOrder(cancelOrder); int i=
-	 * 1;//contactDao.deleteItem(id); if(response.getMessage().equals("success")) {
-	 * item.setStatus("Success"); }else { item.setStatus("Fail"); }
-	 * 
-	 * }catch (Exception e) { item.setStatus("Fail"); return item; } return item; }
-	 */
+
+	@RequestMapping(value = { "/markDelivered" }, method = RequestMethod.GET)
+	public ModelAndView markDiliver(ModelMap model, @RequestParam("order-number") String orderNumber,
+			@RequestParam(value = "remarks", required = false, defaultValue = "Dilivered") String remarks)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null);
+		List<SalesOrderDto> dtos = orderResponses.getData();
+		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
+				.get();
+		dto.setDeliveredOn(new Date());
+		dto.setRemark(remarks);
+		model.put("orderDetail", salesOrderClient.update(dto).getData());
+		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
+
+	}
+
+	@RequestMapping(value = { "/deleteOrder" }, method = RequestMethod.GET)
+	public ModelAndView deleteOrder(ModelMap model, @RequestParam("order-number") String orderNumber)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null);
+		List<SalesOrderDto> dtos = orderResponses.getData();
+		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
+				.get();
+		salesOrderClient.delete(dto.getId());
+		return new ModelAndView("redirect:order");
+
+	}
 
 }

@@ -164,6 +164,10 @@
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/inventory/orderList.jsp" />  
    </definition>
+    <definition name="orderDetails" extends="customer-definition">  
+       <put-attribute name="title" value="Order Details" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/orderDetails.jsp" />  
+   </definition>
    <definition name="stock" extends="customer-definition">  
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/inventory/stockList.jsp" />  
