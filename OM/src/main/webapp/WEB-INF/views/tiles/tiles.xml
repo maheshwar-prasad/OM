@@ -185,7 +185,15 @@
        <put-attribute name="body" value="/WEB-INF/views/pages/customer/customerRegistration.jsp" />  
    </definition>
    <definition name="offer" extends="customer-definition">  
-       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="title" value="Create Offer" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/offer/createoffer.jsp" />  
+   </definition>
+   <definition name="offerList" extends="customer-definition">  
+       <put-attribute name="title" value="Offers" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/offer/offerList.jsp" />  
+   </definition>
+   <definition name="updateOffer" extends="customer-definition">  
+       <put-attribute name="title" value="Update Offer" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/offer/updateOffer.jsp" />  
    </definition>
 </tiles-definitions>

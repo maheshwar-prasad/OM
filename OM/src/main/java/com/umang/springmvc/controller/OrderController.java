@@ -21,6 +21,7 @@ import com.umang.springmvc.client.SalesOrderClient;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
 import com.umang.springmvc.model.CancelOrder;
+import com.umang.springmvc.model.OrderStatus;
 import com.umang.springmvc.model.SalesOrderDto;
 import com.umang.springmvc.model.SalesOrderResponses;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -85,6 +86,7 @@ public class OrderController {
 				.get();
 		dto.setAcceptedOn(new Date());
 		dto.setRemark(remarks);
+		dto.setOrderStatus(OrderStatus.A);
 		model.put("orderDetail", salesOrderClient.update(dto).getData());
 		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
 
@@ -100,6 +102,7 @@ public class OrderController {
 				.get();
 		dto.setDeliveredOn(new Date());
 		dto.setRemark(remarks);
+		dto.setOrderStatus(OrderStatus.D);
 		model.put("orderDetail", salesOrderClient.update(dto).getData());
 		return new ModelAndView("orderDetails", "salesOrder", new SalesOrderDto());
 

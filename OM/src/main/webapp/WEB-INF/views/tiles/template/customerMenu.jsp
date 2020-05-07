@@ -50,7 +50,7 @@
             <li><a href="${pageContext.request.contextPath}/itemTypeList"><i class="fa fa-circle-o"></i>Item Type</a></li>
             <%-- <li><a href="${pageContext.request.contextPath}/itemType"><i class="fa fa-circle-o"></i> Item Type</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/apiItems"><i class="fa fa-book"></i> <span>Items</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/offer"><i class="fa fa-circle-o"></i>Offer</a>
+            <li><a href="${pageContext.request.contextPath}/offers"><i class="fa fa-circle-o"></i>Offer</a>
            <%--  <li><a href="${pageContext.request.contextPath}/currentReq"><i class="fa fa-circle-o"></i> Current Request</a></li>
             <li><a href="${pageContext.request.contextPath}/orderList"><i class="fa fa-circle-o"></i> Order List</a></li>
             <li><a href="${pageContext.request.contextPath}/invoiceList"><i class="fa fa-circle-o"></i> Order Invoice</a></li> --%>

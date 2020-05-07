@@ -12,8 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-
-
 /**
  * 
  * @author deepak
@@ -130,6 +128,14 @@ public class OfferDto implements Serializable {
 
 	public void setDurationTo(Date durationTo) {
 		this.durationTo = durationTo;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
 	public boolean isActive() {

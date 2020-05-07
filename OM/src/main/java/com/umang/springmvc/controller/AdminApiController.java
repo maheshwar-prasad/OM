@@ -66,8 +66,6 @@ public class AdminApiController {
 
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
 
-	private OfferClient offerClient = new OfferClient();
-
 	@RequestMapping(value = { "/apiItems" }, method = RequestMethod.GET)
 	public ModelAndView apiItems(ModelMap model) {
 		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
@@ -138,30 +136,6 @@ public class AdminApiController {
 			return item;
 		}
 		return item;
-	}
-
-	@RequestMapping(value = { "/offer" }, method = RequestMethod.GET)
-	public ModelAndView offer(ModelMap model, @ModelAttribute ItemsDto item) {
-		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
-		List<ItemsDto> itemsList = itemlist.getData();
-		model.put("itemlist", itemsList);
-		return new ModelAndView("offer", "offer", new OfferDto());
-	}
-
-	@RequestMapping(value = { "/saveOffer" }, method = RequestMethod.POST)
-	public ModelAndView saveOffer(ModelMap model, @ModelAttribute OfferDto offer) {
-		try {
-			OfferResponse offerResponse = offerClient.save(offer);
-			ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
-			List<ItemsDto> itemsList = itemlist.getData();
-			model.put("status", "success");
-			model.put("itemlist", itemsList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("error", "Fail");
-		}
-
-		return new ModelAndView("offer", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = "/itemType", method = RequestMethod.GET)
