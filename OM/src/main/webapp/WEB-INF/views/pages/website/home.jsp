@@ -1296,32 +1296,29 @@
 <div class="tab-pane in active" id="all">			
 <div class="product-slider">
 <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
-				    	
+<c:forEach items="${itemlist}" var="item" varStatus="status">
 <div class="item item-carousel">
 <div class="products">
-				
 	<div class="product">		
 		<div class="product-image">
 			<div class="image">
-				<a href="detail.html"><img  src="${pageContext.request.contextPath}/static/website/assets/images/products/p1.jpg" alt=""></a>
+				<a href="detail.html"><img  src="${pageContext.request.contextPath}/static/img/item/${item.itemImage}" alt=""></a>
 			</div><!-- /.image -->			
-
 			<div class="tag new"><span>new</span></div>                        		   
 		</div><!-- /.product-image -->
-			
 		
 		<div class="product-info text-left">
-			<h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
-			<div class="rating rateit-small"></div>
+			<h3 class="name"><a href="detail.html">${item.itemName}</a></h3>
+			<div class="rating rateit-small">${item.description}</div>
 			<div class="description"></div>
 
 			<div class="product-price">	
-				<span class="price">&#x20b9; 40.99</span>
-				<span class="price-before-discount">&#x20b9;  800</span>
-				<input name="itemName"  class ="itemName" value="Print Buttoned" type="hidden">
-				<input name="itemDesc"  class ="itemDesc" value="Floral Print Buttoned" type="hidden">
-				<input name="product_price"  class ="product_price" value="40.99" type="hidden">
-				<input name="product_id" class="product_id" value="12" type="hidden">					
+				<span class="price">&#x20b9; ${item.unitPrice}</span>
+				<span class="price-before-discount">&#x20b9;  ${item.mrp}</span>
+				<input name="itemName"  class ="itemName" value="${item.itemName}" type="hidden">
+				<input name="itemDesc"  class ="itemDesc" value="${item.description}" type="hidden">
+				<input name="product_price"  class ="product_price" value="${item.unitPrice}" type="hidden">
+				<input name="product_id" class="product_id" value="${item.id}" type="hidden">					
 			</div><!-- /.product-price -->
 			
 		</div><!-- /.product-info -->
@@ -1354,6 +1351,9 @@
       
 			</div><!-- /.products -->
 		</div><!-- /.item -->
+		
+		</c:forEach> 
+		
 	
 		<div class="item item-carousel">
 			<div class="products">

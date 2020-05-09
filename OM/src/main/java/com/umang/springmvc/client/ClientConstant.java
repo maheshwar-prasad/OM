@@ -45,6 +45,8 @@ public interface ClientConstant {
 
 	String IMAGE = "image";
 
+	String CAT_ID = "{cat-id}";
+
 	static RestTemplate getTemplate() {
 		return new RestTemplate();
 	}
@@ -248,6 +250,22 @@ public interface ClientConstant {
 		header.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		if (headers != null)
 			headers.forEach((K, V) -> header.add(K, V));
+
+		HttpEntity<String> http_entity = new HttpEntity<String>(header);
+		ResponseEntity<String> response = getTemplate().exchange(BASE_PATH + API, HttpMethod.GET, http_entity,
+				String.class);
+		return response.getBody();
+	}
+
+	static String get(String API, Map<String, String> headers, Map<String, String> paths) throws RuntimeException {
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		header.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		if (headers != null)
+			headers.forEach((K, V) -> header.add(K, V));
+		if (paths != null)
+			for (Map.Entry<String, String> entry : paths.entrySet())
+				API = API + API.replace(entry.getKey(), entry.getValue().toString());
 
 		HttpEntity<String> http_entity = new HttpEntity<String>(header);
 		ResponseEntity<String> response = getTemplate().exchange(BASE_PATH + API, HttpMethod.GET, http_entity,

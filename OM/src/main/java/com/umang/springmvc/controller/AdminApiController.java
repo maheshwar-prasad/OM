@@ -3,15 +3,18 @@ package com.umang.springmvc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -83,10 +86,11 @@ public class AdminApiController {
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
 			@RequestParam(value = "free", required = false, defaultValue = "1") Integer free,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
-			@RequestParam("file") MultipartFile file)
+			@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		ItemsResponse itemResponse = null;
-		File item_file = new File(file.getOriginalFilename());
+		String path = request.getServletContext().getResource("static").getFile();
+		File item_file = new File(path + "/img/item/" + file.getOriginalFilename());
 		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		try (FileOutputStream fileOutputStream = new FileOutputStream(item_file)) {
@@ -106,7 +110,10 @@ public class AdminApiController {
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
 			itemResponse = ItemClient.save(itemsDto);
+			fileOutputStream.flush();
 			FileUploadResponse fileRes = ItemClient.postItemImage(itemResponse.getData().getId(), item_file);
+			File rename = new File(path + "/img/item/" + fileRes.getData().getFileKey());
+			item_file.renameTo(rename);
 			System.out.println(fileRes);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -152,4 +159,5 @@ public class AdminApiController {
 		else
 			return new ModelAndView("itemType", "category", new CategoryDto());
 	}
+
 }

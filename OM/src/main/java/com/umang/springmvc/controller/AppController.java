@@ -34,19 +34,22 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.client.ItemCategoryClient;
+import com.umang.springmvc.client.ItemsClient;
 import com.umang.springmvc.client.SortOrder;
+import com.umang.springmvc.client.StockClient;
 import com.umang.springmvc.common.AESCryptUtils;
-import com.umang.springmvc.common.ItemsDto;
 import com.umang.springmvc.dao.ContactDAO;
 import com.umang.springmvc.entities.AppItemList;
 import com.umang.springmvc.entities.AppUser;
 import com.umang.springmvc.entities.Item;
 import com.umang.springmvc.entities.ItemListWithCategory;
 import com.umang.springmvc.entities.ItemType;
-import com.umang.springmvc.entities.ManuscriptHeadofPrint;
 import com.umang.springmvc.entities.Order;
 import com.umang.springmvc.model.CategoryDto;
 import com.umang.springmvc.model.ItemsCategoryResponses;
+import com.umang.springmvc.model.ItemsDto;
+import com.umang.springmvc.model.ItemsResponses;
+import com.umang.springmvc.model.SallingItemsResponse;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.Employee;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -67,6 +70,10 @@ public class AppController {
 
 	private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
 	Map<Integer, Employee> empData = new HashMap<Integer, Employee>();
+	
+	private ItemsClient ItemClient = new ItemsClient();
+	
+	private StockClient stockClient = new StockClient();
 
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
 
@@ -76,9 +83,12 @@ public class AppController {
 	}
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public ModelAndView homePage(ModelMap model) {
+	public ModelAndView homePage(ModelMap model) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		SallingItemsResponse res = stockClient.get();
+		ItemsResponses itemResponse = ItemClient.findAllSorted("item_name", SortOrder.ASC);
+		List<ItemsDto> dtos = itemResponse.getData();
+		model.put("itemlist", dtos);
 		return new ModelAndView("home", "contactForm", "");
-		// return "home";
 	}
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
@@ -94,15 +104,15 @@ public class AppController {
 	}
 
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
-	public String checkout(ModelMap model,HttpServletRequest request) {
+	public String checkout(ModelMap model, HttpServletRequest request) {
 		System.out.println("checkout********************8");
 		HttpSession objHttpSession = request.getSession(true);
-		Object obj =  objHttpSession.getAttribute("user");
-		AppUser user= (AppUser)obj;
-		if(user!= null) {
+		Object obj = objHttpSession.getAttribute("user");
+		AppUser user = (AppUser) obj;
+		if (user != null) {
 			return "redirect:/shopping-cart";
-		}else {
-		return "checkout";
+		} else {
+			return "checkout";
 		}
 	}
 
@@ -162,9 +172,9 @@ public class AppController {
 		Item item = new Item();
 		ItemType type = new ItemType();
 		try {
-			//item = contactDao.getItemById(itemid, "");
-			//type = contactDao.ItemTypeById(Long.parseLong(item.getType()), "");
-			//item.setType(type.getItemTypeName());
+			// item = contactDao.getItemById(itemid, "");
+			// type = contactDao.ItemTypeById(Long.parseLong(item.getType()), "");
+			// item.setType(type.getItemTypeName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

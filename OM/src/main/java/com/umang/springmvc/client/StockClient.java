@@ -1,12 +1,15 @@
 package com.umang.springmvc.client;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.model.DeleteResponse;
+import com.umang.springmvc.model.SallingItemsResponse;
 import com.umang.springmvc.model.StockDto;
 import com.umang.springmvc.model.StockResponse;
 import com.umang.springmvc.model.StockResponses;
@@ -24,6 +27,10 @@ public class StockClient {
 	static final String UPDATE_ALL = "/sales/stock/update-all";
 
 	static final String FIND_BY_ID = "/sales/stock/find/{ID}";
+
+	static final String GET_ITEMS = "/sales/stock/get-items";
+
+	static final String GET_ITEMS_BY_CAT = "/sales/stock/get-items/{cat-id}";
 
 	static final String FIND_ALL = "/sales/stock/find-all/{PAGE}/{SIZE}/{SORT-BY}/{SORT-ORDER}";
 
@@ -110,5 +117,18 @@ public class StockClient {
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
 		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
+	}
+
+	public SallingItemsResponse get() throws RuntimeException, JsonParseException, JsonMappingException, IOException {
+		String res = ClientConstant.get(GET_ITEMS, null);
+		return ClientConstant.getObjectMapper().readValue(res.getBytes(), SallingItemsResponse.class);
+	}
+
+	public SallingItemsResponse get(Integer cat_id)
+			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
+		Map<String, String> paths = new HashMap<>();
+		paths.put(ClientConstant.CAT_ID, cat_id.toString());
+		String res = ClientConstant.get(GET_ITEMS_BY_CAT, null, paths);
+		return ClientConstant.getObjectMapper().readValue(res.getBytes(), SallingItemsResponse.class);
 	}
 }
