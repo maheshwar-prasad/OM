@@ -146,8 +146,7 @@
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">
-          
-        </div>
+		</div>
         <!-- /.col -->
         <div class="col-xs-6">
           <p class="lead">Amount Due 2/22/2014</p>

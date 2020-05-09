@@ -88,7 +88,7 @@ public class AppController {
 		ItemsResponses itemResponse = ItemClient.findAllSorted("item_name", SortOrder.ASC);
 		List<ItemsDto> dtos = itemResponse.getData();
 		model.put("itemlist", dtos);
-		return new ModelAndView("home", "contactForm", "");
+		return new ModelAndView("home", "", "");
 	}
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)

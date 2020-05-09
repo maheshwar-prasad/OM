@@ -15,13 +15,10 @@
 			<li class="active">Order</li>
 		</ol>
 	</section>
-
 	<!-- Main content -->
 	<section class="content">
 		<!-- Info boxes -->
-
 		<!-- /.row -->
-
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
@@ -83,7 +80,6 @@
 	  
   });
   function edit(itemId){
-	  
 	  var path=$('#activeItemUrl').val();
 	  var pathname = window.location.pathname;
 	  var api_url = path+'/editItem'+"/"+itemId;
