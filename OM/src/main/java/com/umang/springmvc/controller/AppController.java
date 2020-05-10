@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,15 +49,15 @@ import com.umang.springmvc.entities.Order;
 import com.umang.springmvc.model.CategoryDto;
 import com.umang.springmvc.model.ItemsCategoryResponses;
 import com.umang.springmvc.model.ItemsDto;
-import com.umang.springmvc.model.ItemsResponses;
-import com.umang.springmvc.model.SallingItemsResponse;
+import com.umang.springmvc.model.StockDto;
+import com.umang.springmvc.model.StockResponse;
+import com.umang.springmvc.model.StockResponses;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.Employee;
 import com.umang.springmvc.webservices.ManuscriptService;
 import com.umang.springmvc.webservices.ManuscriptServiceImpl;
 
 @Controller
-@RequestMapping("/")
 @SessionAttributes("appUser")
 public class AppController {
 
@@ -70,9 +71,9 @@ public class AppController {
 
 	private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
 	Map<Integer, Employee> empData = new HashMap<Integer, Employee>();
-	
+
 	private ItemsClient ItemClient = new ItemsClient();
-	
+
 	private StockClient stockClient = new StockClient();
 
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
@@ -82,25 +83,42 @@ public class AppController {
 		return new AppUser();
 	}
 
-	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public ModelAndView homePage(ModelMap model) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		SallingItemsResponse res = stockClient.get();
-		ItemsResponses itemResponse = ItemClient.findAllSorted("item_name", SortOrder.ASC);
-		List<ItemsDto> dtos = itemResponse.getData();
-		model.put("itemlist", dtos);
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView homePage(ModelMap model)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		List<CategoryDto> categoryDtos = categoryResponses.getData();
+		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC);
+		model.put("item_categories", categoryDtos);
+		model.put("stock_list", divideList(stocRes.getData()));
 		return new ModelAndView("home", "", "");
+	}
+
+	@RequestMapping(value = "/filter", method = RequestMethod.GET)
+	public ModelAndView itemByCat(ModelMap model, @RequestParam("id") Integer id)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		List<CategoryDto> categoryDtos = categoryResponses.getData();
+		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC);
+		model.put("item_categories", categoryDtos);
+		List<StockDto> stockDtos = stocRes.getData();
+		model.put("stock_list", divideList(stockDtos.parallelStream()
+				.filter(ST -> ST.getDto().getProductCat().getId() == id).collect(Collectors.toList())));
+		return new ModelAndView("home", "", "");
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public ModelAndView itemDetailt(ModelMap model, @RequestParam("id") Integer id)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		StockResponse stocRes = stockClient.findById(id);
+		model.put("stock", stocRes.getData());
+		return new ModelAndView("detail", "stock", stocRes.getData());
 	}
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
 	public String lockScreen(ModelMap model) {
 		System.out.println("Dashboard********************8");
 		return "admin";
-	}
-
-	@RequestMapping(value = { "/detail" }, method = RequestMethod.GET)
-	public String detail(ModelMap model) {
-		System.out.println("detail********************8");
-		return "detail";
 	}
 
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
@@ -236,15 +254,6 @@ public class AppController {
 		return user;
 	}
 
-	/*
-	 * @RequestMapping(value = EmpRestURIConstants.DELETE_ITEM, method =
-	 * RequestMethod.GET,produces="application/json") public @ResponseBody Item
-	 * deleteItem(ModelMap model,@PathVariable("id") int id) { Item item = new
-	 * Item(); try { int i= 1;//contactDao.deleteItem(id); if(i>0) {
-	 * item.setStatus("Success"); }else { item.setStatus("Fail"); }
-	 * 
-	 * }catch (Exception e) { item.setStatus("Fail"); return item; } return item; }
-	 */
 	@RequestMapping(value = { "/currentReq" }, method = RequestMethod.GET)
 	public String currentReqList(ModelMap model) {
 		System.out.println("currentReq *********************");
@@ -449,5 +458,64 @@ public class AppController {
 		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		return new ModelAndView("itemCreate", "types", categoryDtos);
+	}
+
+	private static <T> List<List<T>> divideList(List<T> dataList) {
+		int size = dataList.size();
+		if (size > 15)
+			return divideList(dataList, 4);
+		else if (size > 11)
+			return divideList(dataList, 3);
+		else if (size > 7)
+			return divideList(dataList, 2);
+		else
+			return divideList(dataList, 1);
+	}
+
+	/**
+	 * This method is used to divide a list of elements in to multiple lists of
+	 * elements
+	 * 
+	 * 
+	 * @param List<T> to divide
+	 * @param int     part <br>
+	 *                parts how many the given list is going to device
+	 * 
+	 * @return List<List<T>> sublist
+	 * 
+	 *         If given list size is greater or equal to given part, division will
+	 *         take place else returns only one part of list
+	 **/
+	public static <T> List<List<T>> divideList(List<T> dataList, int part) {
+		List<List<T>> subList = new ArrayList<>();
+		if (dataList != null && dataList.size() > 0) {
+			if (dataList.size() >= part) {
+				int reminder = dataList.size() % part;
+				int totalSizeOfList = dataList.size();
+				totalSizeOfList = totalSizeOfList - reminder;
+				int totalPart = 0;
+
+				if (totalSizeOfList >= part) {
+					totalPart = totalSizeOfList / part;
+
+					int from = 0;
+					int to = totalPart + reminder;
+
+					for (int i = 0; i < part; i++) {
+						subList.add(dataList.subList(from, to));
+
+						from = to;
+						to = to + totalPart;
+					}
+
+				} else {
+					subList.add(dataList);
+				}
+
+			} else
+				subList.add(dataList);
+		}
+
+		return subList;
 	}
 }
