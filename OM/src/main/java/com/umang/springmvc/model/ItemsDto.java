@@ -73,6 +73,9 @@ public class ItemsDto implements Serializable {
 	@JsonProperty("item_image")
 	private String itemImage;
 
+	@JsonProperty("image_uri")
+	private String imageUri;
+
 	@JsonProperty("item_desc")
 	private String description;
 
@@ -182,6 +185,14 @@ public class ItemsDto implements Serializable {
 
 	public void setItemImage(String itemImage) {
 		this.itemImage = itemImage;
+	}
+
+	public String getImageUri() {
+		return imageUri;
+	}
+
+	public void setImageUri(String imageUri) {
+		this.imageUri = imageUri;
 	}
 
 	public String getDescription() {

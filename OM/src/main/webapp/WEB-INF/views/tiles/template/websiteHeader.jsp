@@ -1,115 +1,159 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
 <!-- ============================================== HEADER ============================================== -->
-<header class="header-style-1"> 
-  <%
-    session=request.getSession(true);
-%>
-  <!-- ============================================== TOP MENU ============================================== -->
-  <div class="top-bar animate-dropdown">
-    <div class="container">
-      <div class="header-top-inner">
-        <div class="cnt-account">
-          <ul class="list-unstyled categories-filter animate-dropdown">
-            <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-            <li><a href="${pageContext.request.contextPath}/shopping-cart.do"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-            <li><a href="${pageContext.request.contextPath}/checkout.do"><i class="icon fa fa-check"></i>Checkout</a></li>
-            <% if (session.getAttribute("user") != null){ %>
-           <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="#">${user.name}<b class="caret"></b></a>
-             <ul class="dropdown-menu">
-                      <li style="padding-left: 25px;"><a href="${pageContext.request.contextPath}/invalidate.do" style="color: #040404;"><i class="icon fa fa-sign-out">Logout</i></a></li>
-                      <!-- <li>Logout</li> -->
-              </ul>
-             </li>
-            <%}else{ %>
-            <li class="dropdown dropdown-small"><a href="${pageContext.request.contextPath}/signIn.do"><i class="icon fa fa-lock"></i><span class="userdetail">Login</span></a></li>
-            <%} %>
-          </ul>
-        </div>
-        <!-- /.cnt-account -->
-        
-        <div class="cnt-block">
-          <ul class="list-unstyled list-inline">
-            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">INR </span><b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">INR</a></li>
-               <li><a href="#">USD</a></li>
-                <li><a href="#">GBP</a></li>
-              </ul>
-            </li>
-            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">English</a></li>
-                <li><a href="#">French</a></li>
-                <li><a href="#">German</a></li>
-              </ul>
-            </li>
-          </ul>
-          <!-- /.list-unstyled --> 
-        </div>
-        <!-- /.cnt-cart -->
-        <div class="clearfix"></div>
-      </div>
-      <!-- /.header-top-inner --> 
-    </div>
-    <!-- /.container --> 
-  </div>
-  <!-- /.header-top --> 
-  <!-- ============================================== TOP MENU : END ============================================== -->
-  <div class="main-header">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-3 logo-holder"> 
-          <!-- ============================================================= LOGO ============================================================= -->
-          <div class="logo"> <a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/static/website/assets/images/Logo1.png" alt="logo"> </a> </div>
-          <!-- /.logo --> 
-          <!-- ============================================================= LOGO : END ============================================================= --> </div>
-        <!-- /.logo-holder -->
-        
-        <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder"> 
-          <!-- /.contact-row --> 
-          <!-- ============================================================= SEARCH AREA ============================================================= -->
-          <div class="search-area">
-            <form>
-              <div class="control-group">
-                <ul class="categories-filter animate-dropdown">
-                  <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" >
-                      <li class="menu-header">Vegetables</li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Fruits</a></li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Electronics</a></li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Shoes</a></li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Watches</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <input class="search-field" placeholder="Search here..." />
-                <a class="search-button" href="#" ></a> </div>
-            </form>
-          </div>
-          <!-- /.search-area --> 
-          <!-- ============================================================= SEARCH AREA : END ============================================================= --> </div>
-        <!-- /.top-search-holder -->
-        
-        <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row"> 
-          <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
-          
-          <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-            <div class="items-cart-inner">
-              <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-              <div class="basket-item-count"><span class="count">0</span></div>
-              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">&#x20b9;</span><span class="value">0.00</span> </span> </div>
-            </div>
-            
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <div class="cart-item product-summary">
-                  <%-- <div class="row">
+<header class="header-style-1">
+	<%
+		session = request.getSession(true);
+	%>
+	<!-- ============================================== TOP MENU ============================================== -->
+	<div class="top-bar animate-dropdown">
+		<div class="container">
+			<div class="header-top-inner">
+				<div class="cnt-account">
+					<ul class="list-unstyled categories-filter animate-dropdown">
+						<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
+						<li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/shopping-cart.do"><i
+								class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+						<li><a href="${pageContext.request.contextPath}/checkout.do"><i
+								class="icon fa fa-check"></i>Checkout</a></li>
+						<%
+							if (session.getAttribute("user") != null) {
+						%>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">${user.name}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li style="padding-left: 25px;"><a
+									href="${pageContext.request.contextPath}/invalidate.do"
+									style="color: #040404;"><i class="icon fa fa-sign-out">Logout</i></a></li>
+								<!-- <li>Logout</li> -->
+							</ul></li>
+						<%
+							} else {
+						%>
+						<li class="dropdown dropdown-small"><a
+							href="${pageContext.request.contextPath}/signIn.do"><i
+								class="icon fa fa-lock"></i><span class="userdetail">Login</span></a></li>
+						<%
+							}
+						%>
+					</ul>
+				</div>
+				<!-- /.cnt-account -->
+
+				<div class="cnt-block">
+					<ul class="list-unstyled list-inline">
+						<li class="dropdown dropdown-small"><a href="#"
+							class="dropdown-toggle" data-hover="dropdown"
+							data-toggle="dropdown"><span class="value">INR </span><b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">INR</a></li>
+								<li><a href="#">USD</a></li>
+								<li><a href="#">GBP</a></li>
+							</ul></li>
+						<li class="dropdown dropdown-small"><a href="#"
+							class="dropdown-toggle" data-hover="dropdown"
+							data-toggle="dropdown"><span class="value">English </span><b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">English</a></li>
+								<li><a href="#">French</a></li>
+								<li><a href="#">German</a></li>
+							</ul></li>
+					</ul>
+					<!-- /.list-unstyled -->
+				</div>
+				<!-- /.cnt-cart -->
+				<div class="clearfix"></div>
+			</div>
+			<!-- /.header-top-inner -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.header-top -->
+	<!-- ============================================== TOP MENU : END ============================================== -->
+	<div class="main-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+					<!-- ============================================================= LOGO ============================================================= -->
+					<div class="logo">
+						<a href="${pageContext.request.contextPath}/"> <img
+							src="${pageContext.request.contextPath}/static/website/assets/images/Logo1.png"
+							alt="logo">
+						</a>
+					</div>
+					<!-- /.logo -->
+					<!-- ============================================================= LOGO : END ============================================================= -->
+				</div>
+				<!-- /.logo-holder -->
+
+				<div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
+					<!-- /.contact-row -->
+					<!-- ============================================================= SEARCH AREA ============================================================= -->
+					<div class="search-area">
+						<form>
+							<div class="control-group">
+								<ul class="categories-filter animate-dropdown">
+									<li class="dropdown"><a class="dropdown-toggle"
+										data-toggle="dropdown" href="category.html">Categories <b
+											class="caret"></b></a>
+										<ul class="dropdown-menu" role="menu">
+											<li class="menu-header">Vegetables</li>
+											<li role="presentation"><a role="menuitem" tabindex="-1"
+												href="category.html">- Fruits</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1"
+												href="category.html">- Electronics</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1"
+												href="category.html">- Shoes</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1"
+												href="category.html">- Watches</a></li>
+										</ul></li>
+								</ul>
+								<input class="search-field" placeholder="Search here..." /> <a
+									class="search-button" href="#"></a>
+							</div>
+						</form>
+					</div>
+					<!-- /.search-area -->
+					<!-- ============================================================= SEARCH AREA : END ============================================================= -->
+				</div>
+				<!-- /.top-search-holder -->
+
+				<div
+					class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+					<!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+
+					<div class="dropdown dropdown-cart">
+						<a href="#" class="dropdown-toggle lnk-cart"
+							data-toggle="dropdown">
+							<div class="items-cart-inner">
+								<div class="basket">
+									<i class="glyphicon glyphicon-shopping-cart"></i>
+								</div>
+								<div class="basket-item-count" id="cart_items">
+									<span class="count">0</span>
+								</div>
+								<div class="total-price-basket" id="cart_total_price">
+									<span class="lbl">cart -</span> <span class="total-price">
+										<span class="sign">&#x20b9;</span><span class="value">0.00</span>
+									</span>
+								</div>
+								<input type="hidden" id="cart_items_input" value="0"/>
+								<input type="hidden" id="cart_total_price_input" value="0"/>
+							</div>
+
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<div class="cart-item product-summary">
+									<%-- <div class="row">
                     <div class="col-xs-4">
                       <div class="image"> <a href="detail.html"><img src="${pageContext.request.contextPath}/static/website/assets/images/brands/brand5.png"  alt=""></a> </div>
                     </div>
@@ -119,49 +163,62 @@
                     </div>
                     <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
                   </div> --%>
-                </div>
-                <!-- /.cart-item -->
-                <div class="clearfix"></div>
-                <div class="clearfix cart-total">
-                  <div class="pull-right">     </div>
-                  <div class="clearfix"></div>
-                  <a href="${pageContext.request.contextPath}/checkout.do" class="btn btn-upper btn-primary btn-block m-t-20 checkOut" id="checkOut">Checkout</a>
-                  </div>
-                <!-- /.cart-total--> 
-                
-              </li>
-            </ul>
-            <!-- /.dropdown-menu--> 
-          </div>
-          <!-- /.dropdown-cart --> 
-          
-          <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= --> </div>
-        <!-- /.top-cart-row --> 
-      </div>
-      <!-- /.row --> 
-      
-    </div>
-    <!-- /.container --> 
-    
-  </div>
-  <!-- /.main-header --> 
-  
-  <!-- ============================================== NAVBAR ============================================== -->
-  <div class="header-nav animate-dropdown">
-    <div class="container">
-      <div class="yamm navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-       <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
-       <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        </div>
-        <div class="nav-bg-class">
-          <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
-            <div class="nav-outer">
-              <ul class="nav navbar-nav">
-                <li class="active dropdown yamm-fw"> <a href="${pageContext.request.contextPath}/" data-hover="dropdown" class="dropdown-toggle" >Home</a> </li>
-                 <li class="dropdown"> <a href="${pageContext.request.contextPath}/" data-hover="dropdown" class="dropdown-toggle" >Fruits & Vegetables</a> </li>
-                <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
-                  <%-- <ul class="dropdown-menu container">
+								</div> <!-- /.cart-item -->
+								<div class="clearfix"></div>
+								<div class="clearfix cart-total">
+									<div class="pull-right"></div>
+									<div class="clearfix"></div>
+									<a href="${pageContext.request.contextPath}/checkout.do"
+										class="btn btn-upper btn-primary btn-block m-t-20 checkOut"
+										id="checkOut">Checkout</a>
+								</div> <!-- /.cart-total-->
+
+							</li>
+						</ul>
+						<!-- /.dropdown-menu-->
+					</div>
+					<!-- /.dropdown-cart -->
+
+					<!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->
+				</div>
+				<!-- /.top-cart-row -->
+			</div>
+			<!-- /.row -->
+
+		</div>
+		<!-- /.container -->
+
+	</div>
+	<!-- /.main-header -->
+
+	<!-- ============================================== NAVBAR ============================================== -->
+	<div class="header-nav animate-dropdown">
+		<div class="container">
+			<div class="yamm navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<button data-target="#mc-horizontal-menu-collapse"
+						data-toggle="collapse" class="navbar-toggle collapsed"
+						type="button">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="nav-bg-class">
+					<div class="navbar-collapse collapse"
+						id="mc-horizontal-menu-collapse">
+						<div class="nav-outer">
+							<ul class="nav navbar-nav">
+								<li class="active dropdown yamm-fw"><a
+									href="${pageContext.request.contextPath}/"
+									data-hover="dropdown" class="dropdown-toggle">Home</a></li>
+								<li class="dropdown"><a
+									href="${pageContext.request.contextPath}/"
+									data-hover="dropdown" class="dropdown-toggle">Fruits &
+										Vegetables</a></li>
+								<li class="dropdown yamm mega-menu"><a href="home.html"
+									data-hover="dropdown" class="dropdown-toggle"
+									data-toggle="dropdown">Clothing</a> <%-- <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content ">
                         <div class="row">
@@ -226,11 +283,12 @@
                         </div>
                       </div>
                     </li>
-                  </ul> --%>
-                </li>
-                <li class="dropdown mega-menu"> 
-                <a href="javascript:(0);"  data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Electronics <span class="menu-label hot-menu hidden-xs">hot</span> </a>
-                  <%-- <ul class="dropdown-menu container">
+                  </ul> --%></li>
+								<li class="dropdown mega-menu"><a href="javascript:(0);"
+									data-hover="dropdown" class="dropdown-toggle"
+									data-toggle="dropdown">Electronics <span
+										class="menu-label hot-menu hidden-xs">hot</span>
+								</a> <%-- <ul class="dropdown-menu container">
                     <li>
                       <div class="yamm-content">
                         <div class="row">
@@ -304,57 +362,69 @@
                         <!-- /.row --> 
                       </div>
                       <!-- /.yamm-content --> </li>
-                  </ul> --%>
-                </li>
-                <li class="dropdown hidden-sm"> <a href="javascript:(0);">Health & Beauty <span class="menu-label new-menu hidden-xs">new</span> </a> </li>
-                <li class="dropdown hidden-sm"> <a href="javascript:(0);">Watches</a> </li>
-                <li class="dropdown"> <a href="javascript:(0);">Shoes</a> </li>
-                <li class="dropdown"> <a href="javascript:(0);">Kids & Girls</a> </li>
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages</a>
-                  <ul class="dropdown-menu pages">
-                    <li>
-                      <div class="yamm-content">
-                        <div class="row">
-                          <div class="col-xs-12 col-menu">
-                            <ul class="links">
-                              <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                              <li><a href="${pageContext.request.contextPath}/">Category</a></li>
-                              <li><a href="${pageContext.request.contextPath}/detail.do">Detail</a></li>
-                              <li><a href="${pageContext.request.contextPath}/shopping-cart.do">Shopping Cart Summary</a></li>
-                              <li><a href="${pageContext.request.contextPath}/checkout.do">Checkout</a></li>
-                              <li><a href="${pageContext.request.contextPath}/contact.do">Contact</a></li>
-                              <li><a href="${pageContext.request.contextPath}/signIn.do">Sign In</a></li>
-                              <li><a href="javascript:(0);">Wishlist</a></li>
-                              <li><a href="javascript:(0);">Terms and Condition</a></li>
-                              <li><a href="javascript:(0);">Track Orders</a></li>
-                              <li><a href="javascript:(0);">Product-Comparison</a></li>
-                             
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
-              </ul>
-              <!-- /.navbar-nav -->
-              <div class="clearfix"></div>
-            </div>
-            <!-- /.nav-outer --> 
-          </div>
-          <!-- /.navbar-collapse --> 
-          
-        </div>
-        <!-- /.nav-bg-class --> 
-      </div>
-      <!-- /.navbar-default --> 
-    </div>
-    <!-- /.container-class --> 
-    
-  </div>
-  <!-- /.header-nav --> 
-  <!-- ============================================== NAVBAR : END ============================================== --> 
-  
+                  </ul> --%></li>
+								<li class="dropdown hidden-sm"><a href="javascript:(0);">Health
+										& Beauty <span class="menu-label new-menu hidden-xs">new</span>
+								</a></li>
+								<li class="dropdown hidden-sm"><a href="javascript:(0);">Watches</a>
+								</li>
+								<li class="dropdown"><a href="javascript:(0);">Shoes</a></li>
+								<li class="dropdown"><a href="javascript:(0);">Kids &
+										Girls</a></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-hover="dropdown" data-toggle="dropdown">Pages</a>
+									<ul class="dropdown-menu pages">
+										<li>
+											<div class="yamm-content">
+												<div class="row">
+													<div class="col-xs-12 col-menu">
+														<ul class="links">
+															<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+															<li><a href="${pageContext.request.contextPath}/">Category</a></li>
+															<li><a
+																href="${pageContext.request.contextPath}/detail.do">Detail</a></li>
+															<li><a
+																href="${pageContext.request.contextPath}/shopping-cart.do">Shopping
+																	Cart Summary</a></li>
+															<li><a
+																href="${pageContext.request.contextPath}/checkout.do">Checkout</a></li>
+															<li><a
+																href="${pageContext.request.contextPath}/contact.do">Contact</a></li>
+															<li><a
+																href="${pageContext.request.contextPath}/signIn.do">Sign
+																	In</a></li>
+															<li><a href="javascript:(0);">Wishlist</a></li>
+															<li><a href="javascript:(0);">Terms and
+																	Condition</a></li>
+															<li><a href="javascript:(0);">Track Orders</a></li>
+															<li><a href="javascript:(0);">Product-Comparison</a></li>
+
+														</ul>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul></li>
+								<li class="dropdown  navbar-right special-menu"><a href="#">Todays
+										offer</a></li>
+							</ul>
+							<!-- /.navbar-nav -->
+							<div class="clearfix"></div>
+						</div>
+						<!-- /.nav-outer -->
+					</div>
+					<!-- /.navbar-collapse -->
+
+				</div>
+				<!-- /.nav-bg-class -->
+			</div>
+			<!-- /.navbar-default -->
+		</div>
+		<!-- /.container-class -->
+
+	</div>
+	<!-- /.header-nav -->
+	<!-- ============================================== NAVBAR : END ============================================== -->
+
 </header>
 

@@ -323,10 +323,10 @@
 								<div id="owl-single-product">
 									<div class="single-product-gallery-item" id="slide1">
 										<a data-lightbox="image-1" data-title="Gallery"
-											href="${pageContext.request.contextPath}/static/img/item/${stock.dto.itemImage}">
+											href="${stock.dto.imageUri}">
 											<img class="img-responsive" alt=""
 											src="${pageContext.request.contextPath}/static/website/assets/images/blank.gif"
-											data-echo="${pageContext.request.contextPath}/static/img/item/${stock.dto.itemImage}" />
+											data-echo="${stock.dto.imageUri}" />
 										</a>
 									</div>
 									<!-- /.single-product-gallery-item -->
@@ -617,7 +617,7 @@
 										</div>
 										<c:if test="${stock.qty > 0}">
 											<div class="col-sm-7">
-												<a href="#" class="btn btn-primary"><i
+												<a href="javascript:(0);" onclick="javascript:addToCart(${stock.dto.id}, ${stock.dto.unitPrice}, 1);" class="btn btn-primary"><i
 													class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
 											</div>
 										</c:if>
@@ -1408,4 +1408,18 @@
 	<!-- /.container -->
 </div>
 <!-- /.body-content -->
+<script type="text/javascript">
+	function addToCart(item_id, item_price, qty) {
+		var items = new Number($("#cart_items_input").val());
+		var items_price = new Number($("#cart_total_price_input").val());
+		items_price = items_price+item_price;
+		items = items+qty;
+		var itemsCount = "<span class='count'>"+items+"</span>";
+		var itemsPrice = "<span class=lbl>cart -</span> <span class=total-price><span class=sign>&#x20b9;</span><span class=value>"+items_price+"</span></span>"
+		$("#cart_items").html(itemsCount);
+		$("#cart_total_price").html(itemsPrice);
+		$("#cart_items_input").val(items);
+		$("#cart_total_price_input").val(items_price);
+	}
+</script>
 
