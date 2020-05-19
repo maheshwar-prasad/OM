@@ -38,6 +38,10 @@
 							<a href="${pageContext.request.contextPath}/acceptOrder?order-number=${orderDetail.orderNumber}"
 								class="btn btn-block btn-primary btn-flat">Accept Order</a>
 						</h3>
+						<h3 class="box-title">
+							<a href="${pageContext.request.contextPath}/order"
+								class="btn btn-block btn-primary btn-flat" style="background-color: firebrick !important;">Back</a>
+						</h3>
 					</div>
 					<!-- /.box-header -->
 					</div>
