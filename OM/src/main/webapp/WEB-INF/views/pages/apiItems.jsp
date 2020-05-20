@@ -85,7 +85,6 @@
   function edit(itemId){
 	  
 	  var path=$('#activeItemUrl').val();
-	  alert(path);
 	  var pathname = window.location.pathname;
 	  var api_url = path+'/editItem'+"/"+itemId;
 	  window.location=api_url;

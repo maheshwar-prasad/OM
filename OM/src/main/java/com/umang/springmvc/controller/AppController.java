@@ -393,7 +393,6 @@ public class AppController {
 		List<AppItemList> itemList = contactDao.appitemList(category, 0);
 		ItemListWithCategory item = new ItemListWithCategory();
 		if (itemList.size() > 0) {
-
 			item.setItemData(itemList);
 			item.setStatus("Success");
 			return new ResponseEntity<ItemListWithCategory>(item, HttpStatus.OK);

@@ -138,7 +138,7 @@ public class AdminApiController {
 			//e.printStackTrace();
 			return new ModelAndView("redirect:/apiItems/editItem/"+itemid+"");
 		}
-		return new ModelAndView("itemCreate", "item", itemcategoryResponses);
+		return new ModelAndView("editItems", "item", itemcategoryResponses);
 	}
 	@RequestMapping(value = { "/saveEditItem" }, method = RequestMethod.POST)
 	public ModelAndView saveEditItem(ModelMap model, @RequestParam("types") Integer type,
