@@ -38,6 +38,7 @@ import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
 import com.umang.springmvc.entities.CommonConstant;
 import com.umang.springmvc.entities.Item;
+import com.umang.springmvc.entities.ItemType;
 import com.umang.springmvc.model.CategoryDto;
 import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.FileUploadResponse;
@@ -126,7 +127,69 @@ public class AdminApiController {
 			return new ModelAndView("itemCreate");
 		}
 	}
-
+	@RequestMapping(value = EmpRestURIConstants.EDIT_ITEM, method = RequestMethod.GET)
+	public ModelAndView editUser(ModelMap model, @PathVariable("itemid") int itemid) {
+		logger.info(" editItem *********************");
+		ItemType type = new ItemType();
+		ItemsCategoryResponse itemcategoryResponses = null;
+		try {
+			itemcategoryResponses = itemCatClient.findById(itemid);
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ModelAndView("redirect:/apiItems/editItem/"+itemid+"");
+		}
+		return new ModelAndView("itemCreate", "item", itemcategoryResponses);
+	}
+	@RequestMapping(value = { "/saveEditItem" }, method = RequestMethod.POST)
+	public ModelAndView saveEditItem(ModelMap model, @RequestParam("types") Integer type,
+			@RequestParam("description") String description, @RequestParam("itemName") String itemName,
+			@RequestParam("mrp") Double mrp, @RequestParam("pack") String pack,
+			@RequestParam(value = "display-order", required = false, defaultValue = "1") Integer displayOrder,
+			@RequestParam(value = "offer-type", required = false, defaultValue = "FU") OfferType offerType,
+			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
+			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
+			@RequestParam(value = "free", required = false, defaultValue = "1") Integer free,
+			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
+			@RequestParam("file") MultipartFile file, HttpServletRequest request)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		ItemsResponse itemResponse = null;
+		String path = request.getServletContext().getResource("static").getFile();
+		File item_file = new File(path + "/img/item/" + file.getOriginalFilename());
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		List<CategoryDto> categoryDtos = categoryResponses.getData();
+		try (FileOutputStream fileOutputStream = new FileOutputStream(item_file)) {
+			fileOutputStream.write(file.getBytes());
+			ItemsDto itemsDto = new ItemsDto();
+			itemsDto.setActive(status);
+			itemsDto.setDescription(description);
+			itemsDto.setDisplayOrder(displayOrder);
+			itemsDto.setFree(free);
+			itemsDto.setItemName(itemName);
+			itemsDto.setMrp(mrp);
+			itemsDto.setOfferEffectedBy(offerEffectiveDate == null ? new Date() : offerEffectiveDate);
+			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
+			itemsDto.setOfferType(offerType);
+			itemsDto.setOfferUnits(10);
+			itemsDto.setPack(pack);
+			itemsDto.setUnitPrice(unitPrice);
+			itemsDto.setProductCat(new CategoryDto(type));
+			itemResponse = ItemClient.update(itemsDto);
+			fileOutputStream.flush();
+			FileUploadResponse fileRes = ItemClient.postItemImage(itemResponse.getData().getId(), item_file);
+			File rename = new File(path + "/img/item/" + fileRes.getData().getFileKey());
+			item_file.renameTo(rename);
+			System.out.println(fileRes);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", "Fail");
+			return new ModelAndView("itemCreate", "ItemsResponses", categoryDtos);
+		}
+		if (itemResponse.getMessage().equals("success")) {
+			return new ModelAndView("redirect:apiItems");
+		} else {
+			return new ModelAndView("itemCreate");
+		}
+	}
 	@RequestMapping(value = EmpRestURIConstants.DELETE_ITEM, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Item deleteItem(ModelMap model, @PathVariable("id") int id) {
 		Item item = new Item();

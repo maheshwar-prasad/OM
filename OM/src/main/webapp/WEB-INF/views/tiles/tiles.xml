@@ -147,9 +147,9 @@
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/invoiceList.jsp" />  
    </definition>
-   <definition name="editItems" extends="base-definition">  
+   <definition name="editItems" extends="customer-definition">  
        <put-attribute name="title" value="Product Creation" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/editItem.jsp" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/item/editItem.jsp" />  
    </definition>
  <!-- API ADMIN -->
  <definition name="itemCreate" extends="customer-definition">  

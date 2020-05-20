@@ -14,7 +14,7 @@ public class EmpRestURIConstants {
 	public static final String ITEM_TYPE = "/itemType/{name}/{status}";
 	public static final String DELETE_ITEM = "/apiItems/rest/item/delete/{id}";
 	public static final String GET_ITEMLIST = "/rest/item/category/{category}";
-	public static final String EDIT_ITEM = "/items/editItem/{itemid}";
+	public static final String EDIT_ITEM = "/apiItems/editItem/{itemid}";
 	public static final String DELETE_ORDER = "/order/delete/{id}";
 	public static final String CANCEL_ORDER = "/order/cancel/{orderNo}";
 	public static final String DELETE_CUSTOMER = "/apiCustomer/rest/customer/delete/{custid}";

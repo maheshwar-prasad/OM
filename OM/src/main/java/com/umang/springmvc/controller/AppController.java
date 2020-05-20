@@ -184,22 +184,6 @@ public class AppController {
 		return new ModelAndView("create", "types", types);
 	}
 
-	@RequestMapping(value = EmpRestURIConstants.EDIT_ITEM, method = RequestMethod.GET)
-	public ModelAndView editUser(ModelMap model, @PathVariable("itemid") int itemid) {
-		logger.info(" editUser *********************");
-		Item item = new Item();
-		ItemType type = new ItemType();
-		try {
-			// item = contactDao.getItemById(itemid, "");
-			// type = contactDao.ItemTypeById(Long.parseLong(item.getType()), "");
-			// item.setType(type.getItemTypeName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// return "createUser";
-		return new ModelAndView("editItems", "item", item);
-	}
-
 	@RequestMapping(value = { "/createUser" }, method = RequestMethod.GET)
 	public String createUser(ModelMap model) {
 		System.out.println("createUser *********************");

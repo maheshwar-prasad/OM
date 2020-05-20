@@ -54,7 +54,7 @@
                   <td>${items.mrp}</td>
                   <td>${items.pack}</td>
                   <td>${items.displayOrder}</td>
-                  <td><i class="fa fa-fw fa-bank" onclick="javascript:(0);"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${items.id});"></i></td>
+                  <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${items.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${items.id});"></i></td>
                 </tr>
                </c:forEach>
                </c:if>
@@ -75,7 +75,7 @@
       <!-- /.row -->
     </section>
     <!-- /.content -->
-     <input type="hidden" id="activeItemUrl" value="${pageContext.request.contextPath}/items">
+     <input type="hidden" id="activeItemUrl" value="${pageContext.request.contextPath}/apiItems">
   </div>
   <!-- /.content-wrapper -->
   <script type="text/javascript">
@@ -89,7 +89,7 @@
 	  var pathname = window.location.pathname;
 	  var api_url = path+'/editItem'+"/"+itemId;
 	  window.location=api_url;
-	  /* $.ajax({
+	   $.ajax({
 	        url: api_url + "/" + userId,
 	        contentType: "application/json",
 	        dataType: 'json',
@@ -101,7 +101,7 @@
 	            	alert("Please check some error occur.");
 	            }
 	        }
-	    }); */
+	    }); 
   }
   function deleteItem(itemId){
 	  var path=$('#activeItemUrl').val();
