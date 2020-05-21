@@ -47,7 +47,8 @@
                 <c:if test="${itemList.size()>0}">
                    <c:forEach items="${itemList}" var="items" varStatus="status">
                 <tr>
-                  <td>${items.itemCode}</td>
+                  <td><a href="${pageContext.request.contextPath}/apiItems/editItem/${items.id}"
+											onclick="#">${items.itemCode}</a></td>
                   <td>${items.itemName}</td>
                   <td></td>
                   <td>${items.description}</td>

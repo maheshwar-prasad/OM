@@ -1,7 +1,5 @@
 package com.umang.springmvc.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.ctc.wstx.util.StringUtil;
 import com.umang.springmvc.common.AESCryptUtils;
-import com.umang.springmvc.common.CommonResponseDto;
-import com.umang.springmvc.common.CommonResponseItemDto;
-import com.umang.springmvc.common.CommonResponsesDto12;
 import com.umang.springmvc.dao.ContactDAO;
 import com.umang.springmvc.entities.AppUser;
-import com.umang.springmvc.entities.Item;
-import com.umang.springmvc.entities.ItemType;
 import com.umang.springmvc.entities.JData;
-import com.umang.springmvc.entities.ManuscriptDetail;
-import com.umang.springmvc.entities.ManuscriptHeadofPrint;
 import com.umang.springmvc.entities.addCartResponse;
 import com.umang.springmvc.model.AddCart;
-import com.umang.springmvc.model.OfferForm;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
-import com.umang.springmvc.webservices.Employee;
 import com.umang.springmvc.webservices.ManuscriptService;
 import com.umang.springmvc.webservices.ManuscriptServiceImpl;
 

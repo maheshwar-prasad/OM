@@ -3,8 +3,6 @@ package com.umang.springmvc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +12,11 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,13 +28,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.client.ItemCategoryClient;
 import com.umang.springmvc.client.ItemsClient;
-import com.umang.springmvc.client.OfferClient;
 import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
 import com.umang.springmvc.entities.CommonConstant;
 import com.umang.springmvc.entities.Item;
-import com.umang.springmvc.entities.ItemType;
 import com.umang.springmvc.model.CategoryDto;
 import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.FileUploadResponse;
@@ -47,8 +41,6 @@ import com.umang.springmvc.model.ItemsCategoryResponses;
 import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponse;
 import com.umang.springmvc.model.ItemsResponses;
-import com.umang.springmvc.model.OfferDto;
-import com.umang.springmvc.model.OfferResponse;
 import com.umang.springmvc.model.OfferType;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
@@ -66,7 +58,7 @@ public class AdminApiController {
 	AESCryptUtils encription = new AESCryptUtils();
 	private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
 
-	private ItemsClient ItemClient = new ItemsClient();
+	private ItemsClient itemClient = new ItemsClient();
 
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
 
@@ -110,12 +102,12 @@ public class AdminApiController {
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
-			itemResponse = ItemClient.save(itemsDto);
+			itemResponse = itemClient.save(itemsDto);
 			fileOutputStream.flush();
-			FileUploadResponse fileRes = ItemClient.postItemImage(itemResponse.getData().getId(), item_file);
+			FileUploadResponse fileRes = itemClient.postItemImage(itemResponse.getData().getId(), item_file);
 			File rename = new File(path + "/img/item/" + fileRes.getData().getFileKey());
 			item_file.renameTo(rename);
-			System.out.println(fileRes);
+			item_file.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
@@ -127,39 +119,48 @@ public class AdminApiController {
 			return new ModelAndView("itemCreate");
 		}
 	}
+
 	@RequestMapping(value = EmpRestURIConstants.EDIT_ITEM, method = RequestMethod.GET)
-	public ModelAndView editUser(ModelMap model, @PathVariable("itemid") int itemid) {
+	public ModelAndView editItem(ModelMap model, @PathVariable("itemid") int itemid) {
 		logger.info(" editItem *********************");
-		ItemType type = new ItemType();
-		ItemsCategoryResponse itemcategoryResponses = null;
 		try {
-			itemcategoryResponses = itemCatClient.findById(itemid);
+			model.put("types", itemCatClient.findAllSorted("category_name", SortOrder.ASC).getData());
+			return new ModelAndView("editItems", "item", itemClient.findById(itemid).getData());
 		} catch (Exception e) {
-			//e.printStackTrace();
-			return new ModelAndView("redirect:/apiItems/editItem/"+itemid+"");
+			return new ModelAndView("redirect:/apiItems/editItem/" + itemid + "");
 		}
-		return new ModelAndView("editItems", "item", itemcategoryResponses);
 	}
+
 	@RequestMapping(value = { "/saveEditItem" }, method = RequestMethod.POST)
-	public ModelAndView saveEditItem(ModelMap model, @RequestParam("types") Integer type,
-			@RequestParam("description") String description, @RequestParam("itemName") String itemName,
-			@RequestParam("mrp") Double mrp, @RequestParam("pack") String pack,
+	public ModelAndView saveEditItem(ModelMap model, @RequestParam("itemId") Integer id,
+			@RequestParam("types") Integer type, @RequestParam("description") String description,
+			@RequestParam("itemName") String itemName, @RequestParam("mrp") Double mrp,
+			@RequestParam("pack") String pack,
 			@RequestParam(value = "display-order", required = false, defaultValue = "1") Integer displayOrder,
 			@RequestParam(value = "offer-type", required = false, defaultValue = "FU") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
 			@RequestParam(value = "free", required = false, defaultValue = "1") Integer free,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
-			@RequestParam("file") MultipartFile file, HttpServletRequest request)
+			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		ItemsResponse itemResponse = null;
-		String path = request.getServletContext().getResource("static").getFile();
-		File item_file = new File(path + "/img/item/" + file.getOriginalFilename());
+		File item_file = null;
 		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
-		try (FileOutputStream fileOutputStream = new FileOutputStream(item_file)) {
+		FileOutputStream fileOutputStream = null;
+		String path = request.getServletContext().getResource("static").getFile();
+		if (file != null && file.getSize() > 0) {
+			item_file = new File(path + "/img/item/" + file.getOriginalFilename());
+			fileOutputStream = new FileOutputStream(item_file);
 			fileOutputStream.write(file.getBytes());
+			fileOutputStream.flush();
+			itemClient.postItemImage(id, item_file);
+			item_file.delete();
+		}
+		try {
 			ItemsDto itemsDto = new ItemsDto();
+			itemsDto.setId(id);
 			itemsDto.setActive(status);
 			itemsDto.setDescription(description);
 			itemsDto.setDisplayOrder(displayOrder);
@@ -173,12 +174,7 @@ public class AdminApiController {
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
-			itemResponse = ItemClient.update(itemsDto);
-			fileOutputStream.flush();
-			FileUploadResponse fileRes = ItemClient.postItemImage(itemResponse.getData().getId(), item_file);
-			File rename = new File(path + "/img/item/" + fileRes.getData().getFileKey());
-			item_file.renameTo(rename);
-			System.out.println(fileRes);
+			itemResponse = itemClient.update(itemsDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
@@ -190,11 +186,12 @@ public class AdminApiController {
 			return new ModelAndView("itemCreate");
 		}
 	}
+
 	@RequestMapping(value = EmpRestURIConstants.DELETE_ITEM, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Item deleteItem(ModelMap model, @PathVariable("id") int id) {
 		Item item = new Item();
 		try {
-			DeleteResponse response = ItemClient.delete(id);
+			DeleteResponse response = itemClient.delete(id);
 			if (response.getStatusCode().equals(CommonConstant.SUCCESS)) {
 				item.setStatus("Success");
 			} else {

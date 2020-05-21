@@ -25,7 +25,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "items")
 @JsonPropertyOrder
-//@ApiModel(description = "A response class responde back to request")
 public class ItemsDto implements Serializable {
 
 	/**

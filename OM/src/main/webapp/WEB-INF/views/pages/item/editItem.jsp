@@ -1,7 +1,7 @@
-
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script type="text/javascript"
 	src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
@@ -9,7 +9,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>Edit Product</h1>
+		<h1>Create Product</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">Items</li>
@@ -47,15 +47,20 @@
 									onchange="selectCategory();">
 									<option selected="selected">Select Type</option>
 									<c:forEach items="${types}" var="type" varStatus="status">
-										<option value="${type.id}">${type.categoryName}</option>
+										<c:if test="${item.productCat.id==type.id}">
+											<option selected="selected" value="${type.id}">${type.categoryName}</option>
+										</c:if>
+										<c:if test="${item.productCat.id!=type.id}">
+											<option value="${type.id}">${type.categoryName}</option>
+										</c:if>
 									</c:forEach>
 								</select> <input type="hidden" id="category" name="category" value="">
 							</div>
 							<!-- /.form-group -->
-							<div class="form-group">
+							<div class="form-group"><input type="hidden" name="itemId" value="${item.id}"/>
 								<label for="exampleInputEmail1">Item Desc.</label> <input
 									type="text" class="form-control" id="description"
-									name="description" placeholder="Enter Item Description">
+									name="description" value="${item.description}">
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -63,14 +68,12 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Name</label> <input type="text"
-									class="form-control" id="itemName" name="itemName"
-									placeholder="Enter Item Name">
+									class="form-control" id="itemName" name="itemName" value="${item.itemName}">
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">MRP(Rs.)</label> <input
-									type="text" class="form-control" id="mrp" name="mrp"
-									placeholder="Enter Price (Rs.)">
+									type="text" class="form-control" id="mrp" name="mrp" value="${item.mrp}">
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -79,34 +82,41 @@
 								<label>Status</label> <select class="form-control select3"
 									id="status" name="status" style="width: 100%;"
 									onchange="selectStatus();">
-									<option selected="selected" value="true">Active</option>
-									<option value="false">Inactive</option>
+									<c:if test="${item.active}">
+										<option selected="selected" value="true">Active</option>
+										<option value="false">Inactive</option>
+									</c:if>
+									<c:if test="${!item.active}">
+										<option value="true">Active</option>
+										<option selected="selected" value="false">Inactive</option>
+									</c:if>
 								</select> <input type="hidden" id="active" name="active" value="true">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Pack</label> <input type="text"
 									class="form-control" id="pack" name="pack"
-									placeholder="Enter Pack(Kg/Gm/ltr/ml)">
+									value="${item.pack}">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Unit Price</label> <input
 									type="text" class="form-control" id="unitPrice"
-									name="unitPrice" placeholder="Enter Offer_units">
+									name="unitPrice" value="${item.unitPrice}">
 							</div>
 							<div class="form-group">
-								<label for="text">Offer Effective Date</label>
-								 <input class="form-control" id="datepicker" name="offer-effective-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" type="text">
+								<label for="text">Offer Effective Date</label> <input
+									class="form-control" id="datepicker"
+									name="offer-effective-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" type="text">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Offer Till Date</label> <input
 									type="text" class="form-control" id="datepicker1"
-									name="offer-till-date"  data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
+									name="offer-till-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
 							</div>
-							
+
 						</div>
 						<div class="col-md-6">
 							<!-- /.form-group -->
@@ -138,13 +148,13 @@
 <!-- /.content-wrapper -->
 
 <script>
-$(function() {
-	 $('#datepicker').datepicker({
-	      autoclose: true
-	    })
-	     $('#datepicker1').datepicker({
-	      autoclose: true
-	    })
+	$(function() {
+		$('#datepicker').datepicker({
+			autoclose : true
+		}).datepicker('setDate','${item.offerEffectedBy}')
+		$('#datepicker1').datepicker({
+			autoclose : true
+		}).datepicker('setDate','${item.offerTill}')
 		var error = $('#error').val();
 		if ((error == "")) {
 		} else {
@@ -186,7 +196,7 @@ $(function() {
 									.ajax({
 										type : "POST",
 										contentType : "application/json",
-										url : "/OM/saveEditItem",
+										url : "/OM/saveItem",
 										data : JSON.stringify(formData),
 										dataType : 'json',
 										timeout : 600000,
