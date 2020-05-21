@@ -1,6 +1,9 @@
 package com.umang.springmvc.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.umang.springmvc.client.OrdersClient;
 import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.common.CommonResponseDto;
@@ -30,6 +36,8 @@ import com.umang.springmvc.model.CustomerResponse;
 import com.umang.springmvc.model.CustomerResponses;
 import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.ItemsDto;
+import com.umang.springmvc.model.SalesOrderDto;
+import com.umang.springmvc.model.SalesOrderResponses;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
 import com.umang.springmvc.webservices.ManuscriptServiceImpl;
@@ -45,10 +53,14 @@ public class CustomerController {
 	 ContactDAO contactDao;
 	 AESCryptUtils encription = new AESCryptUtils();
 	 private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
-	 
+	 OrdersClient orderClient = new OrdersClient();
 	 @RequestMapping(value = { "/customerdashboard"}, method = RequestMethod.GET)
-		public String dashboard(ModelMap model) {
-			System.out.println("Dashboard********************8");
+		public String dashboard(ModelMap model)throws JsonParseException, JsonMappingException, RuntimeException, IOException  {
+			List<SalesOrderDto> finalRecentArtifactList = new ArrayList<>();
+			SalesOrderResponses orderResponses = orderClient.getSallerOrders(null);
+			model.put("orderSize", orderResponses.getData().size());
+			finalRecentArtifactList = orderResponses.getData().stream().limit(6).collect(Collectors.toList());
+			model.put("orderList", finalRecentArtifactList);
 			return "customerdashboard";
 		}
 	 @RequestMapping(value = { "/apiCustomer"}, method = RequestMethod.GET)

@@ -1129,7 +1129,7 @@
 								varStatus="status">
 								<li><a
 									href="${pageContext.request.contextPath}/filter?id=${cat.id}"
-									onclick="#">${cat.categoryName}</a></li>
+									onclick="0">${cat.categoryName}</a></li>
 							</c:forEach>
 						</ul>
 						<!-- /.nav-tabs -->

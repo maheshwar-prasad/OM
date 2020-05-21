@@ -1,3 +1,7 @@
+ <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -52,7 +56,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Order</span>
-              <span class="info-box-number">700</span>
+              <span class="info-box-number">${orderSize}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -234,22 +238,52 @@
                 <table class="table no-margin">
                   <thead>
                   <tr>
-                    <th>Order ID</th>
-                    <th>Item</th>
+                    <th>Order No.</th>
+                    <th>Order Date</th>
                     <th>Status</th>
                     <th>Popularity</th>
                   </tr>
                   </thead>
                   <tbody>
+                  <c:forEach items="${orderList}" var="orders" varStatus="status">
                   <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="label label-success">Shipped</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
+                    <td><a href="${pageContext.request.contextPath}/orderDetails?order-number=${orders.orderNumber}">${orders.orderNumber}</a></td>
+                    <td><c:set var="date" value="${orders.orderDate}" /> <fmt:formatDate
+												type="both" value="${date}" /></td>
+					<c:choose>
+				         <c:when test="${orders.orderStatus == 'P'}">
+				          <td><span class="label label-warning">Pending</span></td>
+				           <td>
+		                     <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+		                    </td>
+				         </c:when>
+				         <c:when test="${orders.orderStatus == 'R'}">
+				          <td><span class="label label-info">Reject</span></td>
+				           <td>
+		                     <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
+		                    </td>
+				         </c:when>
+				         <c:when test="${orders.orderStatus == 'A'}">
+				          <td><span class="label label-danger">Accept</span></td>
+				           <td>
+		                     <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+		                    </td>
+				         </c:when>
+				         <c:when test="${orders.orderStatus == 'D'}">
+				          <td><span class="label label-success">Delivered</span></td>
+				           <td>
+		                   <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+		                    </td>
+				         </c:when>
+				         <c:otherwise>
+				          <td><span class="label label-success">${orders.orderStatus}</span></td>    
+				         </c:otherwise>
+				      </c:choose>
+					
+                   
                   </tr>
-                  <tr>
+                  </c:forEach>
+                  <!-- <tr>
                     <td><a href="pages/examples/invoice.html">OR1848</a></td>
                     <td>Samsung Smart TV</td>
                     <td><span class="label label-warning">Pending</span></td>
@@ -296,7 +330,7 @@
                     <td>
                       <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
-                  </tr>
+                  </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -305,7 +339,7 @@
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+              <a href="${pageContext.request.contextPath}/order" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
             </div>
             <!-- /.box-footer -->
           </div>

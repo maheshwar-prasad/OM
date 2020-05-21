@@ -44,7 +44,7 @@
 								<c:forEach items="${orderList}" var="orders" varStatus="status">
 									<tr>
 										<td><a href="${pageContext.request.contextPath}/orderDetails?order-number=${orders.orderNumber}"
-											onclick="#">${orders.orderNumber}</a></td>
+											onclick="0">${orders.orderNumber}</a></td>
 										<td>INR ${orders.totalAmount}</td>
 										<td><c:set var="date" value="${orders.orderDate}" /> <fmt:formatDate
 												type="both" value="${date}" /></td>

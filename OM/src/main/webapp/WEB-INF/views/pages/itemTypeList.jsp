@@ -43,7 +43,7 @@
                 <tr>
                   <td>${type.categoryName}</td>
                   <td>${type.displayOrder}</td>
-                  <td><i class="fa fa-fw fa-bank" onclick="javascript:edit(${type.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteUser(${type.id});"></i></td>
+                  <td><i class="fa fa-fw fa-bank" onclick="javascript:(0);"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteUser(${type.id});"></i></td>
                 </tr>
                 </c:forEach>
                 </tbody>

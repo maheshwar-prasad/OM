@@ -94,7 +94,6 @@
 	        contentType: "application/json",
 	        dataType: 'json',
 	        success: function(result){
-	            console.log(result);
 	           if(result.status=="Success"){
 	            		window.location=path;
 	            }else{

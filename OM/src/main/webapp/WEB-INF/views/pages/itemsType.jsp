@@ -65,6 +65,7 @@
 					<button type="button" onclick="insertData();"
 						class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
+					<a href="${pageContext.request.contextPath}/itemTypeList"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
 				</div>
 			</form:form>
 		</div>
