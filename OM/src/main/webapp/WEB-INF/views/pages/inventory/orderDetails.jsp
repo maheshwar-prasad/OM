@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import = "java.io.*,java.util.*" %>
 <script type="text/javascript"
 	src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
@@ -153,7 +154,7 @@
 		</div>
         <!-- /.col -->
         <div class="col-xs-6">
-          <p class="lead">Amount Due 2/22/2014</p>
+          <p class="lead">Amount Due : &#x20b9; ${total + orders.itemsDto.unitPrice } </p>
 
           <div class="table-responsive">
             <table class="table">
