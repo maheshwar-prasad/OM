@@ -126,6 +126,9 @@
 									accept="image/jpeg, image/png"> <input type="hidden"
 									id="itemImage" name="itemImage" value="">
 							</div>
+							<div class="form-group">
+								<img src="${item.imageUri}" width="150" height="150"/>
+							</div>
 						</div>
 						<!-- /.col -->
 					</div>
