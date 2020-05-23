@@ -95,7 +95,7 @@
   function edit(userId,status){
 	  
 	  var path=$('#activeItemUrl').val();
-	  var pathname = window.location.pathname;
+	  var pathname = window.location.pathname;  
 	    $.ajax({
 	        url: "/OM/permissionUpdate/" + userId+"/"+status,
 	        contentType: "application/json",

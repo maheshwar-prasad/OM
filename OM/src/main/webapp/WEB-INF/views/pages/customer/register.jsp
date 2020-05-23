@@ -9,7 +9,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="javascript:(0)"><b>Online</b>Mart</a>
+    <a href="javascript:(0)"><b>Online</b>Marts</a>
   </div>
 
   <div class="register-box-body">
@@ -69,7 +69,6 @@
 	 window.location="/OM/admin"; 
   }
  $('#btn-save').click(function(event) {
-	 alert('hello');
 	 var formData = {};
 	 formData["name"] = $("#name").val();
 	 formData["username"] = $("#mobno").val();
@@ -84,30 +83,22 @@
          dataType: 'json',
          timeout: 600000,
          success: function (data) {
-        	 alert(data);
          	if(data.status=="Success"){
-         		 var r=confirm("Data save successfully! Go to Item list");
+         		 var r=confirm("Data save successfully! Please wait for 2 hours for Approval.");
 		            	if(r==true){
-		            		window.location=itemListUrl;
+		            		window.location="/OM/admin";
 		            	}else{
 		            		$("#btn-save").prop("disabled", true);	
 		            	}
          	}else{
          		 $("#btn-save").prop("disabled", false);
-         		 alert(data.status);
+         		 alert("Please fill all field carefully.");
          	}
          },
          error: function (e) {
              $("#btn-save").prop("disabled", false);
          }
 		});
-	/*  $.ajax({
-         type: form.attr('method'), // method attribute of form
-         url: form.attr('action'),  // action attribute of form
-         dataType : 'json',
-	    // convert form data to json format
-         data : JSON.stringify(formData),
-     }); */
 	}); 
 </script>
 </body>

@@ -91,6 +91,8 @@ public class AppController {
 		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC);
 		model.put("item_categories", categoryDtos);
 		model.put("stock_list", divideList(stocRes.getData()));
+		/*model.put("specialOffer",
+				categoryDtos.parallelStream().filter(ORD -> ORD.getCategoryName().equals(9)).findFirst().get());*/
 		return new ModelAndView("home", "", "");
 	}
 
@@ -269,8 +271,8 @@ public class AppController {
 		try {
 			user = contactDao.getUser(password, "");
 			if (user == null) {
-				model.addAttribute("error", "Invalid mobile no. Please try again!");
-				return "redirect:/";
+				model.addAttribute("error", "Your mobile no. is not authorized. Please contact with Admin team!");
+				return "redirect:/admin";
 			} else {
 				session.setAttribute("user", user);
 				if (user.getUserType().equals("Admin")) {

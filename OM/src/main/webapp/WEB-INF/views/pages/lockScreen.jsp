@@ -7,7 +7,7 @@
   </div>
   <!-- User name -->
   <!-- <div class="lockscreen-name">  Error</div> -->
- <div class="lockscreen-name" id="errorValue" style="color: #f30a55;">Invalid Password. Please try again!<br /></div>
+ <div class="lockscreen-name" id="errorValue" style="color: #f30a55;">Your mobile no. is not authorized for this login. Please contact with Admin team!<br /></div>
  <div class="lockscreen-name">Online Marts<br /></div>
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
