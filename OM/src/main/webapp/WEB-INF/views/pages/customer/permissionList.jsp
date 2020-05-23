@@ -96,7 +96,6 @@
 	  
 	  var path=$('#activeItemUrl').val();
 	  var pathname = window.location.pathname;
-	  alert(' : '+userId+' :'+status);
 	    $.ajax({
 	        url: "/OM/permissionUpdate/" + userId+"/"+status,
 	        contentType: "application/json",
