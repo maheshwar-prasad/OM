@@ -8,6 +8,7 @@
 <header class="header-style-1">
 	<%
 		session = request.getSession(true);
+	
 	%>
 	<!-- ============================================== TOP MENU ============================================== -->
 	<div class="top-bar animate-dropdown">

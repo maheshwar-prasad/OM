@@ -136,7 +136,7 @@
 				</div>
 				<div class="box-footer">
 					<button type="submit" class="btn btn-primary">Submit</button>
-					<button type="reset" class="btn btn-default">Reset</button>
+					<!-- <button type="reset" class="btn btn-default">Reset</button> -->
 					<a href="${pageContext.request.contextPath}/apiItems"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
 				</div>
 				<input type="hidden" id=imagepath name="imagepath">

@@ -45,6 +45,14 @@
    	<definition name="customerdashboard" extends="customer-definition">  
        <put-attribute name="title" value="Dashboard" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
+   </definition> 
+   <definition name="member" extends="customer-definition">  
+       <put-attribute name="title" value="Member List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/memberList.jsp" />  
+   </definition>  
+   <definition name="userPermission" extends="customer-definition">  
+       <put-attribute name="title" value="Member List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/permissionList.jsp" />  
    </definition>  
    <!-- Home Page -->
    <definition name="admin" extends="login-definition">  

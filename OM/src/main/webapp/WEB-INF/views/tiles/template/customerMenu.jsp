@@ -47,6 +47,7 @@
           </a>
           <ul class="treeview-menu">
           	<li><a href="${pageContext.request.contextPath}/apiCustomer"><i class="fa fa-circle-o"></i>Customer</a></li>
+          	<li><a href="${pageContext.request.contextPath}/member"><i class="fa fa-circle-o"></i>Member</a></li>
             <li><a href="${pageContext.request.contextPath}/itemTypeList"><i class="fa fa-circle-o"></i>Item Type</a></li>
             <%-- <li><a href="${pageContext.request.contextPath}/itemType"><i class="fa fa-circle-o"></i> Item Type</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/apiItems"><i class="fa fa-book"></i> <span>Items</span></a></li>
@@ -107,7 +108,19 @@
            <li><a href="#"><i class="fa fa-circle-o"></i> SMS Configuration</a></li>
            <li><a href="#"><i class="fa fa-circle-o"></i>Page Configuration</a></li>
           </ul>
-        </li>   
+        </li> 
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-diamond"></i> <span>Permission</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+           <li><a href="${pageContext.request.contextPath}/userPermission"><i class="fa fa-circle-o"></i>Access Permission</a></li>
+          
+          </ul>
+        </li>     
         <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <!-- <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

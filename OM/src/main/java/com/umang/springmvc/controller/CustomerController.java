@@ -2,6 +2,8 @@ package com.umang.springmvc.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +58,8 @@ public class CustomerController {
 	 OrdersClient orderClient = new OrdersClient();
 	 @RequestMapping(value = { "/customerdashboard"}, method = RequestMethod.GET)
 		public String dashboard(ModelMap model)throws JsonParseException, JsonMappingException, RuntimeException, IOException  {
-			List<SalesOrderDto> finalRecentArtifactList = new ArrayList<>();
+		
+		 List<SalesOrderDto> finalRecentArtifactList = new ArrayList<>();
 			SalesOrderResponses orderResponses = orderClient.getSallerOrders(null);
 			model.put("orderSize", orderResponses.getData().size());
 			finalRecentArtifactList = orderResponses.getData().stream().limit(6).collect(Collectors.toList());
@@ -141,5 +144,38 @@ public class CustomerController {
 		}
 		return item;
 	}
+	@RequestMapping(value = { "/member"}, method = RequestMethod.GET)
+	public ModelAndView member(ModelMap model) {
+		System.out.println("**********  Member************");
+		 return new ModelAndView("member", "member", "");
+		}
+	@RequestMapping(value = { "/userPermission"}, method = RequestMethod.GET)
+	public ModelAndView userPermission(ModelMap model) {
+		System.out.println("**********  userPermission************");
+		List<AppUser> users = contactDao.userList();
+		 return new ModelAndView("userPermission", "userList", users);
+		}
 	
+	 @RequestMapping(value = EmpRestURIConstants.updateUserPermission, method = RequestMethod.GET,produces="application/json")
+		public @ResponseBody AppUser createUser(ModelMap model,@PathVariable("userId") String userId,@PathVariable("status") String status) {
+			logger.info(" Create User *********************");
+			String otp = encription.generaeOTP();
+			logger.info("Start User id ="+userId);
+			AppUser user= new AppUser();
+			try {
+				
+				int i= contactDao.updateUserData(Long.parseLong(userId), status);
+				logger.info("Data Inserted SuccessFully :"+i);
+				if(i>0) {
+					user.setStatus("Success");
+				}else {
+					user.setStatus("Fail");
+				}
+			}catch (Exception e) {
+				//e.printStackTrace();
+				user.setStatus("Fail");
+				return user;
+			}
+			return user;
+		}
 }

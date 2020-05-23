@@ -115,25 +115,31 @@ public class ContactDAOImpl implements ContactDAO {
     
     @Override
 	public int insertUserData(AppUser user) {
-		StringBuilder sb = new StringBuilder(" INSERT INTO `hms`.`appuser`(`username`,`password`,`userType`,`OTP`,`enabled`,`status`,`name`,`address1`,`companyname`)VALUES(?,?,?,?,?,?,?,?,?)");
-		return jdbcTemplate.update(sb.toString(),user.getUsername(),user.getPassword(),user.getUserType(),user.getOTP(),"1",user.getStatus(),user.getName(),user.getAddress1(),user.getCompanyName());
+		StringBuilder sb = new StringBuilder(" INSERT INTO `hms`.`appuser`(`username`,`phone`,`password`,`userType`,`OTP`,`enabled`,`status`,`name`,`address1`,`companyname`)VALUES(?,?,?,?,?,?,?,?,?,?)");
+		return jdbcTemplate.update(sb.toString(),user.getUsername(),user.getUsername(),user.getPassword(),user.getUserType(),user.getOTP(),"2",user.getStatus(),user.getName(),user.getAddress1(),user.getCompanyName());
 	}
     
     @Override
     public List<AppUser> userList() {
-    	String sql = "SELECT user_id,username,userType,OTP,created_date,status, enabled from appuser ";
+    	String sql = "SELECT user_id,name,username,companyname,userType,OTP,created_date,status,address1, enabled, phone from appuser ";
         List<AppUser> listUser= jdbcTemplate.query(sql, new RowMapper<AppUser>() {
      
             public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
             	AppUser user = new AppUser();
+            	user.setName(rs.getString("name"));
+            	user.setCompanyName(rs.getString("companyname"));
             	user.setUser_id(rs.getInt("user_id"));
         		user.setUsername(rs.getString("username"));
         		user.setUserType(rs.getString("userType"));
         		user.setOTP(rs.getString("OTP"));
+        		user.setPhone(rs.getString("phone"));
+        		user.setAddress1(rs.getString("address1"));
         		if(rs.getString("status").equals("1")) {
         			user.setStatus("Success");
+        		}else if(rs.getString("status").equals("2")) {
+        			user.setStatus("Pending");
         		}else {
-        			user.setStatus("Fail");
+        			user.setStatus("Denied");
         		}
         		user.setCreatedDate(rs.getDate("created_date"));
                 
@@ -166,8 +172,10 @@ public class ContactDAOImpl implements ContactDAO {
             		user.setOTP(rs.getString("OTP"));
             		if(rs.getString("status").equals("1")) {
             			user.setStatus("Success");
+            		}else if(rs.getString("status").equals("2")) {
+            			user.setStatus("Pending");
             		}else {
-            			user.setStatus("Fail");
+            			user.setStatus("Denied");
             		}
             		user.setCreatedDate(rs.getDate("created_date"));
             		user.setName(rs.getString("name"));
@@ -485,4 +493,9 @@ public class ContactDAOImpl implements ContactDAO {
 
     }
     
+    @Override
+	public int updateUserData(Long userId, String status) {
+		String deleteSQL = "UPDATE appuser SET status = ? WHERE user_id =?";
+		return jdbcTemplate.update(deleteSQL, status,userId);
+	}
 }

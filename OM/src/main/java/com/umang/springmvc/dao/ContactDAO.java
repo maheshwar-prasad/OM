@@ -49,4 +49,6 @@ public interface ContactDAO {
     public AppUser getUserLogin(String username, String password);
     
     public AppUser insertWebUser(AppUser user);
+    
+    public int updateUserData(Long userId, String status);
 }
