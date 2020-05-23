@@ -83,7 +83,7 @@ public class ContactDAOImpl implements ContactDAO {
     	 sql = "SELECT user_id,username,userType,OTP,created_date,status,name from appuser where username = ?  AND  OTP= ? ";
     	arr =  new Object[] {username,otp};
     	}else{
-    		 sql = "SELECT user_id,username,userType,OTP,created_date,status,name from appuser where username = ?";
+    		 sql = "SELECT user_id,username,userType,OTP,created_date,status,name from appuser where username = ? and status='1' ";
         	arr =  new Object[] {username};
     	}
         List<AppUser> userlist = jdbcTemplate.query(sql, arr, new RowMapper<AppUser>() {
