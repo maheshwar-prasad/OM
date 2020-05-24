@@ -122,7 +122,11 @@ public class AppController {
 		System.out.println("Dashboard********************8");
 		return "admin";
 	}
-
+	@RequestMapping(value = { "/CA" }, method = RequestMethod.GET)
+	public String clientlockScreen(ModelMap model) {
+		System.out.println("Dashboard********************8");
+		return "cadmin";
+	}
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
 	public String checkout(ModelMap model, HttpServletRequest request) {
 		System.out.println("checkout********************8");
@@ -279,6 +283,8 @@ public class AppController {
 					return "redirect:/dashboard";
 				} else if (user.getUserType().equals("Customer")) {
 					return "redirect:/customerdashboard";
+				}else if (user.getUserType().equals("Client")) {
+					return "redirect:/clientdashboard";
 				} else {
 					return "redirect:/dashboard";
 				}

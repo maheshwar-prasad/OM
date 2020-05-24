@@ -80,10 +80,10 @@ public class ContactDAOImpl implements ContactDAO {
     	Object[] arr = new Object[0];
     	String sql  = null;
     	if(otp != null && !otp.equals("")) {
-    	 sql = "SELECT user_id,username,userType,OTP,created_date,status,name from appuser where username = ?  AND  OTP= ? ";
+    	 sql = "SELECT user_id,username,userType,OTP,created_date,status,name,companyname from appuser where username = ?  AND  OTP= ? ";
     	arr =  new Object[] {username,otp};
     	}else{
-    		 sql = "SELECT user_id,username,userType,OTP,created_date,status,name from appuser where username = ? and status='1' ";
+    		 sql = "SELECT user_id,username,userType,OTP,created_date,status,name,companyname from appuser where username = ? and status='1' ";
         	arr =  new Object[] {username};
     	}
         List<AppUser> userlist = jdbcTemplate.query(sql, arr, new RowMapper<AppUser>() {
@@ -94,6 +94,7 @@ public class ContactDAOImpl implements ContactDAO {
             		user.setUsername(rs.getString("username"));
             		user.setUserType(rs.getString("userType"));
             		user.setOTP(rs.getString("OTP"));
+            		user.setCompanyName(rs.getString("companyname"));
             		if(rs.getString("status").equals("1")) {
             			user.setStatus("Success");
             		}else {

@@ -1,5 +1,5 @@
 <div>
-  <footer class="main-footer">
+  <footer class="main-footer" style="border-top: 3px solid blueviolet;">
     <div class="pull-right hidden-xs">
       <b>Design & Developed By </b>Maheshwari Prasad
     </div>
