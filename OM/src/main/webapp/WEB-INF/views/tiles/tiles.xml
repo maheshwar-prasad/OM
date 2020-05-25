@@ -79,6 +79,51 @@
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/client/clientItems.jsp" />  
    </definition>
+    <definition name="categoryPage" extends="client-definition">  
+       <put-attribute name="title" value="Item Type Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/itemsType.jsp" />  
+   </definition>
+   <definition name="clientItemCreate" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/createProduct.jsp" />  
+   </definition>
+   <definition name="clientEditItems" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/editItem.jsp" />  
+   </definition>
+ <!-- API ADMIN -->
+ <definition name="clientItemCreate" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/createProduct.jsp" />  
+   </definition>
+   <definition name="clientOffer" extends="client-definition">  
+       <put-attribute name="title" value="Create Offer" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/createoffer.jsp" />  
+   </definition>
+   <definition name="clientOfferList" extends="client-definition">  
+       <put-attribute name="title" value="Offers" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/offerList.jsp" />  
+   </definition>
+   <definition name="clientUpdateOffer" extends="client-definition">  
+       <put-attribute name="title" value="Update Offer" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/updateOffer.jsp" />  
+   </definition>
+   <definition name="clientOrder" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/orderList.jsp" />  
+   </definition>
+    <definition name="clientOderDetails" extends="client-definition">  
+       <put-attribute name="title" value="Order Details" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/orderDetails.jsp" />  
+   </definition>
+   <definition name="clientStock" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/stockList.jsp" />  
+   </definition>
+   <definition name="clientCreatStock" extends="client-definition">  
+       <put-attribute name="title" value="Product Creation" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/client/createStock.jsp" />  
+   </definition>
    
    
    <definition name="member" extends="customer-definition">  

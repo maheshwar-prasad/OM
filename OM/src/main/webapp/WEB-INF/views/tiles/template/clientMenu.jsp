@@ -49,7 +49,7 @@
           	<li><a href="${pageContext.request.contextPath}/clientmember"><i class="fa fa-circle-o"></i>Member</a></li>
             <li><a href="${pageContext.request.contextPath}/clientitemTypeList"><i class="fa fa-circle-o"></i>Category</a></li>
             <li><a href="${pageContext.request.contextPath}/clientItems"><i class="fa fa-book"></i> <span>Items</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/clientoffers"><i class="fa fa-circle-o"></i>Offer</a>
+            <li><a href="${pageContext.request.contextPath}/clientOffers"><i class="fa fa-circle-o"></i>Offer</a>
            </ul>
         </li>
  		 <li class="treeview">
@@ -60,7 +60,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          <li><a href="${pageContext.request.contextPath}/stock"><i class="fa fa-book"></i> <span>Stock</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/clientStock"><i class="fa fa-book"></i> <span>Stock</span></a></li>
           </ul>
         </li>
          <li class="treeview">
@@ -71,7 +71,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          <li><a href="${pageContext.request.contextPath}/order"><i class="fa fa-book"></i> <span>Order</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/clientOrder"><i class="fa fa-book"></i> <span>Order</span></a></li>
           </ul>
         </li>
 		<%-- <li class="treeview">

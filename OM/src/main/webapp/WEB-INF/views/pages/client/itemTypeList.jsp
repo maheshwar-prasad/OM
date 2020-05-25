@@ -26,7 +26,7 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><a href="${pageContext.request.contextPath}/itemType" class="btn btn-block btn-primary btn-flat">Create Category +</a></h3>
+              <h3 class="box-title"><a href="${pageContext.request.contextPath}/categoryPage" class="btn btn-block btn-primary btn-flat">Create Category +</a></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
