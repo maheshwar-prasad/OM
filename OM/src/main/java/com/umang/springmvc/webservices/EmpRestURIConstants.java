@@ -18,9 +18,9 @@ public class EmpRestURIConstants {
 	public static final String DELETE_ORDER = "/order/delete/{id}";
 	public static final String CANCEL_ORDER = "/order/cancel/{orderNo}";
 	public static final String DELETE_CUSTOMER = "/apiCustomer/rest/customer/delete/{custid}";
-	public static final String ADD_CART= "/addCart/{productId}/{productPrce}";
+	public static final String ADD_CART = "/addCart/{productId}/{productPrce}";
 	public static final String DELETE_CARD = "/deleteCart/{cartId}";
-	public static final String updateUserPermission = "/permissionUpdate/{userId}/{status}";
+	public static final String updateUserPermission = "/permissionUpdate/{userId}/{status}/{routing}";
 	public static final String CLIENT_EDIT_ITEM = "/clientItems/editItem/{itemid}";
-	
+
 }

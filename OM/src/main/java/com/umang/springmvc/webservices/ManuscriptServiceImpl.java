@@ -83,7 +83,7 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	ItemsClient client = new ItemsClient();
 	OrdersClient orderClient = new OrdersClient();
 	CustomerClient customerClient = new CustomerClient();
-	SalesOrderClient salesOrderClient= new SalesOrderClient();
+	SalesOrderClient salesOrderClient = new SalesOrderClient();
 
 	@Override
 	public ManuscriptDetail getManuscriptDetail(String manuscriptNumber, String jCode) {
@@ -370,11 +370,11 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public ItemsResponses getItemDetailList(String itemName, SortOrder sortingOrder) {
+	public ItemsResponses getItemDetailList(String itemName, SortOrder sortingOrder, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		ItemsResponses itemDetails = null;
 		try {
-			itemDetails = client.findAllSorted(itemName, sortingOrder);
+			itemDetails = client.findAllSorted(itemName, sortingOrder, routing);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -384,11 +384,11 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public ItemsResponse getSaveItem(ItemsDto itemBody) {
+	public ItemsResponse getSaveItem(ItemsDto itemBody, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		ItemsResponse itemDetails = null;
 		try {
-			itemDetails = client.save(itemBody);
+			itemDetails = client.save(itemBody, routing);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -398,7 +398,8 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public List<CommonResponseItemDto> getStockDetailList(String jCode, int startIndex, int endIndex, String status) {
+	public List<CommonResponseItemDto> getStockDetailList(String jCode, int startIndex, int endIndex, String status,
+			Integer routing) {
 		log.info("In function getManuscriptDetail");
 		List<CommonResponseItemDto> itemDetails = new ArrayList<CommonResponseItemDto>();
 		CommonResponseDto mdhp = null;
@@ -451,7 +452,8 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public List<CommonResponseItemDto> getOrderDetailList(String jCode, int startIndex, int endIndex, String status) {
+	public List<CommonResponseItemDto> getOrderDetailList(String jCode, int startIndex, int endIndex, String status,
+			Integer routing) {
 		log.info("In function getManuscriptDetail");
 		List<CommonResponseItemDto> itemDetails = new ArrayList<CommonResponseItemDto>();
 		CommonResponseDto mdhp = null;
@@ -504,10 +506,10 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public DeleteResponse deleteItem(int itemId) {
+	public DeleteResponse deleteItem(int itemId, Integer routing) {
 		DeleteResponse response = null;
 		try {
-			response = client.delete(itemId);
+			response = client.delete(itemId, routing);
 		} catch (Exception e) {
 			response.setStatusCode("Fail");
 		}
@@ -517,10 +519,10 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public DeleteResponse deleteCust(int custId) {
+	public DeleteResponse deleteCust(int custId, Integer routing) {
 		DeleteResponse response = null;
 		try {
-			response = customerClient.delete(custId);
+			response = customerClient.delete(custId, routing);
 		} catch (Exception e) {
 			response.setStatusCode("Fail");
 		}
@@ -530,7 +532,7 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder) {
+	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		/*
 		 * List<CommonResponseItemDto> itemDetails = new
@@ -539,7 +541,7 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 		CommonResponseDto mdhp = null;
 		SalesOrderResponses orderResponse = null;
 		try {
-			orderResponse = salesOrderClient.findAllSorted(itemName, sortingOrder);
+			orderResponse = salesOrderClient.findAllSorted(itemName, sortingOrder, routing);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -549,10 +551,10 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public DeleteResponse deleteOrder(int orderId) {
+	public DeleteResponse deleteOrder(int orderId, Integer routing) {
 		DeleteResponse response = null;
 		try {
-			response = orderClient.delete(orderId);
+			response = orderClient.delete(orderId, routing);
 		} catch (Exception e) {
 			response.setStatusCode("Fail");
 		}
@@ -562,10 +564,10 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public SalesOrderResponse cancelOrder(CancelOrder orderNo) {
+	public SalesOrderResponse cancelOrder(CancelOrder orderNo, Integer routing) {
 		SalesOrderResponse response = null;
 		try {
-			response = orderClient.cancelOrder(orderNo);
+			response = orderClient.cancelOrder(orderNo, routing);
 		} catch (Exception e) {
 			response.setStatusCode("Fail");
 		}
@@ -575,11 +577,11 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public CustomerResponse getSaveCustomer(CustomerDto customerBody) {
+	public CustomerResponse getSaveCustomer(CustomerDto customerBody, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		CustomerResponse customerDetails = null;
 		try {
-			customerDetails = customerClient.save(customerBody);
+			customerDetails = customerClient.save(customerBody, routing);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -589,11 +591,11 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public CustomerResponses getCustomerDetails(String sort_by, SortOrder sortOrder) {
+	public CustomerResponses getCustomerDetails(String sort_by, SortOrder sortOrder, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		CustomerResponses customerDetails = null;
 		try {
-			customerDetails = customerClient.findAllSortedByValue(sort_by, sortOrder);
+			customerDetails = customerClient.findAllSortedByValue(sort_by, sortOrder, routing);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -603,11 +605,11 @@ public class ManuscriptServiceImpl implements ManuscriptService {
 	}
 
 	@Override
-	public ItemsResponse getItemByItemId(Integer itemId, SortOrder sortingOrder) {
+	public ItemsResponse getItemByItemId(Integer itemId, SortOrder sortingOrder, Integer routing) {
 		log.info("In function getManuscriptDetail");
 		ItemsResponse itemDetails = null;
 		try {
-			itemDetails = client.findById(itemId);
+			itemDetails = client.findById(itemId, routing);
 
 		} catch (IOException e) {
 			e.printStackTrace();

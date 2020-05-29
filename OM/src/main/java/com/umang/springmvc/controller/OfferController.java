@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.client.ItemsClient;
 import com.umang.springmvc.client.OfferClient;
 import com.umang.springmvc.client.SortOrder;
+import com.umang.springmvc.entities.AppUser;
 import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponses;
 import com.umang.springmvc.model.OfferDto;
@@ -30,19 +33,21 @@ public class OfferController {
 	private ItemsClient ItemClient = new ItemsClient();
 
 	@RequestMapping(value = { "/offer" }, method = RequestMethod.GET)
-	public ModelAndView offer(ModelMap model)
+	public ModelAndView offer(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
 		List<ItemsDto> itemsList = itemlist.getData();
 		model.put("itemlist", itemsList);
 		return new ModelAndView("offer", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = { "/saveOffer" }, method = RequestMethod.POST)
-	public ModelAndView saveOffer(ModelMap model, @ModelAttribute OfferDto offer) {
+	public ModelAndView saveOffer(ModelMap model, @ModelAttribute OfferDto offer, HttpServletRequest request) {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
-			OfferResponse offerResponse = offerClient.save(offer);
-			ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC);
+			OfferResponse offerResponse = offerClient.save(offer, (user == null ? null : user.getRouting()));
+			ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
 			List<ItemsDto> itemsList = itemlist.getData();
 			model.put("status", "success");
 			model.put("itemlist", itemsList);
@@ -55,10 +60,11 @@ public class OfferController {
 	}
 
 	@RequestMapping(value = { "/updateOffer" }, method = RequestMethod.POST)
-	public ModelAndView updateOffer(ModelMap model, @ModelAttribute OfferDto offer) {
+	public ModelAndView updateOffer(ModelMap model, @ModelAttribute OfferDto offer, HttpServletRequest request) {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
-			OfferResponse offerResponse = offerClient.update(offer);
-			ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC);
+			OfferResponse offerResponse = offerClient.update(offer, (user == null ? null : user.getRouting()));
+			ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
 			List<ItemsDto> itemsList = itemlist.getData();
 			model.put("status", "success");
 			model.put("itemlist", itemsList);
@@ -71,25 +77,28 @@ public class OfferController {
 	}
 
 	@RequestMapping(value = { "/offers" }, method = RequestMethod.GET)
-	public ModelAndView offers(ModelMap model)
+	public ModelAndView offers(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC).getData());
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("offerList", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = { "/delete-offer" }, method = RequestMethod.GET)
-	public ModelAndView deleteOffer(ModelMap model, @RequestParam("id") Integer id)
+	public ModelAndView deleteOffer(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		offerClient.delete(id);
-		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC).getData());
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		offerClient.delete(id, (user == null ? null : user.getRouting()));
+		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("offerList", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = { "/get-offer" }, method = RequestMethod.GET)
-	public ModelAndView offer(ModelMap model, @RequestParam("id") Integer id)
+	public ModelAndView offer(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC);
-		OfferDto dto = offerClient.findById(id).getData();
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsResponses itemlist = ItemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		OfferDto dto = offerClient.findById(id, (user == null ? null : user.getRouting())).getData();
 		List<ItemsDto> itemsList = itemlist.getData();
 		model.put("itemlist", itemsList);
 		model.put("selected", dto.getItemsDto().getId());

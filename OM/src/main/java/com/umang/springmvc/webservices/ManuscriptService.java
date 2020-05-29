@@ -30,28 +30,30 @@ public interface ManuscriptService {
 
 	public int getyetToBeAssignedCount(String jCode, int startCount, int paginationListCount, String status);
 
-	public ItemsResponses getItemDetailList(String itemName, SortOrder sortingOrder);
+	public ItemsResponses getItemDetailList(String itemName, SortOrder sortingOrder, Integer routing);
 
-	public List<CommonResponseItemDto> getStockDetailList(String jCode, int startIndex, int endIndex, String status);
+	public List<CommonResponseItemDto> getStockDetailList(String jCode, int startIndex, int endIndex, String status,
+			Integer routing);
 
-	public List<CommonResponseItemDto> getOrderDetailList(String jCode, int startIndex, int endIndex, String status);
+	public List<CommonResponseItemDto> getOrderDetailList(String jCode, int startIndex, int endIndex, String status,
+			Integer routing);
 
-	public DeleteResponse deleteItem(int itemId);
+	public DeleteResponse deleteItem(int itemId, Integer routing);
 
-	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder);
+	public SalesOrderResponses findAllSorted(String itemName, SortOrder sortingOrder, Integer routing);
 
-	public ItemsResponse getSaveItem(ItemsDto itemBody);
+	public ItemsResponse getSaveItem(ItemsDto itemBody, Integer routing);
 
-	public DeleteResponse deleteOrder(int orderId);
+	public DeleteResponse deleteOrder(int orderId, Integer routing);
 
-	public SalesOrderResponse cancelOrder(CancelOrder orderNo);
+	public SalesOrderResponse cancelOrder(CancelOrder orderNo, Integer routing);
 
-	public CustomerResponse getSaveCustomer(CustomerDto customerBody);
+	public CustomerResponse getSaveCustomer(CustomerDto customerBody, Integer routing);
 
-	public CustomerResponses getCustomerDetails(String sort_by, SortOrder sortOrder);
+	public CustomerResponses getCustomerDetails(String sort_by, SortOrder sortOrder, Integer routing);
 
-	public DeleteResponse deleteCust(int custId);
+	public DeleteResponse deleteCust(int custId, Integer routing);
 
-	public ItemsResponse getItemByItemId(Integer itemId, SortOrder sortingOrder);
+	public ItemsResponse getItemByItemId(Integer itemId, SortOrder sortingOrder, Integer routing);
 
 }

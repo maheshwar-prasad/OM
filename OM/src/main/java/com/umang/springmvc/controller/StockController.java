@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.client.StockClient;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
+import com.umang.springmvc.entities.AppUser;
 import com.umang.springmvc.entities.CommonConstant;
 import com.umang.springmvc.model.ItemsDto;
 import com.umang.springmvc.model.ItemsResponses;
@@ -51,18 +54,20 @@ public class StockController {
 	private ItemsClient ItemClient = new ItemsClient();
 
 	@RequestMapping(value = { "/stock" }, method = RequestMethod.GET)
-	public ModelAndView stocks(ModelMap model)
+	public ModelAndView stocks(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		StockResponses res = stockClient.findAllSorted("qty", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		StockResponses res = stockClient.findAllSorted("qty", SortOrder.ASC, (user == null ? null : user.getRouting()));
 		return new ModelAndView("stock", "stocks", res.getData());
 
 	}
 
 	@RequestMapping(value = { "/creatStock" }, method = RequestMethod.GET)
-	public ModelAndView creatStock(ModelMap model)
+	public ModelAndView creatStock(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		StockResponses res = stockClient.findAllSorted("qty", SortOrder.ASC);
-		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		StockResponses res = stockClient.findAllSorted("qty", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
 		List<StockDto> stockDtos = new ArrayList<>();
 		List<ItemsDto> itemsDtos = itemlist.getData();
 		List<StockDto> availables = res.getData();
@@ -85,13 +90,15 @@ public class StockController {
 	}
 
 	@RequestMapping(value = { "/saveStock" }, method = RequestMethod.POST)
-	public ModelAndView saveStock(ModelMap model, @ModelAttribute StockForm stockForm)
+	public ModelAndView saveStock(ModelMap model, @ModelAttribute StockForm stockForm, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		StockResponses response = stockClient.updateAll(Arrays.asList(stockForm.getStock()));
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		StockResponses response = stockClient.updateAll(Arrays.asList(stockForm.getStock()), (user == null ? null : user.getRouting()));
 		if (response.getStatusCode().equals(CommonConstant.SUCCESS))
 			return new ModelAndView("redirect:stock");
 		else {
-			ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
+			ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC,
+					(user == null ? null : user.getRouting()));
 			model.put("itemlist", itemlist.getData());
 			model.put("status", "Fail");
 			return new ModelAndView("creatStock", "stock", new StockDto());

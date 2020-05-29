@@ -31,6 +31,7 @@ import com.umang.springmvc.client.ItemsClient;
 import com.umang.springmvc.client.SortOrder;
 import com.umang.springmvc.common.AESCryptUtils;
 import com.umang.springmvc.dao.ContactDAO;
+import com.umang.springmvc.entities.AppUser;
 import com.umang.springmvc.entities.CommonConstant;
 import com.umang.springmvc.entities.Item;
 import com.umang.springmvc.model.CategoryDto;
@@ -63,8 +64,10 @@ public class AdminApiController {
 	private ItemCategoryClient itemCatClient = new ItemCategoryClient();
 
 	@RequestMapping(value = { "/apiItems" }, method = RequestMethod.GET)
-	public ModelAndView apiItems(ModelMap model) {
-		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC);
+	public ModelAndView apiItems(ModelMap model, HttpServletRequest request)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
 		List<ItemsDto> itemsList = itemlist.getData();
 		return new ModelAndView("apiItems", "itemList", itemsList);
 	}
@@ -81,10 +84,12 @@ public class AdminApiController {
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		ItemsResponse itemResponse = null;
 		String path = request.getServletContext().getResource("static").getFile();
 		File item_file = new File(path + "/img/item/" + file.getOriginalFilename());
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		try (FileOutputStream fileOutputStream = new FileOutputStream(item_file)) {
 			fileOutputStream.write(file.getBytes());
@@ -102,9 +107,10 @@ public class AdminApiController {
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
-			itemResponse = itemClient.save(itemsDto);
+			itemResponse = itemClient.save(itemsDto, (user == null ? null : user.getRouting()));
 			fileOutputStream.flush();
-			FileUploadResponse fileRes = itemClient.postItemImage(itemResponse.getData().getId(), item_file);
+			FileUploadResponse fileRes = itemClient.postItemImage(itemResponse.getData().getId(), item_file,
+					(user == null ? null : user.getRouting()));
 			File rename = new File(path + "/img/item/" + fileRes.getData().getFileKey());
 			item_file.renameTo(rename);
 			item_file.delete();
@@ -121,11 +127,13 @@ public class AdminApiController {
 	}
 
 	@RequestMapping(value = EmpRestURIConstants.EDIT_ITEM, method = RequestMethod.GET)
-	public ModelAndView editItem(ModelMap model, @PathVariable("itemid") int itemid) {
+	public ModelAndView editItem(ModelMap model, @PathVariable("itemid") int itemid, HttpServletRequest request) {
 		logger.info(" editItem *********************");
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
-			model.put("types", itemCatClient.findAllSorted("category_name", SortOrder.ASC).getData());
-			return new ModelAndView("editItems", "item", itemClient.findById(itemid).getData());
+			model.put("types",
+					itemCatClient.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+			return new ModelAndView("editItems", "item", itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData());
 		} catch (Exception e) {
 			return new ModelAndView("redirect:/apiItems/editItem/" + itemid + "");
 		}
@@ -144,9 +152,11 @@ public class AdminApiController {
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		ItemsResponse itemResponse = null;
 		File item_file = null;
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		FileOutputStream fileOutputStream = null;
 		String path = request.getServletContext().getResource("static").getFile();
@@ -155,12 +165,11 @@ public class AdminApiController {
 			fileOutputStream = new FileOutputStream(item_file);
 			fileOutputStream.write(file.getBytes());
 			fileOutputStream.flush();
-			itemClient.postItemImage(id, item_file);
+			itemClient.postItemImage(id, item_file, (user == null ? null : user.getRouting()));
 			item_file.delete();
 		}
 		try {
-			ItemsDto itemsDto = new ItemsDto();
-			itemsDto.setId(id);
+			ItemsDto itemsDto = itemClient.findById(id, (user == null ? null : user.getRouting())).getData();
 			itemsDto.setActive(status);
 			itemsDto.setDescription(description);
 			itemsDto.setDisplayOrder(displayOrder);
@@ -174,7 +183,7 @@ public class AdminApiController {
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
-			itemResponse = itemClient.update(itemsDto);
+			itemResponse = itemClient.update(itemsDto, (user == null ? null : user.getRouting()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
@@ -188,10 +197,11 @@ public class AdminApiController {
 	}
 
 	@RequestMapping(value = EmpRestURIConstants.DELETE_ITEM, method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Item deleteItem(ModelMap model, @PathVariable("id") int id) {
+	public @ResponseBody Item deleteItem(ModelMap model, @PathVariable("id") int id, HttpServletRequest request) {
 		Item item = new Item();
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
-			DeleteResponse response = itemClient.delete(id);
+			DeleteResponse response = itemClient.delete(id, (user == null ? null : user.getRouting()));
 			if (response.getStatusCode().equals(CommonConstant.SUCCESS)) {
 				item.setStatus("Success");
 			} else {
@@ -211,9 +221,10 @@ public class AdminApiController {
 	}
 
 	@RequestMapping(value = "/saveItemType", method = RequestMethod.POST)
-	public ModelAndView saveItemType(ModelMap model, @Valid @ModelAttribute CategoryDto category)
-			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsCategoryResponse res = itemCatClient.save(category);
+	public ModelAndView saveItemType(ModelMap model, @Valid @ModelAttribute CategoryDto category,
+			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponse res = itemCatClient.save(category, (user == null ? null : user.getRouting()));
 		if (res.getStatusCode().equals(CommonConstant.SUCCESS))
 			return new ModelAndView("redirect:itemTypeList");
 		else

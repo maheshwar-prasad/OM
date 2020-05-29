@@ -8,8 +8,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.umang.springmvc.model.OfferDto;
 import com.umang.springmvc.model.DeleteResponse;
+import com.umang.springmvc.model.OfferDto;
 import com.umang.springmvc.model.OfferResponse;
 import com.umang.springmvc.model.OfferResponses;
 
@@ -44,99 +44,101 @@ public class OfferClient {
 
 	static final String DEACTIVE_ALL = "/sales/offer/deactive-all/{IDS}";
 
-	public OfferResponse deactive(Integer id)
+	public OfferResponse deactive(Integer id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.deactive(id, DEACTIVE);
+		String res = ClientConstant.deactive(id, DEACTIVE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponse.class);
 	}
 
-	public OfferResponses deactiveAll(Set<Integer> ID)
+	public OfferResponses deactiveAll(Set<Integer> ID, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.deactiveAll(ID, DEACTIVE_ALL);
+		String res = ClientConstant.deactiveAll(ID, DEACTIVE_ALL, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 
-	public DeleteResponse delete(Integer id)
+	public DeleteResponse delete(Integer id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.delete(id, DELETE);
+		String res = ClientConstant.delete(id, DELETE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), DeleteResponse.class);
 	}
 
-	public DeleteResponse deleteAll(Set<Integer> ID)
+	public DeleteResponse deleteAll(Set<Integer> ID, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.deleteAll(ID, DELETE_ALL);
+		String res = ClientConstant.deleteAll(ID, DELETE_ALL, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), DeleteResponse.class);
 	}
 
-	public OfferResponses findAllByValue(int page, int size, String sort_by, SortOrder sortOrder)
+	public OfferResponses findAllByValue(int page, int size, String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllByValue(page, size, sort_by, sortOrder, FIND_ALL_BY_VALUE);
+		String res = ClientConstant.findAllByValue(page, size, sort_by, sortOrder, FIND_ALL_BY_VALUE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 
 	}
 
-	public OfferResponses findAllSortedByValue(String sort_by, SortOrder sortOrder)
+	public OfferResponses findAllSortedByValue(String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllSortedByValue(sort_by, sortOrder, FIND_ALL_SORTED_BY_VALUE);
+		String res = ClientConstant.findAllSortedByValue(sort_by, sortOrder, FIND_ALL_SORTED_BY_VALUE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 
 	}
 
-	public OfferResponses findAllSorted(String sort_by, SortOrder sortOrder)
+	public OfferResponses findAllSorted(String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllSorted(sort_by, sortOrder, FIND_ALL_SORTED);
+		String res = ClientConstant.findAllSorted(sort_by, sortOrder, FIND_ALL_SORTED, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 
-	public OfferResponses getOffer(String mob, String email)
+	public OfferResponses getOffer(String mob, String email, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
 		Map<String, String> header = new HashMap<>();
 		header.put("CUST-MOB", mob);
 		header.put("CUST-EMAIL", email);
-		String res = ClientConstant.get(GET_OFFER, header);
+		String res = ClientConstant.get(GET_OFFER, header, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 
-	public OfferResponses findAll(int page, int size, String sort_by, SortOrder sortOrder)
+	public OfferResponses findAll(int page, int size, String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAll(page, size, sort_by, sortOrder, FIND_ALL);
+		String res = ClientConstant.findAll(page, size, sort_by, sortOrder, FIND_ALL, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 
 	}
 
-	public OfferResponse findById(int id)
+	public OfferResponse findById(int id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findById(id, FIND_BY_ID);
+		String res = ClientConstant.findById(id, FIND_BY_ID, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponse.class);
 	}
 
-	public OfferResponse save(OfferDto body)
+	public OfferResponse save(OfferDto body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.save(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_API);
+		String res = ClientConstant.save(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_API, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponse.class);
 	}
 
-	public OfferResponses saveAll(List<OfferDto> body)
+	public OfferResponses saveAll(List<OfferDto> body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.saveAll(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_ALL_API);
+		String res = ClientConstant.saveAll(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_ALL_API,
+				routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 
-	public OfferResponses search(String search_text)
+	public OfferResponses search(String search_text, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.search(search_text, SEARCH);
+		String res = ClientConstant.search(search_text, SEARCH, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 
-	public OfferResponse update(OfferDto body)
+	public OfferResponse update(OfferDto body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.update(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE);
+		String res = ClientConstant.update(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponse.class);
 	}
 
-	public OfferResponses updateAll(List<OfferDto> body)
+	public OfferResponses updateAll(List<OfferDto> body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL);
+		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL,
+				routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
 	}
 

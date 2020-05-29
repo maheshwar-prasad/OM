@@ -44,91 +44,94 @@ public class StockClient {
 
 	static final String DELETE_ALL = "/sales/stock/delete-all/{IDS}";
 
-	public DeleteResponse delete(Integer id)
+	public DeleteResponse delete(Integer id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.delete(id, DELETE);
+		String res = ClientConstant.delete(id, DELETE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), DeleteResponse.class);
 	}
 
-	public DeleteResponse deleteAll(Set<Integer> ID)
+	public DeleteResponse deleteAll(Set<Integer> ID, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.deleteAll(ID, DELETE_ALL);
+		String res = ClientConstant.deleteAll(ID, DELETE_ALL, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), DeleteResponse.class);
 	}
 
-	public StockResponses findAllByValue(int page, int size, String sort_by, SortOrder sortOrder)
+	public StockResponses findAllByValue(int page, int size, String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllByValue(page, size, sort_by, sortOrder, FIND_ALL_BY_VALUE);
+		String res = ClientConstant.findAllByValue(page, size, sort_by, sortOrder, FIND_ALL_BY_VALUE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 
 	}
 
-	public StockResponses findAllSortedByValue(String sort_by, SortOrder sortOrder)
+	public StockResponses findAllSortedByValue(String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllSortedByValue(sort_by, sortOrder, FIND_ALL_SORTED_BY_VALUE);
+		String res = ClientConstant.findAllSortedByValue(sort_by, sortOrder, FIND_ALL_SORTED_BY_VALUE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 
 	}
 
-	public StockResponses findAllSorted(String sort_by, SortOrder sortOrder)
+	public StockResponses findAllSorted(String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAllSorted(sort_by, sortOrder, FIND_ALL_SORTED);
+		String res = ClientConstant.findAllSorted(sort_by, sortOrder, FIND_ALL_SORTED, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 	}
 
-	public StockResponses findAll(int page, int size, String sort_by, SortOrder sortOrder)
+	public StockResponses findAll(int page, int size, String sort_by, SortOrder sortOrder, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findAll(page, size, sort_by, sortOrder, FIND_ALL);
+		String res = ClientConstant.findAll(page, size, sort_by, sortOrder, FIND_ALL, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 
 	}
 
-	public StockResponse findById(int id)
+	public StockResponse findById(int id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.findById(id, FIND_BY_ID);
+		String res = ClientConstant.findById(id, FIND_BY_ID, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponse.class);
 	}
 
-	public StockResponse save(StockDto body)
+	public StockResponse save(StockDto body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.save(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_API);
+		String res = ClientConstant.save(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_API, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponse.class);
 	}
 
-	public StockResponses saveAll(List<StockDto> body)
+	public StockResponses saveAll(List<StockDto> body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.saveAll(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_ALL_API);
+		String res = ClientConstant.saveAll(ClientConstant.getObjectMapper().writeValueAsString(body), SAVE_ALL_API,
+				routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 	}
 
-	public StockResponses search(String search_text)
+	public StockResponses search(String search_text, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.search(search_text, SEARCH);
+		String res = ClientConstant.search(search_text, SEARCH, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 	}
 
-	public StockResponse update(StockDto body)
+	public StockResponse update(StockDto body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.update(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE);
+		String res = ClientConstant.update(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponse.class);
 	}
 
-	public StockResponses updateAll(List<StockDto> body)
+	public StockResponses updateAll(List<StockDto> body, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL);
+		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL,
+				routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), StockResponses.class);
 	}
 
-	public SallingItemsResponse get() throws RuntimeException, JsonParseException, JsonMappingException, IOException {
-		String res = ClientConstant.get(GET_ITEMS, null);
+	public SallingItemsResponse get(Integer routing)
+			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
+		String res = ClientConstant.get(GET_ITEMS, null, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), SallingItemsResponse.class);
 	}
 
-	public SallingItemsResponse get(Integer cat_id)
+	public SallingItemsResponse get(Integer cat_id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
 		Map<String, String> paths = new HashMap<>();
 		paths.put(ClientConstant.CAT_ID, cat_id.toString());
-		String res = ClientConstant.get(GET_ITEMS_BY_CAT, null, paths);
+		String res = ClientConstant.get(GET_ITEMS_BY_CAT, null, paths, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), SallingItemsResponse.class);
 	}
 }

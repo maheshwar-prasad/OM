@@ -31,163 +31,170 @@ import com.umang.springmvc.webservices.ManuscriptServiceImpl;
 @Controller
 public class ApiController {
 	/**
-	 *@author Maheshwar.Prasad
+	 * @author Maheshwar.Prasad
 	 **/
 	@Autowired
-	 ManuscriptService manuscriptService; 
+	ManuscriptService manuscriptService;
 	@Autowired
-	 ContactDAO contactDao;
-	 AESCryptUtils encription = new AESCryptUtils();
-	 private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
-	 
-	 @RequestMapping(value = EmpRestURIConstants.GET_USR, method = RequestMethod.GET,produces="application/json")
-		public @ResponseBody JData getJsonData(@PathVariable("id") String empNo) {
-			String otp = encription.generaeOTP();
-			logger.info("Start getEmployee. ID="+empNo);
-			JData dataj= new JData();
-			AppUser user= new AppUser();
-			try {
-				user= contactDao.getUser(empNo,"");
-				if(user == null) {
-					user= new AppUser();
-					user.setOTP(otp);
-					user.setUsername(empNo);
-					user.setPassword(encription.encrypt(empNo));
-					user.setStatus("1");
-					int i= contactDao.insertUserData(user);
-					user= new AppUser();
-					user= contactDao.getUser(empNo,otp);
-				}
-				dataj.setStatus("true");
-				dataj.setMessage("Success");
-				dataj.setData(user);
-			}catch (Exception e) {
-				dataj.setStatus("False");
-				dataj.setMessage("Fail");
-				dataj.setData(user);
+	ContactDAO contactDao;
+	AESCryptUtils encription = new AESCryptUtils();
+	private static final Logger logger = LogManager.getLogger(ManuscriptServiceImpl.class);
+
+	@RequestMapping(value = EmpRestURIConstants.GET_USR, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody JData getJsonData(@PathVariable("id") String empNo) {
+		String otp = encription.generaeOTP();
+		logger.info("Start getEmployee. ID=" + empNo);
+		JData dataj = new JData();
+		AppUser user = new AppUser();
+		try {
+			user = contactDao.getUser(empNo, "");
+			if (user == null) {
+				user = new AppUser();
+				user.setOTP(otp);
+				user.setUsername(empNo);
+				user.setPassword(encription.encrypt(empNo));
+				user.setStatus("1");
+				int i = contactDao.insertUserData(user);
+				user = new AppUser();
+				user = contactDao.getUser(empNo, otp);
 			}
-			return dataj;
+			dataj.setStatus("true");
+			dataj.setMessage("Success");
+			dataj.setData(user);
+		} catch (Exception e) {
+			dataj.setStatus("False");
+			dataj.setMessage("Fail");
+			dataj.setData(user);
 		}
-	 
-	 @RequestMapping(value ="/addCart", method = RequestMethod.POST,produces="application/json")
-	public @ResponseBody addCartResponse addcart(@RequestBody AddCart addCart ,HttpServletResponse response, HttpServletRequest request ) {  
-			addCartResponse dataj= new addCartResponse();
-			Cookie c[]=request.getCookies(); 
-			HttpSession objHttpSession = request.getSession(true);
-			Object obj =  objHttpSession.getAttribute("user");
-			AppUser user= (AppUser)obj;
-			try {
-				if(user == null) {
-					user= new AppUser();
-					user.setUser_id(0);
-				}
-				addCart.setSessionCode(c[0].getValue());
-				addCart.setUserId(user.getUser_id());
-				int i= contactDao.insertCartData(addCart);
-				List<AddCart> cardlist =  contactDao.fetchAllAddValue(addCart.getSessionCode(),user.getUser_id(),"N", addCart.getProductId());
-				dataj.setStatus("Success");
-				dataj.setMessage("Success");
-				dataj.setAddcartData(cardlist);
-				dataj.setCount(cardlist.size());
-				double total  = 0.0;
-				double th=0.0;
-				double b= 0.0;
-				if(cardlist.size()>0) {
-					 for(int j=0; j<cardlist.size(); j++) {
-						 th= total;
-						 b = cardlist.get(j).getPrice();
-						 total  =Double.sum(th,b);  
-						
-					 }
-					 dataj.setTotalamount(total);
-				}
-			}catch (Exception e) {
-				dataj.setStatus("False");
-				dataj.setMessage("Fail");
-			}
-			return dataj;
-		}
-	 
-	 @RequestMapping(value ="/showCart", method = RequestMethod.POST,produces="application/json")
-	 public @ResponseBody addCartResponse showcart(ModelMap model  ,HttpServletResponse response, HttpServletRequest request ) {  
-			addCartResponse dataj= new addCartResponse();
-			HttpSession objHttpSession = request.getSession(true);
-			Object obj =  objHttpSession.getAttribute("user");
-			AppUser user= (AppUser)obj;
-			Cookie c[]=request.getCookies(); 
-			AddCart addCart = new AddCart();			
-			try {
-				addCart.setSessionCode(c[0].getValue());
-				if(user != null) {
-					dataj.setUser(user);	
-				}else {
-					user = new AppUser();
-					user.setName("Login");
-					dataj.setUser(user);		
-				}
-				List<AddCart> cardlist =  contactDao.fetchAllAddValue(addCart.getSessionCode(),0l,"N",addCart.getProductId());
-				dataj.setStatus("Success");
-				dataj.setMessage("Success");
-				dataj.setAddcartData(cardlist);
-				dataj.setCount(cardlist.size());
-				double total  = 0.0;
-				double th=0.0;
-				double b= 0.0;
-				if(cardlist.size()>0) {
-					 for(int i=0; i<cardlist.size(); i++) {
-						 th= total;
-						 b = cardlist.get(i).getPrice();
-						 total  =Double.sum(th,b);   
-						
-					 }
-					 dataj.setTotalamount(total);
-				}
-			}catch (Exception e) {
-				dataj.setStatus("False");
-				dataj.setMessage("Fail");
-			}
-			return dataj;
-		}
-	 @RequestMapping(value = EmpRestURIConstants.DELETE_CARD, method = RequestMethod.GET,produces="application/json")
-		public @ResponseBody addCartResponse deleteCart(ModelMap model,@PathVariable("cartId") int itemid,HttpServletResponse response, HttpServletRequest request ) {
-		 logger.info(" Delete Cart *********************");
-		 HttpSession objHttpSession = request.getSession(true);	
-		 addCartResponse dataj= new addCartResponse();
-			Cookie c[]=request.getCookies(); 
-			AddCart addCart = new AddCart();
-			Object obj =  objHttpSession.getAttribute("user");
-			AppUser user= (AppUser)obj;
-			try {
-				addCart.setSessionCode(c[0].getValue());
-				if(user!= null) {
-					dataj.setUser(user);
-				}else {
-					user= new AppUser();
-					user.setName("Login");
-					dataj.setUser(user);
-					user.setUser_id(0);
-				}
-				List<AddCart> cardlist =  contactDao.fetchAllAddValue(addCart.getSessionCode(),user.getUser_id(), "Y",itemid);
-				dataj.setStatus("Success");
-				dataj.setMessage("Success");
-				dataj.setAddcartData(cardlist);
-				dataj.setCount(cardlist.size());
-				double total  = 0.0;
-				double th=0.0;
-				double b= 0.0;
-				if(cardlist.size()>0) {
-					 for(int i=0; i<cardlist.size(); i++) {
-						 th= total;
-						 b = cardlist.get(i).getPrice();
-						 total  =Double.sum(th,b);  
-						
-					 }
-					 dataj.setTotalamount(total);
-				}
-			}catch (Exception e) {
-				dataj.setStatus("False");
-				dataj.setMessage("Fail");
-			}
-			return dataj;
-		}
+		return dataj;
 	}
+
+	@RequestMapping(value = "/addCart", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody addCartResponse addcart(@RequestBody AddCart addCart, HttpServletResponse response,
+			HttpServletRequest request) {
+		addCartResponse dataj = new addCartResponse();
+		Cookie c[] = request.getCookies();
+		HttpSession objHttpSession = request.getSession(true);
+		Object obj = objHttpSession.getAttribute("user");
+		AppUser user = (AppUser) obj;
+		try {
+			if (user == null) {
+				user = new AppUser();
+				user.setUser_id(0);
+			}
+			addCart.setSessionCode(c[0].getValue());
+			addCart.setUserId(user.getUser_id());
+			int i = contactDao.insertCartData(addCart);
+			List<AddCart> cardlist = contactDao.fetchAllAddValue(addCart.getSessionCode(), user.getUser_id(), "N",
+					addCart.getProductId());
+			dataj.setStatus("Success");
+			dataj.setMessage("Success");
+			dataj.setAddcartData(cardlist);
+			dataj.setCount(cardlist.size());
+			double total = 0.0;
+			double th = 0.0;
+			double b = 0.0;
+			if (cardlist.size() > 0) {
+				for (int j = 0; j < cardlist.size(); j++) {
+					th = total;
+					b = cardlist.get(j).getPrice();
+					total = Double.sum(th, b);
+
+				}
+				dataj.setTotalamount(total);
+			}
+		} catch (Exception e) {
+			dataj.setStatus("False");
+			dataj.setMessage("Fail");
+		}
+		return dataj;
+	}
+
+	@RequestMapping(value = "/showCart", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody addCartResponse showcart(ModelMap model, HttpServletResponse response,
+			HttpServletRequest request) {
+		addCartResponse dataj = new addCartResponse();
+		HttpSession objHttpSession = request.getSession(true);
+		Object obj = objHttpSession.getAttribute("user");
+		AppUser user = (AppUser) obj;
+		Cookie c[] = request.getCookies();
+		AddCart addCart = new AddCart();
+		try {
+			addCart.setSessionCode(c[0].getValue());
+			if (user != null) {
+				dataj.setUser(user);
+			} else {
+				user = new AppUser();
+				user.setName("Login");
+				dataj.setUser(user);
+			}
+			List<AddCart> cardlist = contactDao.fetchAllAddValue(addCart.getSessionCode(), 0l, "N",
+					addCart.getProductId());
+			dataj.setStatus("Success");
+			dataj.setMessage("Success");
+			dataj.setAddcartData(cardlist);
+			dataj.setCount(cardlist.size());
+			double total = 0.0;
+			double th = 0.0;
+			double b = 0.0;
+			if (cardlist.size() > 0) {
+				for (int i = 0; i < cardlist.size(); i++) {
+					th = total;
+					b = cardlist.get(i).getPrice();
+					total = Double.sum(th, b);
+
+				}
+				dataj.setTotalamount(total);
+			}
+		} catch (Exception e) {
+			dataj.setStatus("False");
+			dataj.setMessage("Fail");
+		}
+		return dataj;
+	}
+
+	@RequestMapping(value = EmpRestURIConstants.DELETE_CARD, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody addCartResponse deleteCart(ModelMap model, @PathVariable("cartId") int itemid,
+			HttpServletResponse response, HttpServletRequest request) {
+		logger.info(" Delete Cart *********************");
+		HttpSession objHttpSession = request.getSession(true);
+		addCartResponse dataj = new addCartResponse();
+		Cookie c[] = request.getCookies();
+		AddCart addCart = new AddCart();
+		Object obj = objHttpSession.getAttribute("user");
+		AppUser user = (AppUser) obj;
+		try {
+			addCart.setSessionCode(c[0].getValue());
+			if (user != null) {
+				dataj.setUser(user);
+			} else {
+				user = new AppUser();
+				user.setName("Login");
+				dataj.setUser(user);
+				user.setUser_id(0);
+			}
+			List<AddCart> cardlist = contactDao.fetchAllAddValue(addCart.getSessionCode(), user.getUser_id(), "Y",
+					itemid);
+			dataj.setStatus("Success");
+			dataj.setMessage("Success");
+			dataj.setAddcartData(cardlist);
+			dataj.setCount(cardlist.size());
+			double total = 0.0;
+			double th = 0.0;
+			double b = 0.0;
+			if (cardlist.size() > 0) {
+				for (int i = 0; i < cardlist.size(); i++) {
+					th = total;
+					b = cardlist.get(i).getPrice();
+					total = Double.sum(th, b);
+
+				}
+				dataj.setTotalamount(total);
+			}
+		} catch (Exception e) {
+			dataj.setStatus("False");
+			dataj.setMessage("Fail");
+		}
+		return dataj;
+	}
+}

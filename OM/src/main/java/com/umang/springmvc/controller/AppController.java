@@ -84,24 +84,28 @@ public class AppController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView homePage(ModelMap model)
+	public ModelAndView homePage(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : (user == null ? null : user.getRouting())));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
-		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC);
+		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		model.put("item_categories", categoryDtos);
 		model.put("stock_list", divideList(stocRes.getData()));
-		/*model.put("specialOffer",
-				categoryDtos.parallelStream().filter(ORD -> ORD.getCategoryName().equals(9)).findFirst().get());*/
 		return new ModelAndView("home", "", "");
 	}
 
 	@RequestMapping(value = "/filter", method = RequestMethod.GET)
-	public ModelAndView itemByCat(ModelMap model, @RequestParam("id") Integer id)
+	public ModelAndView itemByCat(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
-		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC);
+		StockResponses stocRes = stockClient.findAllSortedByValue("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		model.put("item_categories", categoryDtos);
 		List<StockDto> stockDtos = stocRes.getData();
 		model.put("stock_list", divideList(stockDtos.parallelStream()
@@ -110,9 +114,10 @@ public class AppController {
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public ModelAndView itemDetailt(ModelMap model, @RequestParam("id") Integer id)
+	public ModelAndView itemDetailt(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		StockResponse stocRes = stockClient.findById(id);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		StockResponse stocRes = stockClient.findById(id, (user == null ? null : user.getRouting()));
 		model.put("stock", stocRes.getData());
 		return new ModelAndView("detail", "stock", stocRes.getData());
 	}
@@ -122,11 +127,13 @@ public class AppController {
 		System.out.println("Dashboard********************8");
 		return "admin";
 	}
+
 	@RequestMapping(value = { "/CA" }, method = RequestMethod.GET)
 	public String clientlockScreen(ModelMap model) {
 		System.out.println("Dashboard********************8");
 		return "cadmin";
 	}
+
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
 	public String checkout(ModelMap model, HttpServletRequest request) {
 		System.out.println("checkout********************8");
@@ -218,10 +225,11 @@ public class AppController {
 	}
 
 	@RequestMapping(value = { "/itemTypeList" }, method = RequestMethod.GET)
-	public ModelAndView itemTypeList(ModelMap model)
+	public ModelAndView itemTypeList(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		System.out.println("activeUser *********************");
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		return new ModelAndView("itemTypeList", "itemTypeList", categoryDtos);
 	}
@@ -271,7 +279,6 @@ public class AppController {
 	@RequestMapping("/index")
 	public String handle(ModelMap model, @RequestParam String password, @ModelAttribute("appUser") AppUser user,
 			HttpSession session) {
-		// AppUser user= new AppUser();
 		try {
 			user = contactDao.getUser(password, "");
 			if (user == null) {
@@ -283,7 +290,7 @@ public class AppController {
 					return "redirect:/dashboard";
 				} else if (user.getUserType().equals("Customer")) {
 					return "redirect:/customerdashboard";
-				}else if (user.getUserType().equals("Client")) {
+				} else if (user.getUserType().equals("Client")) {
 					return "redirect:/clientdashboard";
 				} else {
 					return "redirect:/dashboard";
@@ -362,13 +369,6 @@ public class AppController {
 
 			String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/views/appImage/");
 			Path file = Paths.get(dataDirectory, item.getImagepath());
-			/*
-			 * if (!Files.exists(file)) { response.setContentType("application/jpeg");
-			 * response.addHeader("Content-Disposition", "attachment; filename="+"mp.jpeg");
-			 * try { Files.copy(file, response.getOutputStream());
-			 * response.getOutputStream().flush(); } catch (IOException ex) {
-			 * ex.printStackTrace(); } }
-			 */
 			long result = contactDao.saveItem(item);
 			if (result > 0) {
 				iteamValue.setStatus("Success");
@@ -385,17 +385,6 @@ public class AppController {
 		return iteamValue;
 	}
 
-	/*
-	 * @RequestMapping(value=EmpRestURIConstants.GET_ITEMLIST,
-	 * method=RequestMethod.GET ,produces="application/json")
-	 * 
-	 * @ResponseBody public List<AppItemList> appitemlist(@PathVariable("category")
-	 * String category,ModelMap model) { List<AppItemList> itemList=
-	 * contactDao.appitemList(category,0);
-	 * 
-	 * System.out.println("Item Name :"+itemList.size()); itemList.addAll(itemList);
-	 * return itemList; }
-	 */
 	@RequestMapping(value = EmpRestURIConstants.GET_ITEMLIST, produces = "application/json")
 	public ResponseEntity<ItemListWithCategory> appitemlist(@PathVariable("category") String category) {
 		List<AppItemList> itemList = contactDao.appitemList(category, 0);
@@ -444,9 +433,11 @@ public class AppController {
 	 * @throws JsonParseException
 	 */
 	@RequestMapping(value = { "/itemCreate" }, method = RequestMethod.GET)
-	public ModelAndView itemCreate(ModelMap model, @ModelAttribute("item") ItemsDto item)
+	public ModelAndView itemCreate(ModelMap model, @ModelAttribute("item") ItemsDto item, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
-		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC);
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponses categoryResponses = itemCatClient.findAllSorted("category_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<CategoryDto> categoryDtos = categoryResponses.getData();
 		return new ModelAndView("itemCreate", "types", categoryDtos);
 	}

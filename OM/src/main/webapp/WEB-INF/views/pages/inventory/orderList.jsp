@@ -47,7 +47,7 @@
 											onclick="0">${orders.orderNumber}</a></td>
 										<td>INR ${orders.totalAmount}</td>
 										<td><c:set var="date" value="${orders.orderDate}" /> <fmt:formatDate
-												type="both" value="${date}" /></td>
+												type="date" value="${date}" /></td>
 										<td>${orders.orderStatus}</td>
 										<td><i class="fa fa-fw fa-bank"
 											onclick="javascript:cancelOrder(${orders.orderNumber});"></i>

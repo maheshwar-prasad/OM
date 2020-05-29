@@ -1,7 +1,7 @@
 package com.umang.springmvc.model;
 
 public enum OrderStatus {
-	R("Rejected"), P("Pending"), A("Approved"), D("Delivered");
+	C("Cancelled"), R("Rejected"), P("Pending"), A("Accepted"), D("Delivered");
 
 	String type;
 
