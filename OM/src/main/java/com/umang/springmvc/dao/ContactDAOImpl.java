@@ -117,7 +117,7 @@ public class ContactDAOImpl implements ContactDAO {
 	@Override
 	public int insertUserData(AppUser user) {
 		StringBuilder sb = new StringBuilder(
-				" INSERT INTO `hms`.`appuser`(`username`,`phone`,`password`,`userType`,`OTP`,`enabled`,`status`,`name`,`address1`,`companyname`, 'routing') VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+				" INSERT INTO `hms`.`appuser`(`username`,`phone`,`password`,`userType`,`OTP`,`enabled`,`status`,`name`,`address1`,`companyname`,`routing`) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 		return jdbcTemplate.update(sb.toString(), user.getUsername(), user.getUsername(), user.getPassword(),
 				user.getUserType(), user.getOTP(), "1", "2", user.getName(), user.getAddress1(), user.getCompanyName(),
 				8119);
