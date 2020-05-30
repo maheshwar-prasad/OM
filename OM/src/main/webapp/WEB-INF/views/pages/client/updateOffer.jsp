@@ -65,7 +65,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationFrom" value="${fromDate}"
+									<form:input path="durationFrom"
 										class="form-control pull-right dateinput" id="datepicker1"
 										placeholder="dd/mm/yyyy" name="durationFrom" />
 								</div>
@@ -100,10 +100,12 @@
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
 										<c:if test="${item.id == selected}">
-											<option value="${item.id}" selected="selected">${item.itemName}</option>
+											<option value="${item.id}" selected="selected">${item.itemName}
+												(${item.pack})</option>
 										</c:if>
 										<c:if test="${item.id != selected}">
-											<option value="${item.id}">${item.itemName}</option>
+											<option value="${item.id}">${item.itemName}
+												(${item.pack})</option>
 										</c:if>
 									</c:forEach>
 								</form:select>
@@ -118,9 +120,8 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationTo" value="${toDate}"
-										class="form-control pull-right" id="datepicker"
-										placeholder="dd/mm/yyyy" name="durationTo" />
+									<form:input path="durationTo" class="form-control pull-right"
+										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo" />
 								</div>
 								<div class="form-group">
 									<label>Status</label> <select class="form-control select3"
@@ -155,10 +156,10 @@
 	$(document).ready(function() {
 		$('#datepicker').datepicker({
 			autoclose : true
-		})
+		}).datepicker('setDate', '${toDate}')
 		$('#datepicker1').datepicker({
 			autoclose : true
-		})
+		}).datepicker('setDate', '${fromDate}')
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");

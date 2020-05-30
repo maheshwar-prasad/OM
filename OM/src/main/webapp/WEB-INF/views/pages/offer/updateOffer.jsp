@@ -88,10 +88,10 @@
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
 										<c:if test="${item.id == selected}">
-										<option value="${item.id}" selected="selected">${item.itemName}</option>
+										<option value="${item.id}" selected="selected">${item.itemName} (${item.pack})</option>
 										</c:if>
 										<c:if test="${item.id != selected}">
-											<option value="${item.id}">${item.itemName}</option>
+											<option value="${item.id}">${item.itemName} (${item.pack})</option>
 										</c:if>
 									</c:forEach>
 								</form:select>

@@ -96,7 +96,7 @@
 									onchange="selectCategory();">
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName}</option>
+										<option value="${item.id}">${item.itemName} (${item.pack})</option>
 									</c:forEach>
 								</form:select>
 							</div>
