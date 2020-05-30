@@ -36,7 +36,7 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/updateOffer" id="offerForm">
+				action="${pageContext.request.contextPath}/clientUpdateOffer" id="offerForm">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
