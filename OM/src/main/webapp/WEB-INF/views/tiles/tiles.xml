@@ -43,7 +43,23 @@
        <put-attribute name="menu" value="/WEB-INF/views/tiles/template/clientMenu.jsp" />  
        <put-attribute name="body" value="" />  
        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
-   </definition>  
+   </definition>
+    <definition name="hospitallogin-definition" 
+       template="/WEB-INF/views/tiles/layouts/hospitalLoginLayout.jsp">  
+       <put-attribute name="title" value="Hospital Dashboard" />  
+       <put-attribute name="header" value="" />  
+       <put-attribute name="menu" value="" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="" />  
+   </definition> 
+   <definition name="hospital-definition" 
+       template="/WEB-INF/views/tiles/layouts/hospitalLayout.jsp">  
+       <put-attribute name="title" value="Hospital Dashboard" />  
+       <put-attribute name="header" value="/WEB-INF/views/tiles/template/hospitalHeader.jsp" />  
+       <put-attribute name="menu" value="/WEB-INF/views/tiles/template/hospitalMenu.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/tiles/template/hospitalFooter.jsp" />  
+   </definition>    
      <!-- Admin dashboard  -->
       <definition name="dashboard" extends="base-definition">  
        <put-attribute name="title" value="Dashboard" />  
@@ -54,6 +70,24 @@
        <put-attribute name="title" value="Dashboard" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />  
    </definition> 
+   <!--  Hospital  Dashboard -->
+     <definition name="hospitaldashboard" extends="hospital-definition">  
+       <put-attribute name="title" value="Dashboard" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/hospital/home.jsp" />  
+   </definition> 
+    <definition name="hospitalLogin" extends="hospitallogin-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/hospital/login.jsp" />
+   </definition>
+   <definition name="signUp" extends="hospitallogin-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/hospital/signUp.jsp" />
+   </definition>
+    <definition name="recoveryPassword" extends="hospitallogin-definition">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/hospital/recoveryPassword.jsp" />
+   </definition>
+   
    <!-- Client Dshboard -->
    <definition name="clientdashboard" extends="client-definition">  
        <put-attribute name="title" value="Dashboard" />  
@@ -112,7 +146,7 @@
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/client/orderList.jsp" />  
    </definition>
-    <definition name="clientOderDetails" extends="client-definition">  
+    <definition name="clientOrderDetails" extends="client-definition">  
        <put-attribute name="title" value="Order Details" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/client/orderDetails.jsp" />  
    </definition>

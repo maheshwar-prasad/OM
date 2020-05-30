@@ -420,8 +420,23 @@ public class AppController {
 
 	@RequestMapping("/invalidate")
 	public String destroySession(HttpServletRequest request) {
-		request.getSession().invalidate();
-		return "redirect:/";
+		AppUser user =(AppUser)request.getSession().getAttribute("user");
+		System.out.println("**********->"+user.getUserType());
+		if(user.getUserType().equals("Client")) {
+			user= new AppUser();
+			request.getSession().invalidate();
+			return "redirect:/CA";
+		}else if(user.getUserType().equals("Customer")){
+			user= new AppUser();
+			request.getSession().invalidate();
+			return "redirect:/admin";
+		}else {
+			return "redirect:/";
+		}
+		//request.getSession().invalidate();
+		
+		//user= new AppUser();
+		//return "redirect:/";
 	}
 
 	/**

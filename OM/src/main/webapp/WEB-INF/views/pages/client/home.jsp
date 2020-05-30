@@ -249,7 +249,7 @@
                   <tbody>
                   <c:forEach items="${orderList}" var="orders" varStatus="status">
                   <tr>
-                    <td><a href="${pageContext.request.contextPath}/orderDetails?order-number=${orders.orderNumber}">${orders.orderNumber}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/clientOrderDetails?order-number=${orders.orderNumber}">${orders.orderNumber}</a></td>
                     <td><c:set var="date" value="${orders.orderDate}" /> <fmt:formatDate
 												type="both" value="${date}" /></td>
 					<c:choose>
@@ -341,7 +341,7 @@
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-              <a href="${pageContext.request.contextPath}/order" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+              <a href="${pageContext.request.contextPath}/clientOrder" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
             </div>
             <!-- /.box-footer -->
           </div>

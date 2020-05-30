@@ -66,10 +66,11 @@
 										</c:choose>
 
 										<td>${user.createdDate}</td>
-										<td><select name="routing${user.user_id}"
+										<td>${user.routing}</td>
+										 <%-- <td><select name="routing${user.user_id}"
 											id="routing${user.user_id}"><option
 													selected="selected" value="8119">8119</option>
-												<option value="8118">8118</option></select></td>
+												<option value="8118">8118</option></select></td> --%>
 										<td><span class="label label-success"
 											onclick="javascript:edit(${user.user_id},'1');">Approved</span>&nbsp;<span
 											class="label label-warning"

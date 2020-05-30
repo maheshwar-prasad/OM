@@ -66,7 +66,7 @@
     });
   });
   function goToLogin(){
-	 window.location="/OM/admin"; 
+	 window.location="/OM/CA"; 
   }
  $('#btn-save').click(function(event) {
 	 var formData = {};
@@ -86,7 +86,7 @@
          	if(data.status=="Success"){
          		 var r=confirm("Data save successfully! Please wait for 2 hours for Approval.");
 		            	if(r==true){
-		            		window.location="/OM/admin";
+		            		window.location="/OM/CA";
 		            	}else{
 		            		$("#btn-save").prop("disabled", true);	
 		            	}

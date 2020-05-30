@@ -105,6 +105,12 @@ public class CustomerController {
 			user.setPassword(encription.encrypt(appuser.getUsername()));
 			user.setUserType(appuser.getUserType());
 			user.setCompanyName(appuser.getCompanyName());
+			if(appuser.getUserType().equals("Client")) {
+				user.setRouting(8118);	
+			}else {
+				user.setRouting(8119);
+			}
+			
 			int i = contactDao.insertUserData(user);
 			logger.info("Data Inserted SuccessFully :" + i);
 			if (i > 0) {

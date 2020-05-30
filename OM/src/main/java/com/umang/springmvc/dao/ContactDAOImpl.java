@@ -120,12 +120,12 @@ public class ContactDAOImpl implements ContactDAO {
 				" INSERT INTO `hms`.`appuser`(`username`,`phone`,`password`,`userType`,`OTP`,`enabled`,`status`,`name`,`address1`,`companyname`,`routing`) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 		return jdbcTemplate.update(sb.toString(), user.getUsername(), user.getUsername(), user.getPassword(),
 				user.getUserType(), user.getOTP(), "1", "2", user.getName(), user.getAddress1(), user.getCompanyName(),
-				8119);
+				user.getRouting());
 	}
 
 	@Override
 	public List<AppUser> userList() {
-		String sql = "SELECT user_id,name,username,companyname,userType,OTP,created_date,status,address1, enabled, phone from appuser ";
+		String sql = "SELECT user_id,name,username,companyname,userType,OTP,created_date,status,address1, enabled, phone,routing from appuser ";
 		List<AppUser> listUser = jdbcTemplate.query(sql, new RowMapper<AppUser>() {
 
 			public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -146,7 +146,7 @@ public class ContactDAOImpl implements ContactDAO {
 					user.setStatus("Denied");
 				}
 				user.setCreatedDate(rs.getDate("created_date"));
-
+				user.setRouting(rs.getInt("routing"));
 				return user;
 			}
 
