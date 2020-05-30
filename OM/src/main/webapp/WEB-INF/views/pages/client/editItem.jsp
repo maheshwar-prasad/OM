@@ -36,7 +36,7 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/clientSaveItem"
+				action="${pageContext.request.contextPath}/clientEditSaveItem"
 				modelAttribute="itemCreate" enctype="multipart/form-data">
 				<div class="box-body">
 					<div class="row">

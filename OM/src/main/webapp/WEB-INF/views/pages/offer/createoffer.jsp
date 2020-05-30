@@ -55,7 +55,7 @@
 								</form:select>
 							</div>
 							<!-- /.form-group -->
-							
+
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -78,8 +78,8 @@
 							<!-- /.form-group -->
 						</div>
 						<div class="col-md-6">
-						<div class="form-group">
-							<label>Duration From:</label>
+							<div class="form-group">
+								<label>Duration From:</label>
 
 								<div class="input-group date">
 									<div class="input-group-addon">
@@ -101,7 +101,16 @@
 								</form:select>
 							</div>
 						</div>
-
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Status</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected" value="true">Active</option>
+									<option value="false">Inactive</option>
+								</select> <input type="hidden" id="active" name="active" value="true">
+							</div>
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Duration To:</label>
@@ -132,7 +141,10 @@
 					<button type="submit" onclick="insertData();" id="btn-save"
 						class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
-					<a href="${pageContext.request.contextPath}/offers"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
+					<a href="${pageContext.request.contextPath}/offers"><button
+							type="button"
+							style="background-color: firebrick !important; color: white"
+							class="btn btn-default" onclick="">Back</button></a>
 				</div>
 			</form:form>
 		</div>
@@ -145,12 +157,12 @@
 <!-- /.content-wrapper -->
 <script>
 	$(document).ready(function() {
-		 $('#datepicker').datepicker({
-		      autoclose: true
-		    })
-		     $('#datepicker1').datepicker({
-		      autoclose: true
-		    })
+		$('#datepicker').datepicker({
+			autoclose : true
+		})
+		$('#datepicker1').datepicker({
+			autoclose : true
+		})
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");

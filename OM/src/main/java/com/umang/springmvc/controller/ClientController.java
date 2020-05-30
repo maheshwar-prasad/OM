@@ -85,7 +85,8 @@ public class ClientController {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 
 		List<SalesOrderDto> finalRecentArtifactList = new ArrayList<>();
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		model.put("orderSize", orderResponses.getData().size());
 		finalRecentArtifactList = orderResponses.getData().stream().limit(6).collect(Collectors.toList());
 		model.put("orderList", finalRecentArtifactList);
@@ -118,7 +119,8 @@ public class ClientController {
 	@RequestMapping(value = { "/clientItems" }, method = RequestMethod.GET)
 	public ModelAndView clientItems(ModelMap model, HttpServletRequest request) {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<ItemsDto> itemsList = itemlist.getData();
 		return new ModelAndView("clientItems", "itemList", itemsList);
 	}
@@ -209,7 +211,9 @@ public class ClientController {
 		logger.info(" editItem *********************");
 		try {
 			model.put("types",
-					itemCatClient.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+					itemCatClient
+							.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting()))
+							.getData());
 			return new ModelAndView("clientEditItems", "item",
 					itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData());
 		} catch (Exception e) {
@@ -247,7 +251,7 @@ public class ClientController {
 			item_file.delete();
 		}
 		try {
-			ItemsDto itemsDto = new ItemsDto();
+			ItemsDto itemsDto = itemClient.findById(id, (user == null ? null : user.getRouting())).getData();
 			itemsDto.setId(id);
 			itemsDto.setActive(status);
 			itemsDto.setDescription(description);
@@ -282,7 +286,8 @@ public class ClientController {
 	public ModelAndView offer(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<ItemsDto> itemsList = itemlist.getData();
 		model.put("itemlist", itemsList);
 		return new ModelAndView("clientOffer", "offer", new OfferDto());
@@ -293,7 +298,8 @@ public class ClientController {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
 			OfferResponse offerResponse = offerClient.save(offer, (user == null ? null : user.getRouting()));
-			ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+			ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
+					(user == null ? null : user.getRouting()));
 			List<ItemsDto> itemsList = itemlist.getData();
 			model.put("status", "success");
 			model.put("itemlist", itemsList);
@@ -310,7 +316,8 @@ public class ClientController {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
 			OfferResponse offerResponse = offerClient.update(offer, (user == null ? null : user.getRouting()));
-			ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+			ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
+					(user == null ? null : user.getRouting()));
 			List<ItemsDto> itemsList = itemlist.getData();
 			model.put("status", "success");
 			model.put("itemlist", itemsList);
@@ -319,14 +326,15 @@ public class ClientController {
 			model.addAttribute("error", "Fail");
 		}
 
-		return new ModelAndView("redirect:clientSaveOffer");
+		return new ModelAndView("redirect:clientOffers");
 	}
 
 	@RequestMapping(value = { "/clientOffers" }, method = RequestMethod.GET)
 	public ModelAndView offers(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+		model.put("offer_list", offerClient
+				.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("clientOfferList", "offer", new OfferDto());
 	}
 
@@ -335,7 +343,8 @@ public class ClientController {
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		offerClient.delete(id, (user == null ? null : user.getRouting()));
-		model.put("offer_list", offerClient.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+		model.put("offer_list", offerClient
+				.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("clientOfferList", "offer", new OfferDto());
 	}
 
@@ -343,7 +352,8 @@ public class ClientController {
 	public ModelAndView offer(ModelMap model, @RequestParam("id") Integer id, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		OfferDto dto = offerClient.findById(id, (user == null ? null : user.getRouting())).getData();
 		List<ItemsDto> itemsList = itemlist.getData();
 		model.put("itemlist", itemsList);
@@ -360,7 +370,8 @@ public class ClientController {
 	public ModelAndView order(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		return new ModelAndView("clientOrder", "orderList", orderResponses.getData());
 
 	}
@@ -369,7 +380,8 @@ public class ClientController {
 	public ModelAndView orderDetails(ModelMap model, @RequestParam("order-number") String orderNumber,
 			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		List<SalesOrderDto> dtos = orderResponses.getData();
 		model.put("orderDetail",
 				dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst().get());
@@ -387,7 +399,8 @@ public class ClientController {
 		cancelOrder.setOrderNo(orderNumber);
 		cancelOrder.setRemarks(remarks);
 
-		model.put("orderDetail", orderClient.cancelOrder(cancelOrder, (user == null ? null : user.getRouting())).getData());
+		model.put("orderDetail",
+				orderClient.cancelOrder(cancelOrder, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -397,7 +410,8 @@ public class ClientController {
 			@RequestParam(value = "remarks", required = false, defaultValue = "Accepted") String remarks,
 			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		List<SalesOrderDto> dtos = orderResponses.getData();
 		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
 				.get();
@@ -414,7 +428,8 @@ public class ClientController {
 			@RequestParam(value = "remarks", required = false, defaultValue = "Dilivered") String remarks,
 			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		List<SalesOrderDto> dtos = orderResponses.getData();
 		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
 				.get();
@@ -430,7 +445,8 @@ public class ClientController {
 	public ModelAndView deleteOrder(ModelMap model, @RequestParam("order-number") String orderNumber,
 			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null, (user == null ? null : user.getRouting()));
+		SalesOrderResponses orderResponses = orderClient.getSallerOrders(null,
+				(user == null ? null : user.getRouting()));
 		List<SalesOrderDto> dtos = orderResponses.getData();
 		SalesOrderDto dto = dtos.parallelStream().filter(ORD -> ORD.getOrderNumber().equals(orderNumber)).findFirst()
 				.get();
@@ -456,7 +472,8 @@ public class ClientController {
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		StockResponses res = stockClient.findAllSorted("qty", SortOrder.ASC, (user == null ? null : user.getRouting()));
-		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<StockDto> stockDtos = new ArrayList<>();
 		List<ItemsDto> itemsDtos = itemlist.getData();
 		List<StockDto> availables = res.getData();
@@ -482,7 +499,8 @@ public class ClientController {
 	public ModelAndView saveStock(ModelMap model, @ModelAttribute StockForm stockForm, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		StockResponses response = stockClient.updateAll(Arrays.asList(stockForm.getStock()), (user == null ? null : user.getRouting()));
+		StockResponses response = stockClient.updateAll(Arrays.asList(stockForm.getStock()),
+				(user == null ? null : user.getRouting()));
 		if (response.getStatusCode().equals(CommonConstant.SUCCESS))
 			return new ModelAndView("redirect:stock");
 		else {

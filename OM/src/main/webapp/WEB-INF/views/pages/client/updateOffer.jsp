@@ -36,14 +36,15 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/clientUpdateOffer" id="offerForm">
+				action="${pageContext.request.contextPath}/clientUpdateOffer"
+				id="offerForm">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Offer Name.</label>
-								<form:hidden path="duration"/>
-								<form:hidden path="id"/>
+								<form:hidden path="duration" />
+								<form:hidden path="id" />
 								<form:input type="text" class="form-control" id="offerName"
 									name="offerName" path="offerName"
 									placeholder="Enter Offer Name." />
@@ -58,14 +59,15 @@
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-							<label>Duration From:</label>
+								<label>Duration From:</label>
 
 								<div class="input-group date">
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationFrom" value="${fromDate}" class="form-control pull-right dateinput"
-										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom"/>
+									<form:input path="durationFrom" value="${fromDate}"
+										class="form-control pull-right dateinput" id="datepicker1"
+										placeholder="dd/mm/yyyy" name="durationFrom" />
 								</div>
 							</div>
 							<!-- /.form-group -->
@@ -98,7 +100,7 @@
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
 										<c:if test="${item.id == selected}">
-										<option value="${item.id}" selected="selected">${item.itemName}</option>
+											<option value="${item.id}" selected="selected">${item.itemName}</option>
 										</c:if>
 										<c:if test="${item.id != selected}">
 											<option value="${item.id}">${item.itemName}</option>
@@ -116,10 +118,18 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationTo" value="${toDate}" class="form-control pull-right"
-										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo"/>
+									<form:input path="durationTo" value="${toDate}"
+										class="form-control pull-right" id="datepicker"
+										placeholder="dd/mm/yyyy" name="durationTo" />
 								</div>
-								<!-- /.input group -->
+								<div class="form-group">
+									<label>Status</label> <select class="form-control select3"
+										id="status" name="status" style="width: 100%;"
+										onchange="selectStatus();">
+										<option selected="selected" value="true">Active</option>
+										<option value="false">Inactive</option>
+									</select> <input type="hidden" id="active" name="active" value="true">
+								</div>
 							</div>
 
 						</div>
@@ -143,12 +153,12 @@
 <!-- /.content-wrapper -->
 <script>
 	$(document).ready(function() {
-		 $('#datepicker').datepicker({
-		      autoclose: true
-		    })
-		     $('#datepicker1').datepicker({
-		      autoclose: true
-		    })
+		$('#datepicker').datepicker({
+			autoclose : true
+		})
+		$('#datepicker1').datepicker({
+			autoclose : true
+		})
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");
