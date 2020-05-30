@@ -36,7 +36,7 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/saveOffer" id="offerForm">
+				action="${pageContext.request.contextPath}/clientSaveOffer" id="offerForm">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
@@ -55,17 +55,7 @@
 								</form:select>
 							</div>
 							<!-- /.form-group -->
-							<div class="form-group">
-							<label>Duration From:</label>
-
-								<div class="input-group date">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input type="text" class="form-control pull-right dateinput"
-										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom">
-								</div>
-							</div>
+							
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -88,21 +78,7 @@
 							<!-- /.form-group -->
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
-								<label>Select Item</label>
-								<form:select class="form-control select2" id="itemName"
-									style="width: 100%;" path="itemsDto.id"
-									onchange="selectCategory();">
-									<option selected="selected">Select Item Name</option>
-									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName}</option>
-									</c:forEach>
-								</form:select>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
+						<div class="form-group">
 								<label>Duration To:</label>
 
 								<div class="input-group date">
@@ -114,7 +90,41 @@
 								</div>
 								<!-- /.input group -->
 							</div>
+							<div class="form-group">
+								<label>Select Item</label>
+								<form:select class="form-control select2" id="itemName"
+									style="width: 100%;" path="itemsDto.id"
+									onchange="selectCategory();">
+									<option selected="selected">Select Item Name</option>
+									<c:forEach items="${itemlist}" var="item" varStatus="status">
+										<option value="${item.id}">${item.itemName}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+							
+						</div>
 
+						<div class="col-md-6">
+						<div class="form-group">
+							<label>Duration From:</label>
+
+								<div class="input-group date">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control pull-right dateinput"
+										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom">
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Status</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected" value="true">Active</option>
+									<option value="false">Inactive</option>
+								</select> <input type="hidden" id="active" name="active" value="true">
+							</div>
+							
 						</div>
 						<!-- /.col -->
 					</div>

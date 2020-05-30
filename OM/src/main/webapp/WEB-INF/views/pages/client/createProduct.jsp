@@ -182,8 +182,7 @@ $(function() {
 							var pathname = window.location.pathname;
 							var filePath = $('input[type=file]').val();
 
-							$
-									.ajax({
+							$.ajax({
 										type : "POST",
 										contentType : "application/json",
 										url : "/OM/saveItem",

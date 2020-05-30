@@ -57,17 +57,7 @@
 								</form:select>
 							</div>
 							<!-- /.form-group -->
-							<div class="form-group">
-							<label>Duration From:</label>
-
-								<div class="input-group date">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<form:input path="durationFrom" value="${fromDate}" class="form-control pull-right dateinput"
-										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom"/>
-								</div>
-							</div>
+							
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -106,6 +96,17 @@
 									</c:forEach>
 								</form:select>
 							</div>
+							<div class="form-group">
+							<label>Duration From:</label>
+
+								<div class="input-group date">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<form:input path="durationFrom" value="${fromDate}" class="form-control pull-right dateinput"
+										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom"/>
+								</div>
+							</div>
 						</div>
 
 						<div class="col-md-6">
@@ -121,7 +122,14 @@
 								</div>
 								<!-- /.input group -->
 							</div>
-
+							<div class="form-group">
+								<label>Status</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected" value="true">Active</option>
+									<option value="false">Inactive</option>
+								</select> <input type="hidden" id="active" name="active" value="true">
+							</div>
 						</div>
 						<!-- /.col -->
 					</div>
