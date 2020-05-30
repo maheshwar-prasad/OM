@@ -124,19 +124,16 @@ public class AppController {
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
 	public String lockScreen(ModelMap model) {
-		System.out.println("Dashboard********************8");
 		return "admin";
 	}
 
 	@RequestMapping(value = { "/CA" }, method = RequestMethod.GET)
 	public String clientlockScreen(ModelMap model) {
-		System.out.println("Dashboard********************8");
 		return "cadmin";
 	}
 
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
 	public String checkout(ModelMap model, HttpServletRequest request) {
-		System.out.println("checkout********************8");
 		HttpSession objHttpSession = request.getSession(true);
 		Object obj = objHttpSession.getAttribute("user");
 		AppUser user = (AppUser) obj;
@@ -149,25 +146,21 @@ public class AppController {
 
 	@RequestMapping(value = { "/shopping-cart" }, method = RequestMethod.GET)
 	public String shoppingCart(ModelMap model) {
-		System.out.println("shoppingCart********************8");
 		return "shoppingcart";
 	}
 
 	@RequestMapping(value = { "/signIn" }, method = RequestMethod.GET)
 	public String signIn(ModelMap model) {
-		System.out.println("signIn********************8");
 		return "signIn";
 	}
 
 	@RequestMapping(value = { "/contact" }, method = RequestMethod.GET)
 	public String contact(ModelMap model) {
-		System.out.println("conatctUs********************8");
 		return "contact";
 	}
 
 	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
 	public String dashboard(ModelMap model) {
-		System.out.println("Dashboard********************8");
 		return "dashboard";
 	}
 
@@ -183,14 +176,12 @@ public class AppController {
 
 	@RequestMapping(value = { "/items" }, method = RequestMethod.GET)
 	public ModelAndView itemBook(ModelMap model) {
-		System.out.println("Items *********************");
 		List<Item> itemList = contactDao.itemList();
 		return new ModelAndView("items", "itemList", itemList);
 	}
 
 	@RequestMapping(value = { "/create" }, method = RequestMethod.GET)
 	public ModelAndView createProduct(ModelMap model) {
-		System.out.println("create *********************");
 		List<ItemType> types = contactDao.ItemTypeList();
 		// model.addAttribute("types",types);
 		// return "create";
@@ -199,14 +190,12 @@ public class AppController {
 
 	@RequestMapping(value = { "/createUser" }, method = RequestMethod.GET)
 	public String createUser(ModelMap model) {
-		System.out.println("createUser *********************");
 		return "createUser";
 	}
 
 	@RequestMapping(value = EmpRestURIConstants.ITEM_TYPE, method = RequestMethod.GET)
 	public @ResponseBody ItemType saveType(ModelMap model, @PathVariable("name") String name,
 			@PathVariable("status") String status) {
-		System.out.println("editUser *********************");
 		ItemType type = new ItemType();
 		try {
 			int i = contactDao.insertType(name, status);
@@ -254,25 +243,21 @@ public class AppController {
 
 	@RequestMapping(value = { "/currentReq" }, method = RequestMethod.GET)
 	public String currentReqList(ModelMap model) {
-		System.out.println("currentReq *********************");
 		return "currentReq";
 	}
 
 	@RequestMapping(value = { "/previousReq" }, method = RequestMethod.GET)
 	public String previousReqList(ModelMap model) {
-		System.out.println("previousReq *********************");
 		return "previousReq";
 	}
 
 	@RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
 	public String orderList(ModelMap model) {
-		System.out.println("orderList *********************");
 		return "orderList";
 	}
 
 	@RequestMapping(value = { "/invoiceList" }, method = RequestMethod.GET)
 	public String invoiceList(ModelMap model) {
-		System.out.println("invoiceList *********************");
 		return "invoiceList";
 	}
 
@@ -325,7 +310,7 @@ public class AppController {
 			user.setPassword(encription.encrypt(empNo));
 			user.setUserType("App");
 			int i = contactDao.insertUserData(user);
-			System.out.println("Data Inserted SuccessFully :" + i);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -357,16 +342,11 @@ public class AppController {
 	@RequestMapping(value = { "/create/item/save" }, method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Item itemSave(ModelMap model, @RequestBody Item item, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("invoiceList *********************");
-		// System.out.println(" "+filename);
-
 		Item iteamValue = new Item();
 		try {
 			String rpath = request.getRealPath("/");
 			rpath = rpath + "/" + item.getImagepath(); // whatever path you used for storing the file
 			Path path = Paths.get(rpath);
-			System.out.println("Item Name: " + item.getItemName());
-
 			String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/views/appImage/");
 			Path file = Paths.get(dataDirectory, item.getImagepath());
 			long result = contactDao.saveItem(item);
@@ -404,15 +384,6 @@ public class AppController {
 	public List<String> saveOrder(@RequestBody Order order, ModelMap model) {
 		List<String> response = new ArrayList<String>();
 		String orderNo = RandomStringUtils.random(12, "123456789012abcdefghijklmnopqrstuvwxyz").toUpperCase();
-		for (Item item : order.getOrderItemData()) {
-			// personService.save(person);
-			System.out.println("Item Name :" + item.getItemName() + " : Id :" + item.getId());
-			/* response.add("Saved person: " + item.toString()); */
-		}
-
-		System.out.println(orderNo);
-
-		System.out.println("Item Name :" + order.getItemName());
 		response.add("Refrence No.: " + orderNo);
 		response.add("Status : " + "Success");
 		return response;
@@ -421,7 +392,6 @@ public class AppController {
 	@RequestMapping("/invalidate")
 	public String destroySession(HttpServletRequest request) {
 		AppUser user =(AppUser)request.getSession().getAttribute("user");
-		System.out.println("**********->"+user.getUserType());
 		if(user.getUserType().equals("Client")) {
 			user= new AppUser();
 			request.getSession().invalidate();

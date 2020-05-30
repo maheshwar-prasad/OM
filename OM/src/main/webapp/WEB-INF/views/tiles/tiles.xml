@@ -117,6 +117,7 @@
        <put-attribute name="title" value="Item Type Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/client/itemsType.jsp" />  
    </definition>
+   
    <definition name="clientItemCreate" extends="client-definition">  
        <put-attribute name="title" value="Product Creation" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/client/createProduct.jsp" />  

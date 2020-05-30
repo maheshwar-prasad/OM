@@ -87,7 +87,7 @@
 	  
 	  var path=$('#activeItemUrl').val();
 	  var pathname = window.location.pathname;
-	  var api_url = "/clientItems"+'/editItem'+"/"+itemId;
+	  var api_url = path+'/editItem'+"/"+itemId;
 	  window.location=api_url;
 	   $.ajax({
 	        url: api_url + "/" + userId,

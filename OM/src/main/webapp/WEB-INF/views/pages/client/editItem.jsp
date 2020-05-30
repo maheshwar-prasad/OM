@@ -146,7 +146,7 @@
 	<input type="hidden" id="error" value="${error}">
 	<!-- /.content -->
 	<input type="hidden" id="itemListUrl" name="itemListUrl"
-		value="${pageContext.request.contextPath}/items">
+		value="${pageContext.request.contextPath}/clientItems">
 </div>
 <!-- /.content-wrapper -->
 

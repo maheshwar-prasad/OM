@@ -95,14 +95,14 @@ public class ClientController {
 
 	@RequestMapping(value = { "/createClient" }, method = RequestMethod.GET)
 	public ModelAndView apiItems(ModelMap model) {
-		System.out.println("**********************88");
+		logger.info("**********************88");
 		return new ModelAndView("createClient", "create", "");
 
 	}
 
 	@RequestMapping(value = { "/clientmember" }, method = RequestMethod.GET)
 	public ModelAndView member(ModelMap model) {
-		System.out.println("**********  Member************");
+		logger.info("**********  Member************");
 		return new ModelAndView("clientmember", "clientmember", "");
 	}
 
@@ -306,6 +306,7 @@ public class ClientController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
+			return new ModelAndView("redirect:clientOffer");
 		}
 
 		return new ModelAndView("redirect:clientSaveOffer");
@@ -502,7 +503,7 @@ public class ClientController {
 		StockResponses response = stockClient.updateAll(Arrays.asList(stockForm.getStock()),
 				(user == null ? null : user.getRouting()));
 		if (response.getStatusCode().equals(CommonConstant.SUCCESS))
-			return new ModelAndView("redirect:stock");
+			return new ModelAndView("redirect:clientStock");
 		else {
 			ItemsResponses itemlist = manuscriptService.getItemDetailList("item_name", SortOrder.ASC,
 					(user == null ? null : user.getRouting()));
@@ -510,6 +511,16 @@ public class ClientController {
 			model.put("status", "Fail");
 			return new ModelAndView("clientCreatStock", "stock", new StockDto());
 		}
-
 	}
+	@RequestMapping(value = "/clientSaveItemType", method = RequestMethod.POST)
+	public ModelAndView clientSaveItemType(ModelMap model, @Valid @ModelAttribute CategoryDto category,
+			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		AppUser user = (AppUser) request.getSession().getAttribute("user");
+		ItemsCategoryResponse res = itemCatClient.save(category, (user == null ? null : user.getRouting()));
+		if (res.getStatusCode().equals(CommonConstant.SUCCESS))
+			return new ModelAndView("redirect:clientitemTypeList");
+		else
+			return new ModelAndView("category", "category", new CategoryDto());
+	}
+	
 }

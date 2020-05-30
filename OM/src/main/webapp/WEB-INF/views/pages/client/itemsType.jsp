@@ -34,7 +34,7 @@
 			</div>
 			<!-- /.box-header -->
 			<form:form role="form" method="post" modelAttribute="category"
-				action="${pageContext.request.contextPath}/saveItemType"
+				action="${pageContext.request.contextPath}/clientSaveItemType"
 				id="catForm">
 				<div class="box-body">
 					<div class="row">
