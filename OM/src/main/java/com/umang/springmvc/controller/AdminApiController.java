@@ -191,7 +191,6 @@ public class AdminApiController {
 			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
 			itemsDto.setOfferType(offerType);
 			itemsDto.setOfferUnits(offerUnits);
-			itemsDto.setOfferUnits(10);
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));

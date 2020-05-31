@@ -187,7 +187,7 @@ public class ClientController {
 			itemsDto.setOfferEffectedBy(offerEffectiveDate == null ? new Date() : offerEffectiveDate);
 			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
 			itemsDto.setOfferType(offerType);
-			itemsDto.setOfferUnits(10);
+			itemsDto.setOfferUnits(offerUnits);
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
@@ -272,7 +272,6 @@ public class ClientController {
 			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
 			itemsDto.setOfferType(offerType);
 			itemsDto.setOfferUnits(offerUnits);
-			itemsDto.setOfferUnits(10);
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
 			itemsDto.setProductCat(new CategoryDto(type));
