@@ -33,25 +33,23 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead style="background-color: #3c8dbc;color: #fdfdfd;">
                 <tr>
-                  <th>S.No.</th>
                   <th>Name</th>
                   <th>M.No</th>
                   <th>Email</th>
                   <th>GST NO.</th>
                   <th>Shope Name</th>
-                  <th>S_GST_Code</th>
+                  <th>SGSTCode</th>
                   <th>State</th>
                   <th>City</th>
                   <th>Pincode</th>
-                  <th>Area</th>
-                  <th>landMark</th>
+                  <!-- <th>Area</th> -->
+                  <th>land Mark</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                    <c:forEach items="${customerResponses.data}" var="registeredCust" varStatus="status">
                 <tr>
-                  <td align="center">${status.count}</td>
                   <td>${registeredCust.personName}</td>
                   <td>${registeredCust.mob}</td>
                   <td>${registeredCust.email}</td>
@@ -61,7 +59,7 @@
                   <td>${registeredCust.stateName}</td>
                   <td>${registeredCust.city}</td>
                   <td>${registeredCust.pincode}</td>
-                  <td>${registeredCust.area}</td>
+                 <%--  <td>${registeredCust.area}</td> --%>
                   <td>${registeredCust.landMark}</td>
                   <td><i class="fa fa-fw fa-bank" onclick="javascript:cancelCustomer(${registeredCust.id});"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteCustomer(${registeredCust.id});"></i></td>
                 </tr>
