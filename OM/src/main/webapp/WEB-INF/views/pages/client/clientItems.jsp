@@ -49,7 +49,7 @@
                 <tr>
                   <td><a href="${pageContext.request.contextPath}/clientItems/editItem/${items.id}"
 											onclick="#">${items.itemCode}</a></td>
-                  <td>${items.itemName}</td>
+                  <td>${items.itemName} (${items.pack})</td>
                   <td></td>
                   <td>${items.description}</td>
                   <td>${items.mrp}</td>

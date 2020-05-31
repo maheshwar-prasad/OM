@@ -1,4 +1,3 @@
-
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -96,7 +95,8 @@
 									onchange="selectCategory();">
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName} (${item.pack})</option>
+										<option value="${item.id}">${item.itemName}
+											(${item.pack})</option>
 									</c:forEach>
 								</form:select>
 							</div>
@@ -138,8 +138,7 @@
 					<!-- /.row -->
 				</div>
 				<div class="box-footer">
-					<button type="submit" onclick="insertData();" id="btn-save"
-						class="btn btn-primary">Submit</button>
+					<button type="submit" id="btn-save" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
 					<a href="${pageContext.request.contextPath}/offers"><button
 							type="button"

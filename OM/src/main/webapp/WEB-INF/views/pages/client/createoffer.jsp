@@ -36,7 +36,8 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/clientSaveOffer" id="offerForm">
+				action="${pageContext.request.contextPath}/clientSaveOffer"
+				id="offerForm">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
@@ -55,7 +56,7 @@
 								</form:select>
 							</div>
 							<!-- /.form-group -->
-							
+
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -78,7 +79,7 @@
 							<!-- /.form-group -->
 						</div>
 						<div class="col-md-6">
-						<div class="form-group">
+							<div class="form-group">
 								<label>Duration To:</label>
 
 								<div class="input-group date">
@@ -97,16 +98,17 @@
 									onchange="selectCategory();">
 									<option selected="selected">Select Item Name</option>
 									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName}</option>
+										<option value="${item.id}">${item.itemName}
+											(${item.pack})</option>
 									</c:forEach>
 								</form:select>
 							</div>
-							
+
 						</div>
 
 						<div class="col-md-6">
-						<div class="form-group">
-							<label>Duration From:</label>
+							<div class="form-group">
+								<label>Duration From:</label>
 
 								<div class="input-group date">
 									<div class="input-group-addon">
@@ -124,17 +126,19 @@
 									<option value="false">Inactive</option>
 								</select> <input type="hidden" id="active" name="active" value="true">
 							</div>
-							
+
 						</div>
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
 				</div>
 				<div class="box-footer">
-					<button type="submit" onclick="insertData();" id="btn-save"
-						class="btn btn-primary">Submit</button>
+					<button type="submit" id="btn-save" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
-					<a href="${pageContext.request.contextPath}/clientOffers"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
+					<a href="${pageContext.request.contextPath}/clientOffers"><button
+							type="button"
+							style="background-color: firebrick !important; color: white"
+							class="btn btn-default" onclick="">Back</button></a>
 				</div>
 			</form:form>
 		</div>
@@ -147,12 +151,12 @@
 <!-- /.content-wrapper -->
 <script>
 	$(document).ready(function() {
-		 $('#datepicker').datepicker({
-		      autoclose: true
-		    })
-		     $('#datepicker1').datepicker({
-		      autoclose: true
-		    })
+		$('#datepicker').datepicker({
+			autoclose : true
+		})
+		$('#datepicker1').datepicker({
+			autoclose : true
+		})
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");

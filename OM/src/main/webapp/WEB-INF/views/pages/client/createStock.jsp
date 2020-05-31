@@ -53,7 +53,7 @@
 										<td><form:input type="hidden"
 												path="stock[${status.count-1}].dto.id" name="${stck.dto.id}"
 												value="${stck.dto.id}" /> <input
-											name="${stck.dto.itemName}" value="${stck.dto.itemName}" /></td>
+											name="${stck.dto.itemName}" value="${stck.dto.itemName} (${stck.dto.pack})" /></td>
 										<td><form:input name="${stck.dto.id}qty"
 												path="stock[${status.count-1}].qty" value="${stck.qty}" /></td>
 									</tr>

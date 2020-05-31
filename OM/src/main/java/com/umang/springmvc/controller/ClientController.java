@@ -53,6 +53,7 @@ import com.umang.springmvc.model.OfferResponse;
 import com.umang.springmvc.model.OfferType;
 import com.umang.springmvc.model.OrderStatus;
 import com.umang.springmvc.model.SalesOrderDto;
+import com.umang.springmvc.model.SalesOrderResponse;
 import com.umang.springmvc.model.SalesOrderResponses;
 import com.umang.springmvc.model.StockDto;
 import com.umang.springmvc.model.StockForm;
@@ -399,9 +400,8 @@ public class ClientController {
 		CancelOrder cancelOrder = new CancelOrder();
 		cancelOrder.setOrderNo(orderNumber);
 		cancelOrder.setRemarks(remarks);
-
-		model.put("orderDetail",
-				orderClient.cancelOrder(cancelOrder, (user == null ? null : user.getRouting())).getData());
+		SalesOrderResponse res = orderClient.cancelOrder(cancelOrder, (user == null ? null : user.getRouting()));
+		model.put("orderDetail", res.getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -419,7 +419,8 @@ public class ClientController {
 		dto.setAcceptedOn(new Date());
 		dto.setRemark(remarks);
 		dto.setOrderStatus(OrderStatus.A);
-		model.put("orderDetail", salesOrderClient.update(dto, (user == null ? null : user.getRouting())).getData());
+		SalesOrderResponse res = salesOrderClient.update(dto, (user == null ? null : user.getRouting()));
+		model.put("orderDetail", res.getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -437,7 +438,8 @@ public class ClientController {
 		dto.setDeliveredOn(new Date());
 		dto.setRemark(remarks);
 		dto.setOrderStatus(OrderStatus.D);
-		model.put("orderDetail", salesOrderClient.update(dto, (user == null ? null : user.getRouting())).getData());
+		SalesOrderResponse res = salesOrderClient.update(dto, (user == null ? null : user.getRouting()));
+		model.put("orderDetail", res.getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -512,6 +514,7 @@ public class ClientController {
 			return new ModelAndView("clientCreatStock", "stock", new StockDto());
 		}
 	}
+
 	@RequestMapping(value = "/clientSaveItemType", method = RequestMethod.POST)
 	public ModelAndView clientSaveItemType(ModelMap model, @Valid @ModelAttribute CategoryDto category,
 			HttpServletRequest request) throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -522,5 +525,5 @@ public class ClientController {
 		else
 			return new ModelAndView("category", "category", new CategoryDto());
 	}
-	
+
 }

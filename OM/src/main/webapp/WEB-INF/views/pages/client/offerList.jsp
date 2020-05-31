@@ -51,7 +51,7 @@
                    <c:forEach items="${offer_list}" var="offer" varStatus="status">
                 <tr>
                   <td>${offer.offerName}</td>
-                  <td>${offer.itemsDto.itemName}</td>
+                  <td>${offer.itemsDto.itemName} (${offer.itemsDto.pack})</td>
                   <td>${offer.type}</td>
                   <td>${offer.gift}</td>
                   <td>${offer.purchase}</td>

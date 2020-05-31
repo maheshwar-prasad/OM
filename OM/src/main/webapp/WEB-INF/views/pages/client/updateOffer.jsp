@@ -139,8 +139,7 @@
 					<!-- /.row -->
 				</div>
 				<div class="box-footer">
-					<button type="submit" onclick="insertData();" id="btn-save"
-						class="btn btn-primary">Submit</button>
+					<button type="submit" id="btn-save" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
 				</div>
 			</form:form>

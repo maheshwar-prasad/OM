@@ -41,7 +41,7 @@
                 <tbody>
                    <c:forEach items="${stocks}" var="stock" varStatus="status">
                 <tr>
-                  <td>${stock.dto.itemName}</td>
+                  <td>${stock.dto.itemName} (${stock.dto.pack})</td>
                   <td>${stock.qty}</td>
                   <td><i class="fa fa-fw fa-bank" onclick="javascript:(0);"></i> <i class="fa fa-fw fa-trash-o" onclick="javascript:deleteItem(${stock.dto.id});"></i></td>
                 </tr>
