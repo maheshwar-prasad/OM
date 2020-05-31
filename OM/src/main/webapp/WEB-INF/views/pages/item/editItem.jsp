@@ -136,7 +136,6 @@
 				</div>
 				<div class="box-footer">
 					<button type="submit" class="btn btn-primary">Submit</button>
-					<!-- <button type="reset" class="btn btn-default">Reset</button> -->
 					<a href="${pageContext.request.contextPath}/apiItems"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
 				</div>
 				<input type="hidden" id=imagepath name="imagepath">
@@ -154,17 +153,17 @@
 	$(function() {
 		$('#datepicker').datepicker({
 			autoclose : true
-		}).datepicker('setDate','${item.offerEffectedBy}')
+		}).datepicker('setDate','${offerEffectedBy}')
 		$('#datepicker1').datepicker({
 			autoclose : true
-		}).datepicker('setDate','${item.offerTill}')
+		}).datepicker('setDate','${offerTill}')
 		var error = $('#error').val();
 		if ((error == "")) {
 		} else {
 			alert('This Item already exist');
 		}
 		var fileName = "";
-		$("#btn-save")
+		/* $("#btn-save")
 				.click(
 						function(event) {
 							var imagePath = $('#imagePath').val();
@@ -224,9 +223,9 @@
 										}
 									});
 
-						});
+						});*/
 
-	});
+	}); 
 	$('#imageFile').change(function(event) { // var tmppath = event.target.files[0].name;
 		//$("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 
@@ -246,14 +245,12 @@
 
 		if (status == "Active") {
 			$('#active').val(true);
-			alert(status);
 		} else {
 			$('#active').val(false);
-			alert('Active -->' + status);
 		}
 	}
 
-	function insertData() {
+	/* function insertData() {
 		var userType = $("#userType option:selected").text();
 		var mobileNo = $('#mobileNo').val();
 		var name = $('#name').val();
@@ -280,5 +277,5 @@
 				}
 			}
 		});
-	}
+	} */
 </script>

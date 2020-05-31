@@ -64,7 +64,7 @@
 				</div>
 				<br />
 				<div class="box-footer" style="text-align: center;">
-					<button type="submit" id="btn-save" class="btn btn-primary">Submit</button>
+					<button type="submit"  class="btn btn-primary">Submit</button>
 					<button type="button" onclick="javascript:gotoBack();"
 						class="btn btn-default">Back</button>
 
@@ -82,36 +82,7 @@
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Problem to create stock!");
-
 	});
-	function insertData() {
-		var userType = $("#userType option:selected").text();
-		var mobileNo = $('#mobileNo').val();
-		var name = $('#name').val();
-		var address = $('#address').val();
-		var userListUrl = $('#userListUrl').val();
-		alert(address);
-		var pathname = window.location.pathname;
-		var api_url = pathname + '/rest/user';
-		$.ajax({
-			url : api_url + "/" + mobileNo + "/" + userType + "/" + name + "/"
-					+ address,
-			contentType : "application/json",
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				if (result.status == "Success") {
-					var r = confirm("Data save successfully! Go to User list");
-					if (r == true) {
-						window.location = userListUrl;
-					}
-					//window.location="";
-				} else {
-					alert("Please check some error occur.");
-				}
-			}
-		});
-	}
 	function gotoBack() {
 		window.location = "/OM/clientStock";
 	}

@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -215,11 +219,16 @@ public class ClientController {
 					itemCatClient
 							.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting()))
 							.getData());
+			ItemsDto itemdto = itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData();
+			model.addAttribute("offerTill", dateConvertion(itemdto.getOfferTill().toString()));
+			model.addAttribute("offerEffectedBy", dateConvertion(itemdto.getOfferEffectedBy().toString()));
 			return new ModelAndView("clientEditItems", "item",
 					itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData());
 		} catch (Exception e) {
 			return new ModelAndView("redirect:/clientItems/editItem/" + itemid + "");
 		}
+		
+		
 	}
 
 	@RequestMapping(value = { "/clientEditSaveItem" }, method = RequestMethod.POST)
@@ -419,8 +428,7 @@ public class ClientController {
 		dto.setAcceptedOn(new Date());
 		dto.setRemark(remarks);
 		dto.setOrderStatus(OrderStatus.A);
-		SalesOrderResponse res = salesOrderClient.update(dto, (user == null ? null : user.getRouting()));
-		model.put("orderDetail", res.getData());
+		model.put("orderDetail", salesOrderClient.update(dto, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -438,8 +446,7 @@ public class ClientController {
 		dto.setDeliveredOn(new Date());
 		dto.setRemark(remarks);
 		dto.setOrderStatus(OrderStatus.D);
-		SalesOrderResponse res = salesOrderClient.update(dto, (user == null ? null : user.getRouting()));
-		model.put("orderDetail", res.getData());
+		model.put("orderDetail", salesOrderClient.update(dto, (user == null ? null : user.getRouting())).getData());
 		return new ModelAndView("clientOrderDetails", "salesOrder", new SalesOrderDto());
 
 	}
@@ -526,4 +533,14 @@ public class ClientController {
 			return new ModelAndView("category", "category", new CategoryDto());
 	}
 
+	 public String dateConvertion(String inputDateStringinIST) {
+		 String input = inputDateStringinIST;//"Sat May 30 00:00:00 IST 2020";
+			DateTimeFormatter f = DateTimeFormatter.ofPattern( "E MMM dd HH:mm:ss z uuuu" )
+			                                       .withLocale( Locale.US );
+			ZonedDateTime zdt = ZonedDateTime.parse( input , f );
+			LocalDate ld = zdt.toLocalDate();
+			DateTimeFormatter fLocalDate = DateTimeFormatter.ofPattern( "dd/MM/uuuu" );
+			String output = ld.format( fLocalDate) ;
+			return output;
+	 }
 }
