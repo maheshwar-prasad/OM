@@ -227,8 +227,7 @@ public class ClientController {
 		} catch (Exception e) {
 			return new ModelAndView("redirect:/clientItems/editItem/" + itemid + "");
 		}
-		
-		
+
 	}
 
 	@RequestMapping(value = { "/clientEditSaveItem" }, method = RequestMethod.POST)
@@ -316,10 +315,10 @@ public class ClientController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("error", "Fail");
-			return new ModelAndView("redirect:clientOffer");
+			return new ModelAndView("redirect:clientSaveOffer");
 		}
 
-		return new ModelAndView("redirect:clientSaveOffer");
+		return new ModelAndView("redirect:clientOffer");
 	}
 
 	@RequestMapping(value = { "/clientUpdateOffer" }, method = RequestMethod.POST)
@@ -533,14 +532,13 @@ public class ClientController {
 			return new ModelAndView("category", "category", new CategoryDto());
 	}
 
-	 public String dateConvertion(String inputDateStringinIST) {
-		 String input = inputDateStringinIST;//"Sat May 30 00:00:00 IST 2020";
-			DateTimeFormatter f = DateTimeFormatter.ofPattern( "E MMM dd HH:mm:ss z uuuu" )
-			                                       .withLocale( Locale.US );
-			ZonedDateTime zdt = ZonedDateTime.parse( input , f );
-			LocalDate ld = zdt.toLocalDate();
-			DateTimeFormatter fLocalDate = DateTimeFormatter.ofPattern( "dd/MM/uuuu" );
-			String output = ld.format( fLocalDate) ;
-			return output;
-	 }
+	public String dateConvertion(String inputDateStringinIST) {
+		String input = inputDateStringinIST;// "Sat May 30 00:00:00 IST 2020";
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z uuuu").withLocale(Locale.US);
+		ZonedDateTime zdt = ZonedDateTime.parse(input, f);
+		LocalDate ld = zdt.toLocalDate();
+		DateTimeFormatter fLocalDate = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+		String output = ld.format(fLocalDate);
+		return output;
+	}
 }
