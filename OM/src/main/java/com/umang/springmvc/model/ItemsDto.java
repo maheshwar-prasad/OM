@@ -88,6 +88,9 @@ public class ItemsDto implements Serializable {
 	@JsonProperty("product_category")
 	private CategoryDto productCat;
 
+	@JsonProperty("offer_name")
+	private String offerName;
+
 	public Integer getId() {
 		return id;
 	}
@@ -230,6 +233,14 @@ public class ItemsDto implements Serializable {
 
 	public void setProductCat(CategoryDto productCat) {
 		this.productCat = productCat;
+	}
+
+	public String getOfferName() {
+		return offerName;
+	}
+
+	public void setOfferName(String offerName) {
+		this.offerName = offerName;
 	}
 
 	@Override
