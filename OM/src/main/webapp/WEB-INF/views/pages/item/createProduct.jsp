@@ -91,6 +91,24 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<label for="exampleInputEmail1">Offer Type.</label>
+								<select class="form-control select3"
+									id="offer-type" name="offer-type" style="width: 100%;"
+									onchange="selectOfferType();">
+									<option selected="selected" value="POF">Amount Off On Purchase</option>
+									<option value="FU">Unit Free On Purchase</option>
+								</select> <input type="hidden" id="offer_type" name="offer_type" value="POF">
+						  </div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Gift.</label>
+								<input type="text" class="form-control" id="free"
+									name="free" placeholder="Enter gift  No.">
+
+								<!-- /.input group -->
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
 								<label for="exampleInputEmail1">Unit Price</label> <input
 									type="text" class="form-control" id="unitPrice"
 									name="unitPrice" placeholder="Enter Offer_units">
@@ -106,7 +124,11 @@
 									type="text" class="form-control" id="datepicker1"
 									name="offer-till-date"  data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
 							</div>
-							
+							<div class="form-group">
+								<label for="exampleInputEmail1">Offer Unit</label> <input
+									type="text" class="form-control" id="offerUnits"
+									name="offerUnits"   placeholder="offer Units">
+							</div>
 						</div>
 						<div class="col-md-6">
 							<!-- /.form-group -->
@@ -222,7 +244,6 @@ $(function() {
 		var tmppath = URL.createObjectURL(event.target.files[0]);
 		var imageFile = $("#imageFile").val();
 		$('#itemImage').val(imageFile);
-		alert(imageFile);
 	}
 	function selectCategory() {
 		var type = $("#types option:selected").val();
@@ -239,7 +260,15 @@ $(function() {
 			alert('Active -->' + status);
 		}
 	}
+	function selectOfferType() {
+		var status = $("#offer-type option:selected").text();
 
+		if (status == "POF") {
+			$('#offer_type').val("POF");
+		} else {
+			$('#offer_type').val("FU");
+		}
+	}
 	function insertData() {
 		var userType = $("#userType option:selected").text();
 		var mobileNo = $('#mobileNo').val();

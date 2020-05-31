@@ -161,10 +161,10 @@ public class ClientController {
 			@RequestParam("description") String description, @RequestParam("itemName") String itemName,
 			@RequestParam("mrp") Double mrp, @RequestParam("pack") String pack,
 			@RequestParam(value = "display-order", required = false, defaultValue = "1") Integer displayOrder,
-			@RequestParam(value = "offer-type", required = false, defaultValue = "FU") OfferType offerType,
+			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free", required = false, defaultValue = "1") Integer free,
+			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -236,10 +236,10 @@ public class ClientController {
 			@RequestParam("itemName") String itemName, @RequestParam("mrp") Double mrp,
 			@RequestParam("pack") String pack,
 			@RequestParam(value = "display-order", required = false, defaultValue = "1") Integer displayOrder,
-			@RequestParam(value = "offer-type", required = false, defaultValue = "FU") OfferType offerType,
+			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free", required = false, defaultValue = "1") Integer free,
+			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
