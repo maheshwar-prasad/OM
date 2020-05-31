@@ -13,7 +13,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="${pageContext.request.contextPath}/static/dist/img/maheshwar3.jpg" class="img-circle" alt="User Image">
+          <img src="${pageContext.request.contextPath}/static/dist/img/profile.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>${user.name}</p>
@@ -49,7 +49,7 @@
           	<li><a href="${pageContext.request.contextPath}/clientmember"><i class="fa fa-circle-o"></i>Member</a></li>
             <li><a href="${pageContext.request.contextPath}/clientitemTypeList"><i class="fa fa-circle-o"></i>Category</a></li>
             <li><a href="${pageContext.request.contextPath}/clientItems"><i class="fa fa-book"></i> <span>Items</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/clientOffers"><i class="fa fa-circle-o"></i>Offer</a>
+            <%-- <li><a href="${pageContext.request.contextPath}/clientOffers"><i class="fa fa-circle-o"></i>Offer</a> --%>
            </ul>
         </li>
  		 <li class="treeview">

@@ -20,7 +20,7 @@
 	<div class="lockscreen-item">
 		<!-- lockscreen image -->
 		<div class="lockscreen-image">
-			<img src="static/dist/img/maheshwar3.jpg" alt="User Image">
+			<img src="static/dist/img/profile.png" alt="User Image">
 		</div>
 		<!-- /.lockscreen-image -->
 

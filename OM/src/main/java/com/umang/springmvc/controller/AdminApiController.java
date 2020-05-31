@@ -71,7 +71,8 @@ public class AdminApiController {
 	public ModelAndView apiItems(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC, (user == null ? null : user.getRouting()));
+		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
 		List<ItemsDto> itemsList = itemlist.getData();
 		return new ModelAndView("apiItems", "itemList", itemsList);
 	}
@@ -84,7 +85,7 @@ public class AdminApiController {
 			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
+			@RequestParam(value = "free") Integer free, @RequestParam(value = "offerUnits") Integer offerUnits,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -136,11 +137,14 @@ public class AdminApiController {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
 		try {
 			model.put("types",
-					itemCatClient.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+					itemCatClient
+							.findAllSorted("category_name", SortOrder.ASC, (user == null ? null : user.getRouting()))
+							.getData());
 			ItemsDto itemdto = itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData();
 			model.addAttribute("offerTill", dateConvertion(itemdto.getOfferTill().toString()));
 			model.addAttribute("offerEffectedBy", dateConvertion(itemdto.getOfferEffectedBy().toString()));
-			return new ModelAndView("editItems", "item", itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData());
+			return new ModelAndView("editItems", "item",
+					itemClient.findById(itemid, (user == null ? null : user.getRouting())).getData());
 		} catch (Exception e) {
 			return new ModelAndView("redirect:/apiItems/editItem/" + itemid + "");
 		}
@@ -155,7 +159,7 @@ public class AdminApiController {
 			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
+			@RequestParam(value = "free") Integer free, @RequestParam(value = "offerUnits") Integer offerUnits,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -186,6 +190,7 @@ public class AdminApiController {
 			itemsDto.setOfferEffectedBy(offerEffectiveDate == null ? new Date() : offerEffectiveDate);
 			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
 			itemsDto.setOfferType(offerType);
+			itemsDto.setOfferUnits(offerUnits);
 			itemsDto.setOfferUnits(10);
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
@@ -237,14 +242,14 @@ public class AdminApiController {
 		else
 			return new ModelAndView("itemType", "category", new CategoryDto());
 	}
+
 	public String dateConvertion(String inputDateStringinIST) {
-		 String input = inputDateStringinIST;//"Sat May 30 00:00:00 IST 2020";
-			DateTimeFormatter f = DateTimeFormatter.ofPattern( "E MMM dd HH:mm:ss z uuuu" )
-			                                       .withLocale( Locale.US );
-			ZonedDateTime zdt = ZonedDateTime.parse( input , f );
-			LocalDate ld = zdt.toLocalDate();
-			DateTimeFormatter fLocalDate = DateTimeFormatter.ofPattern( "dd/MM/uuuu" );
-			String output = ld.format( fLocalDate) ;
-			return output;
-	 }
+		String input = inputDateStringinIST;// "Sat May 30 00:00:00 IST 2020";
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z uuuu").withLocale(Locale.US);
+		ZonedDateTime zdt = ZonedDateTime.parse(input, f);
+		LocalDate ld = zdt.toLocalDate();
+		DateTimeFormatter fLocalDate = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+		String output = ld.format(fLocalDate);
+		return output;
+	}
 }

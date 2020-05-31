@@ -57,10 +57,11 @@
 								</select> <input type="hidden" id="category" name="category" value="">
 							</div>
 							<!-- /.form-group -->
-							<div class="form-group"><input type="hidden" name="itemId" value="${item.id}"/>
-								<label for="exampleInputEmail1">Item Desc.</label> <input
-									type="text" class="form-control" id="description"
-									name="description" value="${item.description}">
+							<div class="form-group">
+								<input type="hidden" name="itemId" value="${item.id}" /> <label
+									for="exampleInputEmail1">Item Desc.</label> <input type="text"
+									class="form-control" id="description" name="description"
+									value="${item.description}">
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -68,12 +69,14 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Name</label> <input type="text"
-									class="form-control" id="itemName" name="itemName" value="${item.itemName}">
+									class="form-control" id="itemName" name="itemName"
+									value="${item.itemName}">
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">MRP(Rs.)</label> <input
-									type="text" class="form-control" id="mrp" name="mrp" value="${item.mrp}">
+									type="text" class="form-control" id="mrp" name="mrp"
+									value="${item.mrp}">
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -94,24 +97,37 @@
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Pack</label> <input type="text"
-									class="form-control" id="pack" name="pack"
-									value="${item.pack}">
+									class="form-control" id="pack" name="pack" value="${item.pack}">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Type.</label>
-								<select class="form-control select3"
-									id="offer-type" name="offer-type" style="width: 100%;"
-									onchange="selectOfferType();">
-									<option selected="selected" value="POF">Amount Off On Purchase</option>
-									<option value="FU">Unit Free On Purchase</option>
-								</select> <input type="hidden" id="offer_type" name="offer_type" value="POF">
-						  </div>
+								<label for="exampleInputEmail1">Offer Type.</label> <select
+									class="form-control select3" id="offer-type" name="offer-type"
+									style="width: 100%;" onchange="selectOfferType();">
+									<c:if test="${item.offerType eq 'POF'}">
+										<option selected="selected" value="POF">Amount Off On
+											Purchase</option>
+										<option value="FU">Unit Free On Purchase</option>
+									</c:if>
+									<c:if test="${item.offerType eq 'FU'}">
+										<option value="POF">Amount Off On Purchase</option>
+										<option selected="selected" value="FU">Unit Free On
+											Purchase</option>
+									</c:if>
+									<c:if
+										test="${item.offerType ne 'FU' && item.offerType ne 'POF'}">
+										<option selected="selected" value="POF">Amount Off On
+											Purchase</option>
+										<option value="FU">Unit Free On Purchase</option>
+									</c:if>
+								</select> <input type="hidden" id="offer_type" name="offer_type"
+									value="POF">
+							</div>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<input type="text" class="form-control" id="free"
-									name="free" placeholder="Enter gift  No.">
+								<label for="exampleInputEmail1">Gift.</label> <input type="text"
+									class="form-control" id="free" name="free" value="${item.free}"
+									placeholder="Enter gift  No.">
 
 								<!-- /.input group -->
 							</div>
@@ -125,19 +141,22 @@
 							<div class="form-group">
 								<label for="text">Offer Effective Date</label> <input
 									class="form-control" id="datepicker"
-									name="offer-effective-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" type="text">
+									name="offer-effective-date" data-date-format="dd/mm/yyyy"
+									placeholder="dd/MM/yyyy" type="text">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Offer Till Date</label> <input
 									type="text" class="form-control" id="datepicker1"
-									name="offer-till-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" >
+									name="offer-till-date" data-date-format="dd/mm/yyyy"
+									placeholder="dd/MM/yyyy">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Offer Unit</label> <input
 									type="text" class="form-control" id="offerUnits"
-									name="offerUnits"   placeholder="offer Units">
+									name="offerUnits" value="${item.offerUnits}"
+									placeholder="offer Units">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -149,7 +168,7 @@
 									id="itemImage" name="itemImage" value="">
 							</div>
 							<div class="form-group">
-								<img src="${item.imageUri}" width="150" height="150"/>
+								<img src="${item.imageUri}" width="150" height="150" />
 							</div>
 						</div>
 						<!-- /.col -->
@@ -158,7 +177,10 @@
 				</div>
 				<div class="box-footer">
 					<button type="submit" class="btn btn-primary">Submit</button>
-					<a href="${pageContext.request.contextPath}/clientItems"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
+					<a href="${pageContext.request.contextPath}/clientItems"><button
+							type="button"
+							style="background-color: firebrick !important; color: white"
+							class="btn btn-default" onclick="">Back</button></a>
 				</div>
 				<input type="hidden" id=imagepath name="imagepath">
 			</form:form>
@@ -173,13 +195,13 @@
 
 <script>
 	$(function() {
-		  $("#datepicker").html($('#tillDate').val());
+		$("#datepicker").html($('#tillDate').val());
 		$('#datepicker').datepicker({
 			autoclose : true
-		}).datepicker('setDate','${offerEffectedBy}')
+		}).datepicker('setDate', '${offerEffectedBy}')
 		$('#datepicker1').datepicker({
 			autoclose : true
-		}).datepicker('setDate','${offerTill}')
+		}).datepicker('setDate', '${offerTill}')
 		var error = $('#error').val();
 		if ((error == "")) {
 		} else {

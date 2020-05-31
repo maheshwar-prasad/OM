@@ -13,7 +13,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="${pageContext.request.contextPath}/static/dist/img/maheshwar3.jpg" class="img-circle" alt="User Image">
+          <img src="${pageContext.request.contextPath}/static/dist/img/profile.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>${user.name}</p>

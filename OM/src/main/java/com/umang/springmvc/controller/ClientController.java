@@ -164,7 +164,7 @@ public class ClientController {
 			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
+			@RequestParam(value = "free") Integer free, @RequestParam(value = "offerUnits") Integer offerUnits,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam("file") MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -239,7 +239,7 @@ public class ClientController {
 			@RequestParam(value = "offer-type") OfferType offerType,
 			@RequestParam(value = "offer-effective-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerEffectiveDate,
 			@RequestParam(value = "offer-till-date", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date offerTillDate,
-			@RequestParam(value = "free") Integer free,@RequestParam(value = "offerUnits") Integer offerUnits ,
+			@RequestParam(value = "free") Integer free, @RequestParam(value = "offerUnits") Integer offerUnits,
 			@RequestParam("unitPrice") Double unitPrice, @RequestParam("status") Boolean status,
 			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
@@ -271,6 +271,7 @@ public class ClientController {
 			itemsDto.setOfferEffectedBy(offerEffectiveDate == null ? new Date() : offerEffectiveDate);
 			itemsDto.setOfferTill(offerTillDate == null ? new Date() : offerTillDate);
 			itemsDto.setOfferType(offerType);
+			itemsDto.setOfferUnits(offerUnits);
 			itemsDto.setOfferUnits(10);
 			itemsDto.setPack(pack);
 			itemsDto.setUnitPrice(unitPrice);
