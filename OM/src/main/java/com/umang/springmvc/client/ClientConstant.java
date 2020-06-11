@@ -47,6 +47,8 @@ public interface ClientConstant {
 
 	String IMAGE = "image";
 
+	String FILE = "file";
+
 	String CAT_ID = "{cat-id}";
 
 	static RestTemplate getTemplate() {
@@ -206,6 +208,23 @@ public interface ClientConstant {
 	static String postImage(int id, File image, String API, Integer routing) throws RuntimeException, IOException {
 		MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
 		bodyMap.add(IMAGE, getFileResource(image, routing));
+		bodyMap.add("ID", id);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(bodyMap, headers);
+
+		ResponseEntity<String> response = getTemplate().exchange(
+				(routing == null ? BASE_PATH + DEFAULT_ROUTING : BASE_PATH + routing) + API, HttpMethod.POST,
+				requestEntity, String.class);
+		return response.getBody();
+	}
+
+	static String postFile(int id, File file, String API, Integer routing) throws RuntimeException, IOException {
+		MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
+		bodyMap.add(FILE, getFileResource(file, routing));
 		bodyMap.add("ID", id);
 
 		HttpHeaders headers = new HttpHeaders();

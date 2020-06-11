@@ -2,16 +2,12 @@ package com.umang.springmvc.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-
-//import io.swagger.annotations.ApiModel;
 
 /**
  * 
@@ -24,7 +20,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "saller_profile")
 @JsonPropertyOrder
-//@ApiModel(description = "A response class responde back to request")
 public class SallerProfileDto implements Serializable {
 
 	/**
@@ -36,20 +31,15 @@ public class SallerProfileDto implements Serializable {
 	private Integer id;
 
 	@JsonProperty("first_name")
-	@NotNull
 	private String firstName;
 
 	@JsonProperty("last_name")
-	@NotNull
 	private String lastName;
 
 	@JsonProperty("gst_no")
-	@NotNull
-	// gst no = 17AAPFU0939F1ZV
 	private String gstNo;
 
 	@JsonProperty("company_name")
-	@NotNull
 	private String companyName;
 
 	@JsonProperty("user_name")
@@ -59,7 +49,6 @@ public class SallerProfileDto implements Serializable {
 	private String password;
 
 	@JsonProperty("address1")
-	@NotNull
 	private String address1;
 
 	@JsonProperty("address2")
@@ -69,24 +58,25 @@ public class SallerProfileDto implements Serializable {
 	private String city;
 
 	@JsonProperty("state_name")
-	@NotNull
 	private String stateName;
 
 	@JsonProperty("state_gst_code")
-	@NotNull
 	private String stateGstCode;
 
 	@JsonProperty("pincode")
-	@NotNull
 	private String pincode;
 
 	@JsonProperty("customer_care_no")
-	@NotNull
 	private String ccNo;
 
 	@JsonProperty("email")
-	@NotNull
 	private String email;
+
+	@JsonProperty("terms_key")
+	private String termsKey;
+
+	@JsonProperty("terms_uri")
+	private String termsUri;
 
 	public Integer getId() {
 		return id;
@@ -206,6 +196,22 @@ public class SallerProfileDto implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getTermsKey() {
+		return termsKey;
+	}
+
+	public void setTermsKey(String termsKey) {
+		this.termsKey = termsKey;
+	}
+
+	public String getTermsUri() {
+		return termsUri;
+	}
+
+	public void setTermsUri(String termsUri) {
+		this.termsUri = termsUri;
 	}
 
 }
