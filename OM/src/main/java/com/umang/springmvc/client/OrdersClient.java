@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.model.CancelOrder;
 import com.umang.springmvc.model.CancelTypeResponse;
 import com.umang.springmvc.model.DeleteResponse;
+import com.umang.springmvc.model.OrderDto;
 import com.umang.springmvc.model.OrderStatus;
 import com.umang.springmvc.model.OrdersDto;
 import com.umang.springmvc.model.OrdersResponse;
@@ -51,6 +52,8 @@ public class OrdersClient {
 	static final String GET_ORDER = "/sales/order/saller/get-order";
 
 	static final String UPDATE_ORDER = "/sales/order/saller/update-order";
+
+	static final String PUSH_ORDER = "/sales/order/push-order";
 
 	public DeleteResponse delete(Integer id, Integer routing)
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
@@ -120,6 +123,16 @@ public class OrdersClient {
 			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
 		String res = ClientConstant.get(GET_ORDERS_STATUS_TYPES, null, routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OrdersStatusResponse.class);
+	}
+
+	public SalesOrderResponse pushOrder(List<OrderDto> orders, String CUST_EMAIL, String CUST_MOB, Integer routing)
+			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
+		Map<String, String> headers = new HashMap<>();
+		headers.put("CUST-EMAIL", CUST_EMAIL);
+		headers.put("CUST-MOB", CUST_MOB);
+		String res = ClientConstant.post(ClientConstant.getObjectMapper().writeValueAsString(orders), PUSH_ORDER,
+				headers, routing);
+		return ClientConstant.getObjectMapper().readValue(res.getBytes(), SalesOrderResponse.class);
 	}
 
 	public SalesOrderResponse cancelOrder(CancelOrder cancelOrder, Integer routing)

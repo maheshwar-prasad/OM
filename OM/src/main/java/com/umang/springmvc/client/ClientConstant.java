@@ -330,6 +330,19 @@ public interface ClientConstant {
 		return response.getBody();
 	}
 
+	static String post(String body, String API, Map<String, String> headers, Integer routing) throws RuntimeException {
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		header.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		if (headers != null)
+			headers.forEach((K, V) -> header.add(K, V));
+		HttpEntity<String> http_entity = new HttpEntity<String>(body, header);
+		ResponseEntity<String> response = getTemplate().exchange(
+				(routing == null ? BASE_PATH + DEFAULT_ROUTING : BASE_PATH + routing) + API, HttpMethod.POST,
+				http_entity, String.class);
+		return response.getBody();
+	}
+
 	static String update(String body, String API, Integer routing) throws RuntimeException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
