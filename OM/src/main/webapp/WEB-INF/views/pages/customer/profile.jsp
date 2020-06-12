@@ -40,16 +40,16 @@
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
+						 <div class="form-group">
 								<label>First Name</label> <input type="text" id="first-name"
-									name="first-name" value="${profile.firstName}"> <input
+									name="first-name" value="${profile.firstName}" class="form-control"> <input
 									type="hidden" id="saller-id" name="saller-id"
-									value="${profile.id}">
+									value="${profile.id}" >
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
 								<label>Last Name</label> <input type="text" id="last-name"
-									name="last-name" value="${profile.lastName}">
+									name="last-name" value="${profile.lastName}" class="form-control">
 							</div>
 							<!-- /.form-group -->
 						</div>
@@ -57,79 +57,79 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">GST No.</label> <input
-									type="text" id="gst-no" name="gst-no" value="${profile.gstNo}">
+									type="text" id="gst-no" name="gst-no" value="${profile.gstNo}" class="form-control">
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">Company Name</label> <input
 									type="text" id="company-name" name="company-name"
-									value="${profile.companyName}">
+									value="${profile.companyName}" class="form-control">
 							</div>
 							<!-- /.form-group -->
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>User Name</label> <input type="number" id="user-name"
-									name="user-name" value="${profile.userName}">
+									name="user-name" value="${profile.userName}" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Password</label> <input
 									type="password" id="password" name="password"
-									value="${profile.password}">
+									value="${profile.password}" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Address 1</label> <input
 									type="text" id="address1" name="address1"
-									value="${profile.address1}">
+									value="${profile.address1}" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Address 2</label> <input
 									type="text" id="address2" name="address2"
-									value="${profile.address2}">
+									value="${profile.address2}" class="form-control">
 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">City Name</label> <input
-									type="text" id="city" name="city" value="${profile.city}">
+									type="text" id="city" name="city" value="${profile.city}" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="text">State Name</label> <input type="text"
-									id="state-name" name="state-name" value="${profile.stateName}">
+									id="state-name" name="state-name" value="${profile.stateName}" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">State GST Code</label> <input
 									type="text" id="state-gst-code" name="state-gst-code"
-									value="${profile.stateGstCode}">
+									value="${profile.stateGstCode}" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Pincode</label> <input
 									type="text" id="pincode" name="pincode"
-									value="${profile.pincode}">
+									value="${profile.pincode}" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Customer Care Number</label> <input
-									type="text" id="cc-no" name="cc-no" value="${profile.ccNo}">
+									type="text" id="cc-no" name="cc-no" value="${profile.ccNo}" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email</label> <input type="text"
-									id="email" name="email" value="${profile.email}">
+									id="email" name="email" value="${profile.email}" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<!-- /.form-group -->
 							<div class="form-group">
 								<label for="exampleInputFile">Terms & Condition</label> <input
-									type="file" name="terms" id="terms">
+									type="file" name="terms" id="terms" class="form-control">
 								<c:if test="${not empty profile.termsUri}">
-									<a href="${profile.termsUri}">T&C</a>
+									<a href="${profile.termsUri}" >T&C</a>
 								</c:if>
 							</div>
 						</div>
@@ -146,6 +146,7 @@
 							class="btn btn-default" onclick="">Back</button></a>
 				</div>
 			</form:form>
+			
 		</div>
 	</section>
 </div>
