@@ -271,11 +271,11 @@ public class AppController {
 				return "redirect:/admin";
 			} else {
 				session.setAttribute("user", user);
-				if (user.getUserType().equals("Admin")) {
+				if (user.getUserType().equalsIgnoreCase("Admin")) {
 					return "redirect:/dashboard";
-				} else if (user.getUserType().equals("Customer")) {
+				} else if (user.getUserType().equalsIgnoreCase("Customer")) {
 					return "redirect:/customerdashboard";
-				} else if (user.getUserType().equals("Client")) {
+				}else if (user.getUserType().equalsIgnoreCase("Client")) {
 					return "redirect:/clientdashboard";
 				} else {
 					return "redirect:/dashboard";
