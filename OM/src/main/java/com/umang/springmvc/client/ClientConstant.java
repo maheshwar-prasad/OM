@@ -47,6 +47,8 @@ public interface ClientConstant {
 
 	String IMAGE = "image";
 
+	String FILE = "file";
+
 	String CAT_ID = "{cat-id}";
 
 	static RestTemplate getTemplate() {
@@ -220,6 +222,23 @@ public interface ClientConstant {
 		return response.getBody();
 	}
 
+	static String postFile(int id, File file, String API, Integer routing) throws RuntimeException, IOException {
+		MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
+		bodyMap.add(FILE, getFileResource(file, routing));
+		bodyMap.add("ID", id);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(bodyMap, headers);
+
+		ResponseEntity<String> response = getTemplate().exchange(
+				(routing == null ? BASE_PATH + DEFAULT_ROUTING : BASE_PATH + routing) + API, HttpMethod.POST,
+				requestEntity, String.class);
+		return response.getBody();
+	}
+
 	static String save(String body, String API, Integer routing) throws RuntimeException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -307,6 +326,19 @@ public interface ClientConstant {
 		HttpEntity<String> http_entity = new HttpEntity<String>(body, header);
 		ResponseEntity<String> response = getTemplate().exchange(
 				(routing == null ? BASE_PATH + DEFAULT_ROUTING : BASE_PATH + routing) + API, HttpMethod.PUT,
+				http_entity, String.class);
+		return response.getBody();
+	}
+
+	static String post(String body, String API, Map<String, String> headers, Integer routing) throws RuntimeException {
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		header.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		if (headers != null)
+			headers.forEach((K, V) -> header.add(K, V));
+		HttpEntity<String> http_entity = new HttpEntity<String>(body, header);
+		ResponseEntity<String> response = getTemplate().exchange(
+				(routing == null ? BASE_PATH + DEFAULT_ROUTING : BASE_PATH + routing) + API, HttpMethod.POST,
 				http_entity, String.class);
 		return response.getBody();
 	}
