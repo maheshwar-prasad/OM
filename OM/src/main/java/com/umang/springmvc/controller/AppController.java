@@ -94,6 +94,7 @@ public class AppController {
 				(user == null ? null : user.getRouting()));
 		model.put("item_categories", categoryDtos);
 		model.put("stock_list", divideList(stocRes.getData()));
+		//model.put("specialOffer_list", stocRes.getData().stream().limit(9).collect(Collectors.toCollection(() -> featuredArtifactList)));
 		return new ModelAndView("home", "", "");
 	}
 

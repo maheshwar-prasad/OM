@@ -14,7 +14,7 @@
               <li class="media">
                 <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i> </span> </div>
                 <div class="media-body">
-                  <p>ThemesGround, 789 Main rd, Anytown, CA 12345 USA</p>
+                  <p>H.No. 77, Ward No.18 Hazrapar. Tezpur, Tezpur</br> Near Chandmari Sping Velly, Tezpur-784001, IN-AS (Assam)</p>
                 </div>
               </li>
               <li class="media">

@@ -6,7 +6,7 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/website/assets/images/favicon.ico">
 	<title><tiles:getAsString name="title" /></title>
 
   <link href="<c:url value='/static/website/assets/css/bootstrap.min.css' />" rel="stylesheet"></link>

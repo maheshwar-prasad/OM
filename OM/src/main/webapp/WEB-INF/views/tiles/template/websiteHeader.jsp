@@ -5,6 +5,7 @@
 	src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 
 <!-- ============================================== HEADER ============================================== -->
+
 <header class="header-style-1">
 	<%
 		session = request.getSession(true);
@@ -84,9 +85,9 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
 					<!-- ============================================================= LOGO ============================================================= -->
-					<div class="logo">
-						<a href="${pageContext.request.contextPath}/"> <img
-							src="${pageContext.request.contextPath}/static/website/assets/images/Logo1.png"
+					<div class="logo" style="margin-top: -46px;">
+						<a href="${pageContext.request.contextPath}/"> <img style="width: 126px;"
+							src="${pageContext.request.contextPath}/static/website/assets/images/Logo-red.png"
 							alt="logo">
 						</a>
 					</div>
