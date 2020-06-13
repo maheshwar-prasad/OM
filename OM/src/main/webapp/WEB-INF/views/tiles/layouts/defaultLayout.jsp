@@ -25,7 +25,6 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <%
     session=request.getSession(true);
-System.out.println("-------------->"+session.getAttribute("user"));
     if(session.getAttribute("user")==null)
     {
         response.sendRedirect("redirect:/");

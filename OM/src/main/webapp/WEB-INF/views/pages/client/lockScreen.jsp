@@ -3,12 +3,12 @@
 <script type="text/javascript" src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-    <a href="javascript:(0)"><b>Online Marts</b> Software Solution</a>
+    <a href="javascript:(0)"><b>Assiduous</b> Technologies</a>
   </div>
   <!-- User name -->
   <!-- <div class="lockscreen-name">  Error</div> -->
  <div class="lockscreen-name" id="errorValue" style="color: #f30a55;">Your mobile no. is not authorized for this login. Please contact with Admin team!<br /></div>
- <div class="lockscreen-name">Online Marts<br /></div>
+ <div class="lockscreen-name">Assiduous<br /></div>
   <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
     <!-- lockscreen image -->
@@ -38,7 +38,7 @@
     <a href="${pageContext.request.contextPath}/createClient">Or sign in as a different user</a>
   </div>
   <div class="lockscreen-footer text-center">
-    Copyright &copy; 2019-2020 <b><a href="javascript:(0)" class="text-black">Umang Software Solution</a></b><br>
+    Copyright &copy; 2019-2020 <b><a href="javascript:(0)" class="text-black">Assiduous Technologies</a></b><br>
     All rights reserved
   </div>
 </div>
