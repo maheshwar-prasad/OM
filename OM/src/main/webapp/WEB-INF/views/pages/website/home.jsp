@@ -694,26 +694,28 @@
 									(UK)</span>
 							</div>
 							<div class="clients_author">
-								Maheshwar Prasad<span>Online Marts</span>
+								Maheshwar Prasad<span>Online Marts</span><span>www.onlinemarts.in</span>
 							</div>
 							<!-- /.container-fluid -->
 						</div>
 						<!-- /.item -->
 
-						<%-- <div class="item">
+						<div class="item">
 							<div class="avatar">
 								<img
-									src="${pageContext.request.contextPath}/static/website/assets/images/testimonials/member3.png"
+									src="${pageContext.request.contextPath}/static/website/assets/images/Deepak.jpg"
 									alt="Image">
 							</div>
 							<div class="testimonials">
-								<em>"</em>Vtae sodales aliq uam morbi non sem lacus port mollis.
-								Nunc condime tum metus eud molest sed consectetuer.<em>"</em>
+								<em>"</em> Deepak Kumar Dubey is the Director of Onlinemarts.
+								Previously, Deepak served as the Sr.Software Engineer for
+								various companies. <em>"</em> <span>
 							</div>
 							<div class="clients_author">
-								Stephen Doe <span>Xperia Designs</span>
+								Deepak Kumar Dubey <span>Online Marts</span>
+								<span>www.onlinemarts.in</span>
 							</div>
-						</div> --%>
+						</div> 
 						<!-- /.item -->
 
 						<%-- <div class="item">
