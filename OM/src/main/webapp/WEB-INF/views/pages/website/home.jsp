@@ -2351,6 +2351,6 @@
 		 */
 	});
 	function AddToCard(clicked_id) {
-		alert("Comming Soon..");
+		$('#myModal').modal('show');  //alert("Comming Soon..");
 	}
 </script>
