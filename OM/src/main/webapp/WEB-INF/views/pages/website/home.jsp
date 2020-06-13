@@ -678,7 +678,7 @@
 				<!-- /.sidebar-widget -->
 				<!-- ============================================== Testimonials============================================== -->
 				<div class="sidebar-widget  wow fadeInUp outer-top-vs ">
-				<h3 class="section-title" style="text-align: center">Member's Description</h3>
+				<h3 class="section-title" style="text-align: center">Board Members</h3>
 					<div id="advertisement" class="advertisement">
 						<div class="item">
 							<div class="avatar">
@@ -718,21 +718,40 @@
 						</div> 
 						<!-- /.item -->
 
-						<%-- <div class="item">
+						<div class="item">
 							<div class="avatar">
 								<img
-									src="${pageContext.request.contextPath}/static/website/assets/images/testimonials/member2.png"
+									src="${pageContext.request.contextPath}/static/website/assets/images/Sanjoyee.jpg"
 									alt="Image">
 							</div>
 							<div class="testimonials">
-								<em>"</em> Vtae sodales aliq uam morbi non sem lacus port
-								mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em>
+							<em>"</em> Sanjoy Dhaneswar Nath  is the Managing Director of Onlinemarts.
+								Previously, Sanjoy served as the Marketing Analyst for
+								various companies. <em>"</em> <span>
 							</div>
 							<div class="clients_author">
-								Saraha Smith <span>Datsun &amp; Co</span>
+								Sanjoy Dhaneswar Nath <span>Online Marts</span>
+								<span>www.onlinemarts.in</span>
 							</div>
 							<!-- /.container-fluid -->
-						</div> --%>
+						</div> 
+						<div class="item">
+							<div class="avatar">
+								<img
+									src="${pageContext.request.contextPath}/static/website/assets/images/shashnath.jpg"
+									alt="Image">
+							</div>
+							<div class="testimonials">
+							<em>"</em> Sheshnath Morya is the Co-Founder of Onlinemarts.
+								Previously, Sheshnath served as the Marketing Analyst for
+								various companies. <em>"</em> <span>
+							</div>
+							<div class="clients_author">
+								Sheshnath Morya <span>Online Marts</span>
+								<span>www.onlinemarts.in</span>
+							</div>
+							<!-- /.container-fluid -->
+						</div>
 						<!-- /.item -->
 
 					</div>
