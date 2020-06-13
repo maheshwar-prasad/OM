@@ -2330,6 +2330,6 @@
 		 */
 	});
 	function AddToCard(clicked_id) {
-		alert(clicked_id.value);
+		alert("Comming Soon..");
 	}
 </script>
