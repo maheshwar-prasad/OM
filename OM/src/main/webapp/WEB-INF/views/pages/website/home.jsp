@@ -774,7 +774,7 @@
 
 									</div>
 									<div class="button-holder fadeInDown-3">
-										<a href="index6c11.html?page=single-product"
+										<a href="javascript:(0);"
 											class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop
 											Now</a>
 									</div>
@@ -800,7 +800,7 @@
 
 									</div>
 									<div class="button-holder fadeInDown-3">
-										<a href="index6c11.html?page=single-product"
+										<a href="javascript:(0);"
 											class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop
 											Now</a>
 									</div>
