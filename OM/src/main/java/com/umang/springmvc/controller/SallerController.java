@@ -71,14 +71,6 @@ public class SallerController {
 		else
 			andView = new ModelAndView("redirect:customerdashboard");
 		try {
-			if (file != null && file.getSize() > 0) {
-				terms = new File(path + "/img/item/" + file.getOriginalFilename());
-				fileOutputStream = new FileOutputStream(terms);
-				fileOutputStream.write(file.getBytes());
-				fileOutputStream.flush();
-				client.postTerms(id, terms, (user == null ? null : user.getRouting()));
-				terms.delete();
-			}
 			SallerProfileDto dto = res.getData();
 			dto.setAddress1(maskStringToNull(address1));
 			dto.setAddress2(maskStringToNull(address2));
@@ -94,7 +86,16 @@ public class SallerController {
 			dto.setStateGstCode(maskStringToNull(stateGstCode));
 			dto.setStateName(maskStringToNull(stateName));
 			client.update(dto, (user == null ? null : user.getRouting()));
+			if (file != null && file.getSize() > 0) {
+				terms = new File(path + "/img/item/" + file.getOriginalFilename());
+				fileOutputStream = new FileOutputStream(terms);
+				fileOutputStream.write(file.getBytes());
+				fileOutputStream.flush();
+				client.postTerms(id, terms, (user == null ? null : user.getRouting()));
+				terms.delete();
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return andView;
 	}

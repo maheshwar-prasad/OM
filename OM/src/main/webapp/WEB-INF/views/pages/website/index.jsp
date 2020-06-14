@@ -2082,7 +2082,7 @@ $('.init').click(function() {
            
         <p class="copyright_left" style="color:#ffffff">Copyright © 2018, Online Marts  &copy; 2020,  OnlineMart&#39;s Grocery
           
-          <a target="_blank" rel="nofollow" href="javascript:(0);">Powered by OnlineMarts</a>
+          <a target="_blank" rel="nofollow" href="javascript:(0);">Powered by AssiduousTechnologies</a>
           
         </p>
                  
