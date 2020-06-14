@@ -17,7 +17,7 @@
         </div>
         <div class="pull-left info">
           <p>${user.name}</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online Mart</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> Assiduous Technologies</a>
         </div>
       </div>
       <!-- search form -->
