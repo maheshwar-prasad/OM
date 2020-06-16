@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,8 @@ import com.umang.springmvc.model.CustomerResponses;
 import com.umang.springmvc.model.DeleteResponse;
 import com.umang.springmvc.model.SalesOrderDto;
 import com.umang.springmvc.model.SalesOrderResponses;
+import com.umang.springmvc.model.SallerProfileDto;
+import com.umang.springmvc.model.SallerProfileResponses;
 import com.umang.springmvc.webservices.EmpRestURIConstants;
 import com.umang.springmvc.webservices.ManuscriptService;
 import com.umang.springmvc.webservices.ManuscriptServiceImpl;
@@ -183,5 +186,36 @@ public class CustomerController {
 			return user;
 		}
 		return user;
+	}
+	@RequestMapping(value = { "/executive" }, method = RequestMethod.GET)
+	public ModelAndView executive(ModelMap model) {
+		
+		return new ModelAndView("executiveList", "executiveList", "");
+	}
+	@RequestMapping(value = "/createExecutive", method = RequestMethod.GET)
+	public ModelAndView createExecutive(HttpServletRequest request, Model model)
+			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
+		/*AppUser user = (AppUser) request.getSession().getAttribute("user");
+		SallerProfileResponses responses = client.findAllSorted("first_name", SortOrder.ASC,
+				(user == null ? null : user.getRouting()));
+		List<SallerProfileDto> dtos = responses.getData();
+		if (user.getUserType().equals("Client"))
+			return new ModelAndView("clientprofile", "profile", dtos.size() > 0 ? dtos.get(0) : new SallerProfileDto());
+		else
+			return new ModelAndView("customerprofile", "profile",
+					dtos.size() > 0 ? dtos.get(0) : new SallerProfileDto());
+	}*/
+		return new ModelAndView("createExecutive", "createExecutive","");
+	}
+	
+	@RequestMapping(value = { "/assignOrder" }, method = RequestMethod.GET)
+	public ModelAndView assignOrder(ModelMap model) {
+		
+		return new ModelAndView("assignOrder", "assignOrder", "");
+	}
+	@RequestMapping(value = { "/assigneeList" }, method = RequestMethod.GET)
+	public ModelAndView assigneeList(ModelMap model) {
+		
+		return new ModelAndView("assigneeList", "assigneeList", "");
 	}
 }

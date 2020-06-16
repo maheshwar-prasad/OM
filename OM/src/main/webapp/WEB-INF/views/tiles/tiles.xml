@@ -325,4 +325,21 @@
        <put-attribute name="title" value="Update Offer" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/offer/updateOffer.jsp" />  
    </definition>
+   <definition name="executiveList" extends="customer-definition">  
+       <put-attribute name="title" value="Executive List" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/executiveList.jsp" />  
+   </definition>
+   <definition name="createExecutive" extends="customer-definition">  
+       <put-attribute name="title" value="Profile" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/customer/createExecutive.jsp" />  
+   </definition>
+   <definition name="assignOrder" extends="customer-definition">  
+       <put-attribute name="title" value="Assign Order" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/assignOrder.jsp" />  
+   </definition>
+   <definition name="assigneeList" extends="customer-definition">  
+       <put-attribute name="title" value="Assignee" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/inventory/assigneeList.jsp" />  
+   </definition>
+   
 </tiles-definitions>

@@ -8,10 +8,10 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>Create Product</h1>
+		<h1>Assign Order</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Items</li>
+			<li class="active">Assign->Order</li>
 		</ol>
 	</section>
 
@@ -20,7 +20,7 @@
 
 		<div class="box box-default">
 			<div class="box-header with-border">
-				<h3 class="box-title">Item</h3>
+				<h3 class="box-title">Assign Order</h3>
 
 				<div class="box-tools pull-right">
 					<button type="button" class="btn btn-box-tool"
@@ -35,117 +35,46 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/saveItem"
+				action="${pageContext.request.contextPath}/assign"
 				modelAttribute="itemCreate" enctype="multipart/form-data">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Category</label> <select class="form-control select2"
+								<label>Select Order</label> <select class="form-control select2"
 									id="types" name="types" style="width: 100%;"
 									onchange="selectCategory();">
-									<option selected="selected">Select Type</option>
-									<c:forEach items="${types}" var="type" varStatus="status">
-										<option value="${type.id}">${type.categoryName}</option>
-									</c:forEach>
-								</select> <input type="hidden" id="category" name="category" value="">
+									<option selected="selected">Select Order</option>
+									
+								</select> 
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-								<label for="exampleInputEmail1">Item Desc.</label> <input
-									type="text" class="form-control" id="description"
-									name="description" placeholder="Enter Item Description">
+								<label>Select Executive</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected">Select Executive</option>
+									
+								</select> 
 							</div>
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Name</label> <input type="text"
-									class="form-control" id="itemName" name="itemName"
-									placeholder="Enter Item Name">
-							</div>
-							<!-- /.form-group -->
-							<div class="form-group">
-								<label for="exampleInputEmail1">MRP(Rs.)</label> <input
-									type="text" class="form-control" id="mrp" name="mrp"
-									placeholder="Enter Price (Rs.)">
-							</div>
-							<!-- /.form-group -->
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Status</label> <select class="form-control select3"
-									id="status" name="status" style="width: 100%;"
-									onchange="selectStatus();">
-									<option selected="selected" value="true">Active</option>
-									<option value="false">Inactive</option>
-								</select> <input type="hidden" id="active" name="active" value="true">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Pack</label> <input type="text"
-									class="form-control" id="pack" name="pack"
-									placeholder="Enter Pack(Kg/Gm/ltr/ml)">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Type.</label>
-								<select class="form-control select3"
-									id="offer-type" name="offer-type" style="width: 100%;"
-									onchange="selectOfferType();">
-									<option selected="selected" value="POF">Amount Off On Purchase</option>
-									<option value="FU">Unit Free On Purchase</option>
-								</select> <input type="hidden" id="offer_type" name="offer_type" value="POF">
-						  </div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<input type="text" class="form-control" id="free"
-									name="free" placeholder="Enter gift  No.">
+						
 
-								<!-- /.input group -->
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Unit Price</label> <input
-									type="text" class="form-control" id="unitPrice"
-									name="unitPrice" placeholder="Enter Offer_units">
-							</div>
-							<div class="form-group">
-								<label for="text">Offer Effective Date</label>
-								 <input class="form-control" id="datepicker" name="offer-effective-date" data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" type="text">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Till Date</label> <input
-									type="text" class="form-control" id="datepicker1"
-									name="offer-till-date"  data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Unit</label> <input
-									type="text" class="form-control" id="offerUnits"
-									name="offerUnits"   placeholder="offer Units">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<!-- /.form-group -->
-							<div class="form-group">
-								<label for="exampleInputFile">Item Image</label> <input
-									type="file" name="file" onchange="uploadImage();" id="file"
-									accept="image/jpeg, image/png"> <input type="hidden"
-									id="itemImage" name="itemImage" value="">
-							</div>
-						</div>
+						
+						
+						
+						
+						
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
 				</div>
 				<div class="box-footer">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary">Assign</button>
 					<button type="reset" class="btn btn-default">Reset</button>
-					<a href="${pageContext.request.contextPath}/apiItems"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
+					<a href="${pageContext.request.contextPath}/assignOrderList"><button type="button" style="background-color: firebrick !important; color: white" class="btn btn-default" onclick="">Back</button></a>
 				</div>
 				<input type="hidden" id=imagepath name="imagepath">
 			</form:form>
@@ -250,11 +179,13 @@ $(function() {
 	}
 	function selectStatus() {
 		var status = $("#status option:selected").text();
+
 		if (status == "Active") {
 			$('#active').val(true);
 			alert(status);
 		} else {
 			$('#active').val(false);
+			alert('Active -->' + status);
 		}
 	}
 	function selectOfferType() {

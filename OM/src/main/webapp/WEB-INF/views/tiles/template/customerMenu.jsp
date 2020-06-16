@@ -52,6 +52,7 @@
             <%-- <li><a href="${pageContext.request.contextPath}/itemType"><i class="fa fa-circle-o"></i> Item Type</a></li> --%>
             <li><a href="${pageContext.request.contextPath}/apiItems"><i class="fa fa-book"></i> <span>Items</span></a></li>
             <li><a href="${pageContext.request.contextPath}/offers"><i class="fa fa-circle-o"></i>Offer</a>
+             <li><a href="${pageContext.request.contextPath}/executive"><i class="fa fa-circle-o"></i>Executive</a>
            <%--  <li><a href="${pageContext.request.contextPath}/currentReq"><i class="fa fa-circle-o"></i> Current Request</a></li>
             <li><a href="${pageContext.request.contextPath}/orderList"><i class="fa fa-circle-o"></i> Order List</a></li>
             <li><a href="${pageContext.request.contextPath}/invoiceList"><i class="fa fa-circle-o"></i> Order Invoice</a></li> --%>
@@ -66,7 +67,7 @@
           </a>
           <ul class="treeview-menu">
           <li><a href="${pageContext.request.contextPath}/stock"><i class="fa fa-book"></i> <span>Stock</span></a></li>
-          </ul>
+           </ul>
         </li>
          <li class="treeview">
           <a href="#">
@@ -77,6 +78,8 @@
           </a>
           <ul class="treeview-menu">
           <li><a href="${pageContext.request.contextPath}/order"><i class="fa fa-book"></i> <span>Order</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/assigneeList"><i class="fa fa-book"></i> <span>Assign Order</span></a></li>
+          
           </ul>
         </li>
 		<%-- <li class="treeview">
