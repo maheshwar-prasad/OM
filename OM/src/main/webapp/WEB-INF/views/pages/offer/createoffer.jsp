@@ -142,14 +142,14 @@
 			alert("Offer Saved Successfully");
 
 	});
-	$('#imageFile').change(function(event) { // var tmppath = event.target.files[0].name;
+	$('#imageUrl').change(function(event) { // var tmppath = event.target.files[0].name;
 		//$("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 
 	});
 	function uploadImage() {
 		var tmppath = URL.createObjectURL(event.target.files[0]);
-		var imageFile = $("#imageFile").val();
-		$('#itemImage').val(imageFile);
+		var imageFile = $("#imageUrl").val();
+		$('#imageUrl').val(imageFile);
 	}
 	function selectCategory() {
 		var type = $("#types option:selected").val();
@@ -164,13 +164,12 @@
 		}
 	}
 
-	function insertData() {
+/* 	function insertData() {
 		var userType = $("#userType option:selected").text();
 		var mobileNo = $('#mobileNo').val();
 		var name = $('#name').val();
 		var address = $('#address').val();
 		var userListUrl = $('#userListUrl').val();
-		alert(address);
 		var pathname = window.location.pathname;
 		var api_url = pathname + '/rest/user';
 		$.ajax({
@@ -191,5 +190,5 @@
 				}
 			}
 		});
-	}
+	} */
 </script>
