@@ -40,10 +40,10 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Name.</label>
+								<label for="exampleInputEmail1">Article Name.</label>
 								<form:input type="text" class="form-control" id="offerName"
 									name="offerName" path="offerName"
-									placeholder="Enter Offer Name." />
+									placeholder="Enter Article Name." />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Purchase Type.</label>
@@ -67,11 +67,12 @@
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<form:input type="text" class="form-control" id="gift"
-									name="gift" path="gift" placeholder="Enter gift  No." />
-
-								<!-- /.input group -->
+								<label>Status</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected" value="true">Active</option>
+									<option value="false">Inactive</option>
+								</select> <input type="hidden" id="active" name="active" value="true">
 							</div>
 
 							<!-- /.form-group -->
@@ -89,26 +90,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Select Item</label>
-								<form:select class="form-control select2" id="itemName"
-									style="width: 100%;" path="itemsDto.id"
-									onchange="selectCategory();">
-									<option selected="selected">Select Item Name</option>
-									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName}
-											(${item.pack})</option>
-									</c:forEach>
-								</form:select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Status</label> <select class="form-control select3"
-									id="status" name="status" style="width: 100%;"
-									onchange="selectStatus();">
-									<option selected="selected" value="true">Active</option>
-									<option value="false">Inactive</option>
-								</select> <input type="hidden" id="active" name="active" value="true">
+								<label for="exampleInputFile"> Offer Image</label> <input
+									type="file" name="file" onchange="uploadImage();" id="file"
+									accept="image/jpeg, image/png"> <input type="hidden"
+									id="imageUrl" name="imageUrl" value="">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -122,18 +107,8 @@
 									<input type="text" class="form-control pull-right"
 										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo">
 								</div>
-								<!-- /.input group -->
-							</div>
-							<div class="form-group">
-								<label>Status</label> <select class="form-control select3"
-									id="status" name="status" style="width: 100%;"
-									onchange="selectStatus();">
-									<option selected="selected" value="true">Active</option>
-									<option value="false">Inactive</option>
-								</select> <input type="hidden" id="active" name="active" value="true">
-							</div>
+								</div>
 						</div>
-						<!-- /.col -->
 					</div>
 					<!-- /.row -->
 				</div>
