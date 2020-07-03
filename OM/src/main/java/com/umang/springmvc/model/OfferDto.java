@@ -28,25 +28,18 @@ public class OfferDto implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8805043944821366380L;
+	private static final long serialVersionUID = -1844484875816114074L;
 
 	@JsonProperty("id")
 	private Integer id;
 
-	@JsonProperty("offer_name")
+	@JsonProperty("article")
 	@NotNull
-	private String offerName;
-
-	@JsonProperty("items")
-	private ItemsDto itemsDto;
+	private String article;
 
 	@JsonProperty("purchase_type")
 	@NotNull
 	private PurchaseType type;
-
-	@JsonProperty("gift")
-	@NotNull
-	private Integer gift;
 
 	@JsonProperty("on_purchase_off")
 	@NotNull
@@ -63,6 +56,9 @@ public class OfferDto implements Serializable {
 	@JsonProperty("duration")
 	private String duration;
 
+	@JsonProperty("image_uri")
+	private String imageUri;
+
 	@JsonProperty("active")
 	private boolean active;
 
@@ -74,20 +70,12 @@ public class OfferDto implements Serializable {
 		this.id = id;
 	}
 
-	public String getOfferName() {
-		return offerName;
+	public String getArticle() {
+		return article;
 	}
 
-	public void setOfferName(String offerName) {
-		this.offerName = offerName;
-	}
-
-	public ItemsDto getItemsDto() {
-		return itemsDto;
-	}
-
-	public void setItemsDto(ItemsDto itemsDto) {
-		this.itemsDto = itemsDto;
+	public void setArticle(String article) {
+		this.article = article;
 	}
 
 	public PurchaseType getType() {
@@ -96,14 +84,6 @@ public class OfferDto implements Serializable {
 
 	public void setType(PurchaseType type) {
 		this.type = type;
-	}
-
-	public Integer getGift() {
-		return gift;
-	}
-
-	public void setGift(Integer gift) {
-		this.gift = gift;
 	}
 
 	public Integer getPurchase() {
@@ -120,6 +100,14 @@ public class OfferDto implements Serializable {
 
 	public void setDurationFrom(Date durationFrom) {
 		this.durationFrom = durationFrom;
+	}
+
+	public String getImageUri() {
+		return imageUri;
+	}
+
+	public void setImageUri(String imageUri) {
+		this.imageUri = imageUri;
 	}
 
 	public Date getDurationTo() {

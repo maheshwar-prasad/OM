@@ -1,5 +1,6 @@
 package com.umang.springmvc.client;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.umang.springmvc.model.DeleteResponse;
+import com.umang.springmvc.model.FileUploadResponse;
 import com.umang.springmvc.model.OfferDto;
 import com.umang.springmvc.model.OfferResponse;
 import com.umang.springmvc.model.OfferResponses;
@@ -23,6 +25,8 @@ public class OfferClient {
 	static final String UPDATE = "/sales/offer/update";
 
 	static final String UPDATE_ALL = "/sales/offer/update-all";
+
+	static final String IMAGE = "/sales/offer/image";
 
 	static final String FIND_BY_ID = "/sales/offer/find/{ID}";
 
@@ -140,6 +144,12 @@ public class OfferClient {
 		String res = ClientConstant.updateAll(ClientConstant.getObjectMapper().writeValueAsString(body), UPDATE_ALL,
 				routing);
 		return ClientConstant.getObjectMapper().readValue(res.getBytes(), OfferResponses.class);
+	}
+
+	public FileUploadResponse postItemImage(int id, File image, Integer routing)
+			throws RuntimeException, JsonParseException, JsonMappingException, IOException {
+		String res = ClientConstant.postImage(id, image, IMAGE, routing);
+		return ClientConstant.getObjectMapper().readValue(res.getBytes(), FileUploadResponse.class);
 	}
 
 }

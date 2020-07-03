@@ -1,9 +1,13 @@
-
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript"
 	src="<c:url value='/static/bower_components/jquery/dist/jquery.min.js'/>"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js">
+	
+</script>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -37,17 +41,17 @@
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
 				action="${pageContext.request.contextPath}/updateOffer"
-				id="offerForm">
+				id="offerForm" enctype="multipart/form-data">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Name.</label>
+								<label for="exampleInputEmail1">Offer Article.</label>
 								<form:hidden path="duration" />
 								<form:hidden path="id" />
-								<form:input type="text" class="form-control" id="offerName"
-									name="offerName" path="offerName"
-									placeholder="Enter Offer Name." />
+								<form:input type="text" class="form-control" id="article"
+									name="article" path="article"
+									placeholder="Enter Offer Article." />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Purchase Type.</label>
@@ -69,36 +73,11 @@
 									name="purchase" path="purchase"
 									placeholder="Enter Purchase Limit For Offer" />
 							</div>
-							<!-- /.form-group -->
-							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<form:input type="text" class="form-control" id="gift"
-									name="gift" path="gift" placeholder="Enter gift  No." />
 
-								<!-- /.input group -->
-							</div>
 
 							<!-- /.form-group -->
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
-								<label>Select Item</label>
-								<form:select class="form-control select2" id="itemName"
-									style="width: 100%;" path="itemsDto.id"
-									onchange="selectCategory();">
-									<option selected="selected">Select Item Name</option>
-									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<c:if test="${item.id == selected}">
-											<option value="${item.id}" selected="selected">${item.itemName}
-												(${item.pack})</option>
-										</c:if>
-										<c:if test="${item.id != selected}">
-											<option value="${item.id}">${item.itemName}
-												(${item.pack})</option>
-										</c:if>
-									</c:forEach>
-								</form:select>
-							</div>
 							<div class="form-group">
 								<label>Duration From:</label>
 
@@ -106,10 +85,17 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationFrom" value="${fromDate}"
-										class="form-control pull-right dateinput" id="datepicker1"
-										placeholder="dd/mm/yyyy" name="durationFrom" />
+									<form:input path="durationFrom"
+										class="form-control pull-right dateinput" id="durationFrom"
+										name="durationFrom" data-date-format="dd/mm/yyyy"
+										placeholder="dd/MM/yyyy" value="${fromDate}"/>
 								</div>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputFile"> Offer Image</label> <input
+									type="file" name="file" id="file"
+									accept="image/jpeg, image/png"> <input type="hidden"
+									id="imageUrl" name="imageUrl" value="">
 							</div>
 						</div>
 
@@ -121,9 +107,9 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<form:input path="durationTo" value="${toDate}"
-										class="form-control pull-right" id="datepicker"
-										placeholder="dd/mm/yyyy" name="durationTo" />
+									<form:input path="durationTo" class="form-control pull-right"
+										id="durationTo" name="durationTo"
+										data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy" value="${toDate}"/>
 								</div>
 								<!-- /.input group -->
 							</div>
@@ -134,6 +120,9 @@
 									<option selected="selected" value="true">Active</option>
 									<option value="false">Inactive</option>
 								</select> <input type="hidden" id="active" name="active" value="true">
+							</div>
+							<div class="form-group">
+								<img src="${offer.imageUri}" width="150" height="150" />
 							</div>
 						</div>
 						<!-- /.col -->
@@ -153,19 +142,32 @@
 		value="${pageContext.request.contextPath}/items">
 </div>
 <!-- /.content-wrapper -->
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
+		$('#durationFrom').datepicker({
+			autoclose : true,
+			dateFormat : 'dd/MM/yyyy'
+		});
+		$('#durationTo').datepicker({
+			autoclose : true,
+			dateFormat : 'dd/MM/yyyy'
+		});
+
+	});
+	/* $(document).ready(function() {
 		$('#datepicker').datepicker({
-			autoclose : true
-		})
+			autoclose : true,
+			dateFormat: 'dd/MM/yyyy'
+		}).datepicker('setDate', '${toDate}')
 		$('#datepicker1').datepicker({
-			autoclose : true
-		})
+			autoclose : true,
+			dateFormat: 'dd/MM/yyyy'
+		}).datepicker('setDate', '${fromDate}')
 		var status = "${status}";
 		if (status != null && status != "null" && status != "")
 			alert("Offer Saved Successfully");
 
-	});
+	}); */
 	$('#imageFile').change(function(event) { // var tmppath = event.target.files[0].name;
 		//$("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 

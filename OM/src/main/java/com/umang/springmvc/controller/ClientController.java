@@ -295,11 +295,9 @@ public class ClientController {
 	public ModelAndView offer(ModelMap model, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, RuntimeException, IOException {
 		AppUser user = (AppUser) request.getSession().getAttribute("user");
-		ItemsResponses itemlist = itemClient.findAllSorted("item_name", SortOrder.ASC,
-				(user == null ? null : user.getRouting()));
-		List<ItemsDto> itemsList = itemlist.getData();
-		model.put("itemlist", itemsList);
-		return new ModelAndView("clientOffer", "offer", new OfferDto());
+		model.put("offer_list", offerClient
+				.findAllSorted("offer_name", SortOrder.ASC, (user == null ? null : user.getRouting())).getData());
+		return new ModelAndView("offerList", "offer", new OfferDto());
 	}
 
 	@RequestMapping(value = { "/clientSaveOffer" }, method = RequestMethod.POST)
@@ -367,7 +365,6 @@ public class ClientController {
 		OfferDto dto = offerClient.findById(id, (user == null ? null : user.getRouting())).getData();
 		List<ItemsDto> itemsList = itemlist.getData();
 		model.put("itemlist", itemsList);
-		model.put("selected", dto.getItemsDto().getId());
 		model.put("fromDate", new SimpleDateFormat("dd/MM/yyyy").format(dto.getDurationFrom()));
 		model.put("toDate", new SimpleDateFormat("dd/MM/yyyy").format(dto.getDurationFrom()));
 		return new ModelAndView("clientUpdateOffer", "offer", dto);

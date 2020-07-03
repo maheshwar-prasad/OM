@@ -35,15 +35,15 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/saveOffer" id="offerForm">
+				action="${pageContext.request.contextPath}/saveOffer" id="offerForm"
+				enctype="multipart/form-data">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Article Name.</label>
-								<form:input type="text" class="form-control" id="offerName"
-									name="offerName" path="offerName"
-									placeholder="Enter Article Name." />
+								<form:input type="text" class="form-control" id="article"
+									name="article" path="article" placeholder="Enter Article Name." />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Purchase Type.</label>
@@ -86,12 +86,13 @@
 										<i class="fa fa-calendar"></i>
 									</div>
 									<input type="text" class="form-control pull-right dateinput"
-										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom">
+										id="datepicker1" name="durationFrom"
+										data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="exampleInputFile"> Offer Image</label> <input
-									type="file" name="file" onchange="uploadImage();" id="file"
+									type="file" name="file" id="file"
 									accept="image/jpeg, image/png"> <input type="hidden"
 									id="imageUrl" name="imageUrl" value="">
 							</div>
@@ -105,9 +106,10 @@
 										<i class="fa fa-calendar"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo">
+										id="datepicker" name="durationTo"
+										data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
 								</div>
-								</div>
+							</div>
 						</div>
 					</div>
 					<!-- /.row -->
@@ -164,31 +166,31 @@
 		}
 	}
 
-/* 	function insertData() {
-		var userType = $("#userType option:selected").text();
-		var mobileNo = $('#mobileNo').val();
-		var name = $('#name').val();
-		var address = $('#address').val();
-		var userListUrl = $('#userListUrl').val();
-		var pathname = window.location.pathname;
-		var api_url = pathname + '/rest/user';
-		$.ajax({
-			url : api_url + "/" + mobileNo + "/" + userType + "/" + name + "/"
-					+ address,
-			contentType : "application/json",
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				if (result.status == "Success") {
-					var r = confirm("Data save successfully! Go to User list");
-					if (r == true) {
-						window.location = userListUrl;
-					}
-					//window.location="";
-				} else {
-					alert("Please check some error occur.");
-				}
-			}
-		});
-	} */
+	/* 	function insertData() {
+	 var userType = $("#userType option:selected").text();
+	 var mobileNo = $('#mobileNo').val();
+	 var name = $('#name').val();
+	 var address = $('#address').val();
+	 var userListUrl = $('#userListUrl').val();
+	 var pathname = window.location.pathname;
+	 var api_url = pathname + '/rest/user';
+	 $.ajax({
+	 url : api_url + "/" + mobileNo + "/" + userType + "/" + name + "/"
+	 + address,
+	 contentType : "application/json",
+	 dataType : 'json',
+	 success : function(result) {
+	 console.log(result);
+	 if (result.status == "Success") {
+	 var r = confirm("Data save successfully! Go to User list");
+	 if (r == true) {
+	 window.location = userListUrl;
+	 }
+	 //window.location="";
+	 } else {
+	 alert("Please check some error occur.");
+	 }
+	 }
+	 });
+	 } */
 </script>

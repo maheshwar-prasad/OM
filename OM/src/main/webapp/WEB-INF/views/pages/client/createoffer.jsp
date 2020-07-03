@@ -1,4 +1,3 @@
-
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,7 +10,7 @@
 	<section class="content-header">
 		<h1>Create Offer</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">Offer</li>
 		</ol>
 	</section>
@@ -36,16 +35,15 @@
 			<!-- /.box-header -->
 			<%--     <form role="form" method="post"> --%>
 			<form:form role="form" method="post" modelAttribute="offer"
-				action="${pageContext.request.contextPath}/clientSaveOffer"
-				id="offerForm">
+				action="${pageContext.request.contextPath}/saveOffer" id="offerForm"
+				enctype="multipart/form-data">
 				<div class="box-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Offer Name.</label>
-								<form:input type="text" class="form-control" id="offerName"
-									name="offerName" path="offerName"
-									placeholder="Enter Offer Name." />
+								<label for="exampleInputEmail1">Article Name.</label>
+								<form:input type="text" class="form-control" id="article"
+									name="article" path="article" placeholder="Enter Article Name." />
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Purchase Type.</label>
@@ -69,14 +67,35 @@
 							</div>
 							<!-- /.form-group -->
 							<div class="form-group">
-								<label for="exampleInputEmail1">Gift.</label>
-								<form:input type="text" class="form-control" id="gift"
-									name="gift" path="gift" placeholder="Enter gift  No." />
-
-								<!-- /.input group -->
+								<label>Status</label> <select class="form-control select3"
+									id="status" name="status" style="width: 100%;"
+									onchange="selectStatus();">
+									<option selected="selected" value="true">Active</option>
+									<option value="false">Inactive</option>
+								</select> <input type="hidden" id="active" name="active" value="true">
 							</div>
 
 							<!-- /.form-group -->
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Duration From:</label>
+
+								<div class="input-group date">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control pull-right dateinput"
+										id="datepicker1" name="durationFrom"
+										data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputFile"> Offer Image</label> <input
+									type="file" name="file" id="file"
+									accept="image/jpeg, image/png"> <input type="hidden"
+									id="imageUrl" name="imageUrl" value="">
+							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
@@ -87,55 +106,18 @@
 										<i class="fa fa-calendar"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id="datepicker" placeholder="dd/mm/yyyy" name="durationTo">
-								</div>
-								<!-- /.input group -->
-							</div>
-							<div class="form-group">
-								<label>Select Item</label>
-								<form:select class="form-control select2" id="itemName"
-									style="width: 100%;" path="itemsDto.id"
-									onchange="selectCategory();">
-									<option selected="selected">Select Item Name</option>
-									<c:forEach items="${itemlist}" var="item" varStatus="status">
-										<option value="${item.id}">${item.itemName}
-											(${item.pack})</option>
-									</c:forEach>
-								</form:select>
-							</div>
-
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Duration From:</label>
-
-								<div class="input-group date">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input type="text" class="form-control pull-right dateinput"
-										id="datepicker1" placeholder="dd/mm/yyyy" name="durationFrom">
+										id="datepicker" name="durationTo"
+										data-date-format="dd/mm/yyyy" placeholder="dd/MM/yyyy">
 								</div>
 							</div>
-							<div class="form-group">
-								<label>Status</label> <select class="form-control select3"
-									id="status" name="status" style="width: 100%;"
-									onchange="selectStatus();">
-									<option selected="selected" value="true">Active</option>
-									<option value="false">Inactive</option>
-								</select> <input type="hidden" id="active" name="active" value="true">
-							</div>
-
 						</div>
-						<!-- /.col -->
 					</div>
 					<!-- /.row -->
 				</div>
 				<div class="box-footer">
 					<button type="submit" id="btn-save" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-default">Reset</button>
-					<a href="${pageContext.request.contextPath}/clientOffers"><button
+					<a href="${pageContext.request.contextPath}/offers"><button
 							type="button"
 							style="background-color: firebrick !important; color: white"
 							class="btn btn-default" onclick="">Back</button></a>
@@ -162,14 +144,14 @@
 			alert("Offer Saved Successfully");
 
 	});
-	$('#imageFile').change(function(event) { // var tmppath = event.target.files[0].name;
+	$('#imageUrl').change(function(event) { // var tmppath = event.target.files[0].name;
 		//$("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 
 	});
 	function uploadImage() {
 		var tmppath = URL.createObjectURL(event.target.files[0]);
-		var imageFile = $("#imageFile").val();
-		$('#itemImage').val(imageFile);
+		var imageFile = $("#imageUrl").val();
+		$('#imageUrl').val(imageFile);
 	}
 	function selectCategory() {
 		var type = $("#types option:selected").val();
@@ -184,32 +166,31 @@
 		}
 	}
 
-	function insertData() {
-		var userType = $("#userType option:selected").text();
-		var mobileNo = $('#mobileNo').val();
-		var name = $('#name').val();
-		var address = $('#address').val();
-		var userListUrl = $('#userListUrl').val();
-		alert(address);
-		var pathname = window.location.pathname;
-		var api_url = pathname + '/rest/user';
-		$.ajax({
-			url : api_url + "/" + mobileNo + "/" + userType + "/" + name + "/"
-					+ address,
-			contentType : "application/json",
-			dataType : 'json',
-			success : function(result) {
-				console.log(result);
-				if (result.status == "Success") {
-					var r = confirm("Data save successfully! Go to User list");
-					if (r == true) {
-						window.location = userListUrl;
-					}
-					//window.location="";
-				} else {
-					alert("Please check some error occur.");
-				}
-			}
-		});
-	}
+	/* 	function insertData() {
+	 var userType = $("#userType option:selected").text();
+	 var mobileNo = $('#mobileNo').val();
+	 var name = $('#name').val();
+	 var address = $('#address').val();
+	 var userListUrl = $('#userListUrl').val();
+	 var pathname = window.location.pathname;
+	 var api_url = pathname + '/rest/user';
+	 $.ajax({
+	 url : api_url + "/" + mobileNo + "/" + userType + "/" + name + "/"
+	 + address,
+	 contentType : "application/json",
+	 dataType : 'json',
+	 success : function(result) {
+	 console.log(result);
+	 if (result.status == "Success") {
+	 var r = confirm("Data save successfully! Go to User list");
+	 if (r == true) {
+	 window.location = userListUrl;
+	 }
+	 //window.location="";
+	 } else {
+	 alert("Please check some error occur.");
+	 }
+	 }
+	 });
+	 } */
 </script>

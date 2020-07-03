@@ -34,10 +34,8 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead style="background-color: #3c8dbc;color: #fdfdfd;">
                 <tr>
-                  <th>Offer Name</th>
-                  <th>Item Name</th>
+                  <th>Offer Article</th>
                   <th>Purchase Type</th>
-                  <th>Offer Gift</th>
                   <th>Offer On Purchase Amount</th>
                   <th>Offer From</th>
                   <th>Offer Till</th>
@@ -50,10 +48,8 @@
                 <c:if test="${offer_list.size()>0}">
                    <c:forEach items="${offer_list}" var="offer" varStatus="status">
                 <tr>
-                  <td>${offer.offerName}</td>
-                  <td>${offer.itemsDto.itemName} (${offer.itemsDto.pack})</td>
+                  <td>${offer.article}</td>
                   <td>${offer.type}</td>
-                  <td>${offer.gift}</td>
                   <td>${offer.purchase}</td>
                   <td><c:set var="date_from" value="${offer.durationFrom}" /> <fmt:formatDate
 												type="date" value="${date_from}" /></td>
